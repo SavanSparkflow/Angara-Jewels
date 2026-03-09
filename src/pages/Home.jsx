@@ -11,6 +11,8 @@ const Home = () => {
     const [heroIndex, setHeroIndex] = useState(0);
     const [birthstonePage, setBirthstonePage] = useState(0);
     const [editPage, setEditPage] = useState(0);
+    const [socialPage, setSocialPage] = useState(0);
+
 
     const heroBanners = [
         {
@@ -134,6 +136,7 @@ const Home = () => {
             setTrendingPage((prev) => (prev + 1) % totalTrendingPages);
             setBirthstonePage((prev) => (prev + 1) % totalBirthstonePages);
             setEditPage((prev) => (prev + 1) % totalEditPages);
+            setSocialPage((prev) => (prev + 1) % 1); // 3 items in a single page for now
         }, 5000); // 5 seconds interval for all auto sliders
         return () => clearInterval(interval);
     }, [totalMostLovedPages, totalTrendingPages, totalBirthstonePages, totalEditPages]);
@@ -506,6 +509,25 @@ const Home = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+            </section>
+
+            {/* ===================== SOCIAL MEDIA SLIDER SECTION ===================== */}
+            <section className="rare-social-slider rare-section">
+                <div className="rare-social-header">
+                    <p className="rare-social-subtitle">Follow our journey <span>@RareJewelsIndia</span> as we</p>
+                    <h2 className="rare-social-title">#CELEBRATEWITHCOLOUR</h2>
+                </div>
+                <div className="rare-social-grid">
+                    <div className="rare-social-item">
+                        <img src="/images/social-post-1.png" alt="Social Post 1" />
+                    </div>
+                    <div className="rare-social-item">
+                        <img src="/images/social-post-2.png" alt="Social Post 2" />
+                    </div>
+                    <div className="rare-social-item">
+                        <img src="/images/social-post-3.png" alt="Social Post 3" />
+                    </div>
                 </div>
             </section>
         </div>

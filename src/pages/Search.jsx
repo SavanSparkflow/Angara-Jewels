@@ -452,20 +452,6 @@ const Search = () => {
                                     <button onClick={clearAllFilters} className="mt-4 px-6 py-2 bg-black text-white text-[11px] font-bold uppercase tracking-widest">Clear Filters</button>
                                 </div>
                             )}
-
-                            {/* IN-GRID PROMO BANNER */}
-                            {displayedProducts.length > 3 && (
-                                <div className="row-span-2 col-span-1 bg-[#1a1c1d] relative overflow-hidden group cursor-pointer aspect-[3/4] sm:aspect-auto sm:h-full">
-                                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800" className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-1000 group-hover:scale-105" alt="Wear the Aurora" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end items-center pb-12 px-6 text-center">
-                                        <h2 className="text-3xl font-serif text-white mb-2 shadow-sm">High Jewelry</h2>
-                                        <p className="text-white text-[11px] mb-5 opacity-90 font-light tracking-wide">Exquisite, hand-selected pieces.</p>
-                                        <Link to="/shop" className="bg-white text-black px-6 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-gray-200 transition-colors">
-                                            Shop Collection
-                                        </Link>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>

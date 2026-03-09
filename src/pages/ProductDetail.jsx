@@ -75,7 +75,7 @@ const ProductDetail = () => {
     const [isSimilarDrawerOpen, setIsSimilarDrawerOpen] = useState(false);
     const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
     const [sizeGuideStep, setSizeGuideStep] = useState(1);
-    
+
     // Review Form State
     const [isReviewFormOpen, setIsReviewFormOpen] = useState(false);
     const [reviewForm, setReviewForm] = useState({ score: 0, title: '', review: '' });
@@ -84,7 +84,7 @@ const ProductDetail = () => {
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
-        
+
         const availableSlots = 4 - uploadedImages.length;
         if (availableSlots <= 0) return;
 
@@ -119,7 +119,7 @@ const ProductDetail = () => {
         setIsGalleryOpen(false);
         document.body.style.overflow = 'unset';
     };
-    
+
     // Accordion States
     const [detailsOpen, setDetailsOpen] = useState(true);
     const [priceBreakUpOpen, setPriceBreakUpOpen] = useState(false);
@@ -130,7 +130,7 @@ const ProductDetail = () => {
     const sliderRef = React.useRef(null);
 
     const scrollSimilar = (direction) => {
-        if(sliderRef.current) {
+        if (sliderRef.current) {
             const scrollAmount = 300;
             sliderRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
         }
@@ -161,7 +161,7 @@ const ProductDetail = () => {
             style: 'currency',
             currency: 'INR',
             maximumFractionDigits: 0,
-            }).format(price);
+        }).format(price);
     };
 
     const displayPrice = 594657;
@@ -187,14 +187,14 @@ const ProductDetail = () => {
                 <div className="w-full lg:w-[60%]">
                     <div className="grid grid-cols-2 gap-4">
                         {/* Image 1 */}
-                        <div 
+                        <div
                             onClick={() => openGallery(0)}
                             className="bg-[#fcfcfc] aspect-square flex flex-col items-center justify-center p-8 border border-gray-100 relative group cursor-pointer"
                         >
                             <img src={galleryImages[0]} alt="Angle 1" className="w-[85%] h-[85%] object-contain mix-blend-multiply" />
-                            
+
                             {/* Maximize Icon for Similar Products */}
-                            <button 
+                            <button
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setIsSimilarDrawerOpen(true);
@@ -209,21 +209,21 @@ const ProductDetail = () => {
                             </div>
                         </div>
                         {/* Image 2 */}
-                        <div 
+                        <div
                             onClick={() => openGallery(1)}
                             className="bg-[#fcfcfc] aspect-square flex items-center justify-center p-8 border border-gray-100 cursor-pointer"
                         >
                             <img src={galleryImages[1]} alt="Angle 2" className="w-[85%] h-[85%] object-contain mix-blend-multiply flex scale-x-[-1]" />
                         </div>
                         {/* Image 3 */}
-                        <div 
+                        <div
                             onClick={() => openGallery(2)}
                             className="bg-[#fcfcfc] aspect-square flex items-center justify-center p-8 border border-gray-100 cursor-pointer"
                         >
                             <img src={galleryImages[2]} alt="Angle 3" className="w-[85%] h-[85%] object-contain mix-blend-multiply rotate-180" />
                         </div>
                         {/* Image 4 (Hand/Model) */}
-                        <div 
+                        <div
                             onClick={() => openGallery(3)}
                             className="bg-[#fcfcfc] aspect-square flex items-center justify-center border border-gray-100 overflow-hidden cursor-pointer"
                         >
@@ -239,13 +239,13 @@ const ProductDetail = () => {
                         <h1 className="text-2xl text-gray-900 mb-2 font-poppins font-medium leading-tight tracking-[0.02em]">
                             Amaryllis Scalloped Shank Ring
                         </h1>
-                        
+
                         <div className="flex items-baseline gap-3 mb-2">
                             <span className="text-[22px] font-bold text-gray-900">{formatPrice(displayPrice)}</span>
                             <span className="text-sm text-gray-400 line-through">{formatPrice(originalPrice)}</span>
                             <span className="text-[10px] text-gray-500 font-medium">(MRP Incl. of all taxes)</span>
                         </div>
-                        
+
                         <div className="text-[12px] text-[#2ebd59] font-medium mb-4">
                             Exclusive Offer: Flat 5% Off*
                         </div>
@@ -261,7 +261,7 @@ const ProductDetail = () => {
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-[13px] text-gray-800">Metal Type: <span className="font-semibold">{selectedMetal}</span></span>
                                 <button onClick={() => setIsCompareOpen(true)} className="flex items-center gap-1 text-[11px] text-gray-500 hover:text-gray-800 transition-colors">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
                                     Compare
                                 </button>
                             </div>
@@ -287,7 +287,7 @@ const ProductDetail = () => {
                         <div className="mb-8 border-t border-gray-100 pt-6">
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-[13px] text-gray-800">Select Size</span>
-                                <button 
+                                <button
                                     onClick={() => setIsSizeGuideOpen(true)}
                                     className="text-[11px] text-gray-600 underline decoration-1 underline-offset-4 hover:text-black transition-colors"
                                 >
@@ -300,7 +300,7 @@ const ProductDetail = () => {
                                 </button>
                                 <div className="flex overflow-hidden flex-grow border-y border-gray-200">
                                     {['12', '13', '14', '15', '16', '17'].map(size => (
-                                        <button 
+                                        <button
                                             key={size}
                                             onClick={() => setSelectedSize(size)}
                                             className={`flex-1 h-10 flex items-center justify-center text-[12px] transition-colors border-r border-gray-200 last:border-r-0 ${selectedSize === size ? 'bg-[#f4f4f4] text-black font-semibold' : 'text-gray-500 hover:bg-gray-50 hover:text-black'}`}
@@ -318,10 +318,10 @@ const ProductDetail = () => {
                         {/* Add Ons */}
                         <div className="mb-6">
                             <span className="text-[13px] text-gray-800 block mb-3 font-medium">Add Ons:</span>
-                            
+
                             {/* Engraving Accordion */}
                             <div className="border border-gray-200 bg-[#fbfbfb] mb-3">
-                                <button 
+                                <button
                                     onClick={() => setIsEngravingOpen(true)}
                                     className="w-full flex items-center justify-between p-4 bg-transparent hover:bg-gray-100 transition-colors group"
                                 >
@@ -335,14 +335,14 @@ const ProductDetail = () => {
 
                             {/* Certificate Accordion */}
                             <div className="border border-gray-200 bg-white">
-                                <button 
+                                <button
                                     onClick={() => setIsAddCertificateOpen(!isAddCertificateOpen)}
                                     className="w-full flex items-center justify-between p-4 bg-transparent hover:bg-gray-50 transition-colors group"
                                 >
                                     <span className="text-[12px] text-gray-700">Add Certificate</span>
                                     {isAddCertificateOpen ? <Minus size={16} className="text-gray-800" /> : <Plus size={16} className="text-gray-400 group-hover:text-black" />}
                                 </button>
-                                
+
                                 <AnimatePresence>
                                     {isAddCertificateOpen && (
                                         <motion.div
@@ -352,21 +352,21 @@ const ProductDetail = () => {
                                             className="overflow-hidden border-t border-gray-100"
                                         >
                                             <div className="p-4 grid grid-cols-2 gap-3 bg-gray-50/50">
-                                                <button 
+                                                <button
                                                     onClick={() => setSelectedCertificate('SGL')}
                                                     className={`p-4 border bg-white flex flex-col sm:flex-row items-center justify-between text-left transition-all ${selectedCertificate === 'SGL' ? 'border-[#0f888f] ring-1 ring-[#0f888f]' : 'border-gray-200 hover:border-gray-300'}`}
                                                 >
-                                                    <span className="font-semibold text-[#0f888f] text-sm flex items-center gap-1"><ShieldCheck size={14}/> SGL</span>
+                                                    <span className="font-semibold text-[#0f888f] text-sm flex items-center gap-1"><ShieldCheck size={14} /> SGL</span>
                                                     <div className="text-right">
                                                         <span className="block text-[11px] font-medium text-gray-800">+₹1,000</span>
                                                         <span className="block text-[10px] text-gray-500">+2 days</span>
                                                     </div>
                                                 </button>
-                                                <button 
+                                                <button
                                                     onClick={() => setSelectedCertificate('IGI')}
                                                     className={`p-4 border bg-white flex flex-col sm:flex-row items-center justify-between text-left transition-all ${selectedCertificate === 'IGI' ? 'border-[#0f888f] ring-1 ring-[#0f888f]' : 'border-gray-200 hover:border-gray-300'}`}
                                                 >
-                                                    <span className="font-semibold text-gray-700 text-sm flex items-center gap-1"><ShieldCheck size={14}/> IGI</span>
+                                                    <span className="font-semibold text-gray-700 text-sm flex items-center gap-1"><ShieldCheck size={14} /> IGI</span>
                                                     <div className="text-right">
                                                         <span className="block text-[11px] font-medium text-gray-800">+₹1,000</span>
                                                         <span className="block text-[10px] text-gray-500">+4 days</span>
@@ -381,13 +381,13 @@ const ProductDetail = () => {
 
                         {/* Action Row */}
                         <div className="flex gap-3 mb-4">
-                            <button 
+                            <button
                                 onClick={() => toggleWishlist(product)}
                                 className={`w-[60px] h-12 border flex items-center justify-center transition-colors flex-shrink-0 ${isInWishlist(product.id) ? 'border-black text-black' : 'border-gray-800 text-gray-800 hover:bg-gray-50'}`}
                             >
                                 <Heart size={16} fill={isInWishlist(product.id) ? "black" : "none"} />
                             </button>
-                            <button 
+                            <button
                                 onClick={() => setIsSizeGuideOpen(true)}
                                 className="flex-grow bg-black hover:bg-gray-800 text-white flex items-center justify-between px-6 h-12 transition-colors"
                             >
@@ -456,14 +456,14 @@ const ProductDetail = () => {
 
                         {/* Product Details Accordion */}
                         <div className="border border-gray-200">
-                            <button 
+                            <button
                                 onClick={() => setDetailsOpen(!detailsOpen)}
                                 className="w-full p-4 bg-[#fcfcfc] flex items-center justify-between border-b border-gray-200 transition-colors"
                             >
                                 <span className="text-[12px] font-medium text-gray-800">Product Details</span>
-                                {detailsOpen ? <Minus size={14} className="text-gray-500"/> : <Plus size={14} className="text-gray-500"/>}
+                                {detailsOpen ? <Minus size={14} className="text-gray-500" /> : <Plus size={14} className="text-gray-500" />}
                             </button>
-                            
+
                             <AnimatePresence>
                                 {detailsOpen && (
                                     <motion.div
@@ -529,15 +529,15 @@ const ProductDetail = () => {
                                 )}
                             </AnimatePresence>
                         </div>
-                        
+
                         {/* Price Break Up Accordion */}
                         <div className="border border-gray-200 mt-[-1px]">
-                            <button 
+                            <button
                                 onClick={() => setPriceBreakUpOpen(!priceBreakUpOpen)}
                                 className="w-full p-4 bg-[#fcfcfc] flex items-center justify-between border-b border-gray-200 transition-colors"
                             >
                                 <span className="text-[12px] font-medium text-gray-800">Price Break Up</span>
-                                {priceBreakUpOpen ? <Minus size={14} className="text-gray-500"/> : <Plus size={14} className="text-gray-500"/>}
+                                {priceBreakUpOpen ? <Minus size={14} className="text-gray-500" /> : <Plus size={14} className="text-gray-500" />}
                             </button>
                             <AnimatePresence>
                                 {priceBreakUpOpen && (
@@ -590,12 +590,12 @@ const ProductDetail = () => {
 
                         {/* Manufacturer & Origin Accordion */}
                         <div className="border border-gray-200 mt-[-1px]">
-                            <button 
+                            <button
                                 onClick={() => setOriginOpen(!originOpen)}
                                 className="w-full p-4 bg-[#fcfcfc] flex items-center justify-between border-b border-gray-200 transition-colors"
                             >
                                 <span className="text-[12px] font-medium text-gray-800">Manufacturer & Origin</span>
-                                {originOpen ? <Minus size={14} className="text-gray-500"/> : <Plus size={14} className="text-gray-500"/>}
+                                {originOpen ? <Minus size={14} className="text-gray-500" /> : <Plus size={14} className="text-gray-500" />}
                             </button>
                             <AnimatePresence>
                                 {originOpen && (
@@ -633,14 +633,14 @@ const ProductDetail = () => {
                 <div className="flex flex-col items-center mb-10">
                     <h2 className="text-xl text-[#222] font-medium mb-6">You May Also Like</h2>
                     <div className="flex items-center gap-4 bg-[#f8f8f8] p-1 rounded-sm border border-gray-100">
-                        <button 
-                            onClick={() => setSimilarTab('Recommended')} 
+                        <button
+                            onClick={() => setSimilarTab('Recommended')}
                             className={`px-6 py-2 text-[11px] font-bold uppercase tracking-widest transition-all ${similarTab === 'Recommended' ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                         >
                             Recommended
                         </button>
-                        <button 
-                            onClick={() => setSimilarTab('More Rings')} 
+                        <button
+                            onClick={() => setSimilarTab('More Rings')}
                             className={`px-6 py-2 text-[11px] font-bold uppercase tracking-widest transition-all ${similarTab === 'More Rings' ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                         >
                             More Rings
@@ -650,228 +650,228 @@ const ProductDetail = () => {
 
                 <div className="relative group">
                     {/* Navigation Arrows */}
-                    <button 
-                        onClick={() => scrollSimilar('left')} 
+                    <button
+                        onClick={() => scrollSimilar('left')}
                         className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-100 bg-white shadow-sm flex items-center justify-center text-gray-400 hover:text-black hover:border-black transition-all z-20 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
                     >
-                        <ChevronLeft size={16}/>
+                        <ChevronLeft size={16} />
                     </button>
-                    <button 
-                        onClick={() => scrollSimilar('right')} 
+                    <button
+                        onClick={() => scrollSimilar('right')}
                         className="absolute right-[-20px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-gray-100 bg-white shadow-sm flex items-center justify-center text-gray-400 hover:text-black hover:border-black transition-all z-20 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0"
                     >
-                        <ChevronRight size={16}/>
+                        <ChevronRight size={16} />
                     </button>
 
-                <div ref={sliderRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 scroll-smooth">
-                    {products.slice(0, 8).map((item, idx) => (
-                        <div key={idx} className="w-[180px] md:w-[240px] flex-shrink-0 group">
-                            <div className="aspect-square bg-[#fcfcfc] border border-gray-100 relative mb-4 overflow-hidden rounded-sm">
-                                <Link to={`/product/${item.id}`}>
-                                    <img src={item.image} className="w-full h-full object-contain p-6 mix-blend-multiply group-hover:scale-105 transition-transform duration-700" alt={item.name} />
-                                </Link>
-                                <button onClick={(e) => { e.preventDefault(); toggleWishlist(item); }} className="absolute top-4 right-4 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-50 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <Heart size={14} fill={isInWishlist(item.id) ? "black" : "none"} className={isInWishlist(item.id) ? "text-black" : "text-gray-400"} />
-                                </button>
-
-                                {/* Customize Button on Hover */}
-                                <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-                                    <button className="w-full bg-black text-white py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
-                                        Customize
+                    <div ref={sliderRef} className="flex gap-6 overflow-x-auto no-scrollbar pb-6 scroll-smooth">
+                        {products.slice(0, 8).map((item, idx) => (
+                            <div key={idx} className="w-[180px] md:w-[240px] flex-shrink-0 group">
+                                <div className="aspect-square bg-[#fcfcfc] border border-gray-100 relative mb-4 overflow-hidden rounded-sm">
+                                    <Link to={`/product/${item.id}`}>
+                                        <img src={item.image} className="w-full h-full object-contain p-6 mix-blend-multiply group-hover:scale-105 transition-transform duration-700" alt={item.name} />
+                                    </Link>
+                                    <button onClick={(e) => { e.preventDefault(); toggleWishlist(item); }} className="absolute top-4 right-4 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <Heart size={14} fill={isInWishlist(item.id) ? "black" : "none"} className={isInWishlist(item.id) ? "text-black" : "text-gray-400"} />
                                     </button>
-                                </div>
-                            </div>
-                            <Link to={`/product/${item.id}`} className="block text-[11px] text-gray-600 leading-snug mb-3 hover:text-gray-900 transition-colors line-clamp-2 min-h-[32px]">
-                                {item.name}
-                            </Link>
-                            <div className="flex items-center gap-2">
-                                <span className="text-[12px] font-bold text-gray-900">
-                                    {formatPrice(item.price)} - {formatPrice(item.price * 12)}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
 
-        {/* Customer Reviews Section */}
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mb-16 pt-6 bg-white">
-            <div className="flex flex-col items-center mb-10">
-                <h3 className="text-[17px] md:text-[20px] font-poppins text-gray-900 mb-3 md:mb-4">Verified Customer Reviews</h3>
-                <div className="flex items-center gap-2 mb-6">
-                    <div className="flex text-gray-900 text-[14px]">
-                        ★★★★★
-                    </div>
-                    <span className="text-[12px] text-gray-500 font-medium tracking-wide">10 Reviews</span>
-                </div>
-                <button 
-                    onClick={() => isLoggedIn ? setIsReviewFormOpen(!isReviewFormOpen) : openLogin()} 
-                    className="border border-gray-100 px-16 py-3 text-[11px] uppercase tracking-widest font-normal text-gray-600 shadow-sm hover:border-gray-300 transition-colors"
-                >
-                    Write A Review
-                </button>
-
-                <AnimatePresence>
-                    {isReviewFormOpen && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden w-full max-w-4xl mt-12 text-left"
-                        >
-                            <div className="py-8">
-                                <h4 className="text-[12px] font-medium text-gray-800 uppercase tracking-widest mb-4">WRITE A REVIEW</h4>
-                                <p className="text-[11px] text-[#e32c2b] mb-6">* Indicates a required field</p>
-                                
-                                <div className="flex items-center gap-2 mb-8">
-                                    <span className="text-[12px] text-gray-700">Score:</span>
-                                    <div className="flex gap-1.5">
-                                        {[1, 2, 3, 4, 5].map(star => (
-                                            <button 
-                                                key={star} 
-                                                onClick={() => setReviewForm(prev => ({...prev, score: star}))} 
-                                                className="focus:outline-none flex items-center justify-center hover:scale-110 transition-transform"
-                                            >
-                                                <Star 
-                                                    size={16} 
-                                                    fill={reviewForm.score >= star ? "currentColor" : "none"} 
-                                                    className={reviewForm.score >= star ? "text-black" : "text-gray-300"} 
-                                                    strokeWidth={1.5}
-                                                />
-                                            </button>
-                                        ))}
+                                    {/* Customize Button on Hover */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+                                        <button className="w-full bg-black text-white py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                                            Customize
+                                        </button>
                                     </div>
                                 </div>
-
-                                <div className="mb-8">
-                                    <label className="block text-[12px] text-gray-700 mb-2"><span className="text-[#e32c2b]">*</span> Title:</label>
-                                    <input 
-                                        type="text" 
-                                        value={reviewForm.title}
-                                        onChange={(e) => setReviewForm(prev => ({...prev, title: e.target.value}))}
-                                        className="w-full border border-gray-300 rounded-sm px-4 py-3 text-[13px] outline-none focus:border-gray-500 transition-colors bg-[#fcfcfc]" 
-                                    />
+                                <Link to={`/product/${item.id}`} className="block text-[11px] text-gray-600 leading-snug mb-3 hover:text-gray-900 transition-colors line-clamp-2 min-h-[32px]">
+                                    {item.name}
+                                </Link>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[12px] font-bold text-gray-900">
+                                        {formatPrice(item.price)} - {formatPrice(item.price * 12)}
+                                    </span>
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
 
-                                <div className="mb-8">
-                                    <label className="block text-[12px] text-gray-700 mb-2"><span className="text-[#e32c2b]">*</span> Review:</label>
-                                    <textarea 
-                                        rows="5"
-                                        value={reviewForm.review}
-                                        onChange={(e) => setReviewForm(prev => ({...prev, review: e.target.value}))}
-                                        className="w-full border border-gray-300 rounded-sm px-4 py-3 text-[13px] outline-none focus:border-gray-500 transition-colors resize-y bg-[#fcfcfc]" 
-                                    ></textarea>
-                                </div>
+            {/* Customer Reviews Section */}
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mb-16 pt-6 bg-white">
+                <div className="flex flex-col items-center mb-10">
+                    <h3 className="text-[17px] md:text-[20px] font-poppins text-gray-900 mb-3 md:mb-4">Verified Customer Reviews</h3>
+                    <div className="flex items-center gap-2 mb-6">
+                        <div className="flex text-gray-900 text-[14px]">
+                            ★★★★★
+                        </div>
+                        <span className="text-[12px] text-gray-500 font-medium tracking-wide">10 Reviews</span>
+                    </div>
+                    <button
+                        onClick={() => isLoggedIn ? setIsReviewFormOpen(!isReviewFormOpen) : openLogin()}
+                        className="border border-gray-100 px-16 py-3 text-[11px] uppercase tracking-widest font-normal text-gray-600 shadow-sm hover:border-gray-300 transition-colors"
+                    >
+                        Write A Review
+                    </button>
 
-                                <div className="mb-10">
-                                    <label className="block text-[12px] text-gray-700 mb-2">Upload Images (optional, max 4):</label>
-                                    
-                                    <label className="w-full border-2 border-dashed border-gray-300 rounded-sm py-12 flex items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-colors bg-[#fcfcfc] mb-4">
-                                        <span className="text-[12px] text-gray-500 font-medium">{uploadedImages.length >= 4 ? 'Maximum 4 images reached' : 'Click to upload images'}</span>
-                                        <input 
-                                            type="file" 
-                                            accept="image/*" 
-                                            multiple 
-                                            className="hidden" 
-                                            onChange={handleImageUpload}
-                                            disabled={uploadedImages.length >= 4}
-                                        />
-                                    </label>
+                    <AnimatePresence>
+                        {isReviewFormOpen && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden w-full max-w-4xl mt-12 text-left"
+                            >
+                                <div className="py-8">
+                                    <h4 className="text-[12px] font-medium text-gray-800 uppercase tracking-widest mb-4">WRITE A REVIEW</h4>
+                                    <p className="text-[11px] text-[#e32c2b] mb-6">* Indicates a required field</p>
 
-                                    {/* Uploaded Images Preview */}
-                                    {uploadedImages.length > 0 && (
-                                        <div className="flex flex-wrap gap-4 mt-4">
-                                            {uploadedImages.map((imgUrl, idx) => (
-                                                <div key={idx} className="relative w-16 h-16 border border-gray-200 rounded-sm">
-                                                    <img src={imgUrl} alt={`Uploaded preview ${idx + 1}`} className="w-full h-full object-cover rounded-sm" />
-                                                    <button 
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            removeImage(idx);
-                                                        }}
-                                                        className="absolute -top-2 -right-2 w-5 h-5 bg-black text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
-                                                    >
-                                                        <X size={10} strokeWidth={3} />
-                                                    </button>
-                                                </div>
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <span className="text-[12px] text-gray-700">Score:</span>
+                                        <div className="flex gap-1.5">
+                                            {[1, 2, 3, 4, 5].map(star => (
+                                                <button
+                                                    key={star}
+                                                    onClick={() => setReviewForm(prev => ({ ...prev, score: star }))}
+                                                    className="focus:outline-none flex items-center justify-center hover:scale-110 transition-transform"
+                                                >
+                                                    <Star
+                                                        size={16}
+                                                        fill={reviewForm.score >= star ? "currentColor" : "none"}
+                                                        className={reviewForm.score >= star ? "text-black" : "text-gray-300"}
+                                                        strokeWidth={1.5}
+                                                    />
+                                                </button>
                                             ))}
                                         </div>
-                                    )}
+                                    </div>
+
+                                    <div className="mb-8">
+                                        <label className="block text-[12px] text-gray-700 mb-2"><span className="text-[#e32c2b]">*</span> Title:</label>
+                                        <input
+                                            type="text"
+                                            value={reviewForm.title}
+                                            onChange={(e) => setReviewForm(prev => ({ ...prev, title: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded-sm px-4 py-3 text-[13px] outline-none focus:border-gray-500 transition-colors bg-[#fcfcfc]"
+                                        />
+                                    </div>
+
+                                    <div className="mb-8">
+                                        <label className="block text-[12px] text-gray-700 mb-2"><span className="text-[#e32c2b]">*</span> Review:</label>
+                                        <textarea
+                                            rows="5"
+                                            value={reviewForm.review}
+                                            onChange={(e) => setReviewForm(prev => ({ ...prev, review: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded-sm px-4 py-3 text-[13px] outline-none focus:border-gray-500 transition-colors resize-y bg-[#fcfcfc]"
+                                        ></textarea>
+                                    </div>
+
+                                    <div className="mb-10">
+                                        <label className="block text-[12px] text-gray-700 mb-2">Upload Images (optional, max 4):</label>
+
+                                        <label className="w-full border-2 border-dashed border-gray-300 rounded-sm py-12 flex items-center justify-center cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-colors bg-[#fcfcfc] mb-4">
+                                            <span className="text-[12px] text-gray-500 font-medium">{uploadedImages.length >= 4 ? 'Maximum 4 images reached' : 'Click to upload images'}</span>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                className="hidden"
+                                                onChange={handleImageUpload}
+                                                disabled={uploadedImages.length >= 4}
+                                            />
+                                        </label>
+
+                                        {/* Uploaded Images Preview */}
+                                        {uploadedImages.length > 0 && (
+                                            <div className="flex flex-wrap gap-4 mt-4">
+                                                {uploadedImages.map((imgUrl, idx) => (
+                                                    <div key={idx} className="relative w-16 h-16 border border-gray-200 rounded-sm">
+                                                        <img src={imgUrl} alt={`Uploaded preview ${idx + 1}`} className="w-full h-full object-cover rounded-sm" />
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                removeImage(idx);
+                                                            }}
+                                                            className="absolute -top-2 -right-2 w-5 h-5 bg-black text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+                                                        >
+                                                            <X size={10} strokeWidth={3} />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <button
+                                        disabled={!reviewForm.title || !reviewForm.review || reviewForm.score === 0}
+                                        className="bg-black text-white px-16 py-3.5 text-[11px] font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                                    >
+                                        Post
+                                    </button>
                                 </div>
-
-                                <button 
-                                    disabled={!reviewForm.title || !reviewForm.review || reviewForm.score === 0}
-                                    className="bg-black text-white px-16 py-3.5 text-[11px] font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
-                                >
-                                    Post
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-
-            <div className="max-w-5xl mx-auto">
-                {/* Reviews Tab */}
-                <div className="border-b border-gray-200 mb-8">
-                    <div className="inline-block border-b-2 border-gray-900 pb-3 px-2">
-                        <span className="text-[13px] font-medium text-gray-900">Reviews</span>
-                    </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
 
-                {/* Reviews List */}
-                <div className="flex flex-col">
-                    {customerReviews.map((review) => (
-                        <div key={review.id} className="flex flex-col md:flex-row gap-4 md:gap-6 py-8 border-b border-gray-100 last:border-b-0">
-                            {/* Avatar */}
-                            <div className="flex-shrink-0">
-                                <div className="w-8 h-8 md:w-10 md:h-10 bg-[#161616] text-white rounded-full flex items-center justify-center text-[12px] md:text-[14px] font-medium">
-                                    {review.initial}
+                <div className="max-w-5xl mx-auto">
+                    {/* Reviews Tab */}
+                    <div className="border-b border-gray-200 mb-8">
+                        <div className="inline-block border-b-2 border-gray-900 pb-3 px-2">
+                            <span className="text-[13px] font-medium text-gray-900">Reviews</span>
+                        </div>
+                    </div>
+
+                    {/* Reviews List */}
+                    <div className="flex flex-col">
+                        {customerReviews.map((review) => (
+                            <div key={review.id} className="flex flex-col md:flex-row gap-4 md:gap-6 py-8 border-b border-gray-100 last:border-b-0">
+                                {/* Avatar */}
+                                <div className="flex-shrink-0">
+                                    <div className="w-8 h-8 md:w-10 md:h-10 bg-[#161616] text-white rounded-full flex items-center justify-center text-[12px] md:text-[14px] font-medium">
+                                        {review.initial}
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            {/* Content */}
-                            <div className="flex-grow">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-[12px] md:text-[13px] font-bold text-gray-900">{review.name}</span>
-                                    {review.verified && <span className="text-[10px] md:text-[11px] text-gray-400 font-normal tracking-wide">Verified Buyer</span>}
-                                </div>
-                                
-                                <div className="flex text-gray-900 text-[10px] md:text-[11px] mb-2 tracking-widest">
-                                    {"★".repeat(review.rating)}
-                                </div>
-                                
-                                <h4 className="text-[12px] md:text-[13px] font-bold text-gray-900 mb-2">{review.title}</h4>
-                                
-                                <p className="text-[11px] md:text-[12px] text-gray-500 leading-[1.8] font-light mb-6 pr-4">
-                                    {review.text}
-                                </p>
-                                
-                                {/* Helpful? */}
-                                <div className="flex justify-end items-center gap-4 mt-auto">
-                                    <span className="text-[10px] md:text-[11px] text-gray-400 pr-2">Was This Review Helpful?</span>
-                                    <div className="flex items-center gap-3">
-                                        <button className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-gray-900 transition-colors">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                                                <path d="M23 10a2 2 0 00-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32 0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10a2 2 0 002 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2zM1 21h4V9H1v12z"/>
-                                            </svg>
-                                            <span className="font-semibold text-gray-600">{review.helpful}</span>
-                                        </button>
-                                        <button className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-gray-900 transition-colors">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="transform rotate-180">
-                                                <path d="M23 10a2 2 0 00-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32 0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10a2 2 0 002 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2zM1 21h4V9H1v12z"/>
-                                            </svg>
-                                            <span className="font-semibold text-gray-600">{review.unhelpful}</span>
-                                        </button>
+
+                                {/* Content */}
+                                <div className="flex-grow">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-[12px] md:text-[13px] font-bold text-gray-900">{review.name}</span>
+                                        {review.verified && <span className="text-[10px] md:text-[11px] text-gray-400 font-normal tracking-wide">Verified Buyer</span>}
+                                    </div>
+
+                                    <div className="flex text-gray-900 text-[10px] md:text-[11px] mb-2 tracking-widest">
+                                        {"★".repeat(review.rating)}
+                                    </div>
+
+                                    <h4 className="text-[12px] md:text-[13px] font-bold text-gray-900 mb-2">{review.title}</h4>
+
+                                    <p className="text-[11px] md:text-[12px] text-gray-500 leading-[1.8] font-light mb-6 pr-4">
+                                        {review.text}
+                                    </p>
+
+                                    {/* Helpful? */}
+                                    <div className="flex justify-end items-center gap-4 mt-auto">
+                                        <span className="text-[10px] md:text-[11px] text-gray-400 pr-2">Was This Review Helpful?</span>
+                                        <div className="flex items-center gap-3">
+                                            <button className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-gray-900 transition-colors">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M23 10a2 2 0 00-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32 0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10a2 2 0 002 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2zM1 21h4V9H1v12z" />
+                                                </svg>
+                                                <span className="font-semibold text-gray-600">{review.helpful}</span>
+                                            </button>
+                                            <button className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-gray-900 transition-colors">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="transform rotate-180">
+                                                    <path d="M23 10a2 2 0 00-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32 0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10a2 2 0 002 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2zM1 21h4V9H1v12z" />
+                                                </svg>
+                                                <span className="font-semibold text-gray-600">{review.unhelpful}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
 
             {/* Recently Viewed */}
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mb-16">
@@ -884,7 +884,7 @@ const ProductDetail = () => {
                                 <button onClick={(e) => { e.preventDefault(); toggleWishlist(item); }} className="absolute top-3 right-3 hover:scale-110 transition-transform z-10">
                                     <Heart size={16} fill={isInWishlist(item.id) ? "black" : "none"} className={isInWishlist(item.id) ? "text-black" : "text-gray-400"} strokeWidth={1.5} />
                                 </button>
-                                
+
                                 {/* Customize Button on Hover */}
                                 <div className="absolute inset-x-0 bottom-0 p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20">
                                     <button className="w-full bg-black text-white py-1.5 text-[9px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
@@ -901,15 +901,15 @@ const ProductDetail = () => {
             {/* Image Gallery Overlay */}
             <AnimatePresence>
                 {isGalleryOpen && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-white z-[200] flex flex-col md:flex-row overflow-hidden"
                     >
-                        <GalleryContent 
-                            images={galleryImages} 
-                            activeIndex={activeGalleryIndex} 
+                        <GalleryContent
+                            images={galleryImages}
+                            activeIndex={activeGalleryIndex}
                             setActiveIndex={setActiveGalleryIndex}
                             onClose={closeGallery}
                         />
@@ -921,16 +921,16 @@ const ProductDetail = () => {
             <AnimatePresence>
                 {isEngravingOpen && (
                     <>
-                        <motion.div 
-                            initial={{ opacity: 0 }} 
-                            animate={{ opacity: 1 }} 
-                            exit={{ opacity: 0 }} 
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             onClick={() => setIsEngravingOpen(false)}
                             className="fixed inset-0 bg-black/40 z-[120] backdrop-blur-sm"
                         />
-                        <motion.div 
-                            initial={{ x: '100%' }} 
-                            animate={{ x: 0 }} 
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                             className="fixed top-0 right-0 bottom-0 w-full md:w-[450px] bg-white z-[130] shadow-2xl flex flex-col"
@@ -946,9 +946,9 @@ const ProductDetail = () => {
                                     <p className="text-[12px] text-gray-600 mb-6">Personalize your jewellery with a meaningful message, date or initials.</p>
                                     <div className="flex gap-2 mb-4">
                                         <div className="flex-1 relative">
-                                            <input 
-                                                type="text" 
-                                                placeholder="Your Text Here" 
+                                            <input
+                                                type="text"
+                                                placeholder="Your Text Here"
                                                 maxLength={15}
                                                 className="w-full border border-gray-300 px-3 py-2 text-[12px] outline-none focus:border-black transition-colors"
                                             />
@@ -968,7 +968,7 @@ const ProductDetail = () => {
                                     <p className="text-[9px] text-gray-500 leading-tight">*An additional day will be added to the estimated delivery time for engraving.</p>
                                 </div>
 
-                                <button 
+                                <button
                                     onClick={() => setIsEngravingOpen(false)}
                                     className="w-full bg-black text-white py-3.5 text-[11px] font-bold tracking-wider uppercase hover:bg-gray-800 transition-colors"
                                 >
@@ -1026,7 +1026,7 @@ const ProductDetail = () => {
                                             <thead>
                                                 <tr className="bg-[#111] text-white text-[10px] uppercase font-semibold">
                                                     <th className="w-12 border-r border-[#222] py-3 text-center">
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="inline mx-auto"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="inline mx-auto"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
                                                     </th>
                                                     <th className="w-36 border-r border-[#222] py-3 px-3 text-center">Name</th>
                                                     <th className="w-28 border-r border-[#222] py-3 px-3 text-center">Visual</th>
@@ -1090,7 +1090,7 @@ const ProductDetail = () => {
                             {/* Drawer Header */}
                             <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100">
                                 <h3 className="text-[14px] text-gray-900 font-medium">View Similar Products</h3>
-                                <button 
+                                <button
                                     onClick={() => setIsSimilarDrawerOpen(false)}
                                     className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-black hover:bg-gray-200 transition-colors"
                                 >
@@ -1177,7 +1177,7 @@ const ProductDetail = () => {
                                             <ChevronLeft size={16} />
                                         </button>
                                         {[1, 2, 3].map(step => (
-                                            <button 
+                                            <button
                                                 key={step}
                                                 onClick={() => setSizeGuideStep(step)}
                                                 className={`w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-bold transition-all ${sizeGuideStep === step ? 'bg-black text-white' : 'text-gray-400 hover:text-black'}`}
@@ -1195,24 +1195,24 @@ const ProductDetail = () => {
                                 <div className="bg-[#fcfcfc] border border-gray-100 p-6 rounded-sm mb-10">
                                     <div className="flex items-center gap-8">
                                         <div className="w-32 h-32 flex-shrink-0 bg-white border border-gray-50 flex items-center justify-center p-4">
-                                            <img 
-                                                src={sizeGuideStep === 1 
-                                                    ? "https://images.unsplash.com/photo-1610313130748-038753b6afc7?auto=format&fit=crop&q=80&w=300" 
+                                            <img
+                                                src={sizeGuideStep === 1
+                                                    ? "https://images.unsplash.com/photo-1610313130748-038753b6afc7?auto=format&fit=crop&q=80&w=300"
                                                     : sizeGuideStep === 2
-                                                    ? "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=300"
-                                                    : "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=300"
-                                                } 
-                                                className="w-full h-full object-contain mix-blend-multiply" 
-                                                alt="size guide step" 
+                                                        ? "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=300"
+                                                        : "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=300"
+                                                }
+                                                className="w-full h-full object-contain mix-blend-multiply"
+                                                alt="size guide step"
                                             />
                                         </div>
                                         <div>
                                             <p className="text-[13px] text-gray-600 leading-relaxed">
-                                                {sizeGuideStep === 1 
-                                                    ? "Take a piece of string/tape and wrap it around your intended finger." 
+                                                {sizeGuideStep === 1
+                                                    ? "Take a piece of string/tape and wrap it around your intended finger."
                                                     : sizeGuideStep === 2
-                                                    ? "Mark the point where the string/tape overlaps."
-                                                    : "Measure the length in millimeters and refer to the chart below."
+                                                        ? "Mark the point where the string/tape overlaps."
+                                                        : "Measure the length in millimeters and refer to the chart below."
                                                 }
                                             </p>
                                         </div>
@@ -1262,18 +1262,18 @@ const ProductDetail = () => {
                                                 ].map((item, idx) => (
                                                     <tr key={idx} className={`border-b border-gray-50 last:border-0 ${idx % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}`}>
                                                         <td className="py-3 px-4 text-center">
-                                                            <input 
-                                                                type="radio" 
-                                                                name="ring-size-guide" 
-                                                                onChange={() => { 
+                                                            <input
+                                                                type="radio"
+                                                                name="ring-size-guide"
+                                                                onChange={() => {
                                                                     const size = item.size.toString();
-                                                                    setSelectedSize(size); 
+                                                                    setSelectedSize(size);
                                                                     setIsSizeGuideOpen(false);
                                                                     addToCart(product, 1, { metal: selectedMetal, size: size });
                                                                     navigate('/cart');
                                                                 }}
                                                                 checked={selectedSize === item.size.toString()}
-                                                                className="w-3.5 h-3.5 accent-black cursor-pointer" 
+                                                                className="w-3.5 h-3.5 accent-black cursor-pointer"
                                                             />
                                                         </td>
                                                         <td className="py-3 px-4 font-semibold text-gray-800 text-center">{item.size}</td>
@@ -1318,7 +1318,7 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
 
     return (
         <>
-            <button 
+            <button
                 onClick={onClose}
                 className="absolute top-6 right-6 w-10 h-10 bg-black rounded-full flex items-center justify-center text-white z-[210] hover:scale-110 transition-transform shadow-lg"
             >
@@ -1330,7 +1330,7 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
                     const isVideo = typeof img === 'object' && img.type === 'video';
                     const src = isVideo ? img.thumb : img;
                     return (
-                        <button 
+                        <button
                             key={idx}
                             onClick={() => {
                                 setActiveIndex(idx);
@@ -1351,7 +1351,7 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
                 })}
             </div>
 
-            <div 
+            <div
                 className="flex-1 overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-white scroll-smooth"
                 onScroll={(e) => {
                     const scrollTop = e.currentTarget.scrollTop;
@@ -1366,9 +1366,9 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
                     const isVideo = typeof img === 'object' && img.type === 'video';
                     const src = isVideo ? img.thumb : img;
                     return (
-                        <div 
+                        <div
                             id={`gallery-img-${idx}`}
-                            key={idx} 
+                            key={idx}
                             className="w-full h-full flex items-center justify-center snap-start snap-always p-12 lg:p-24"
                         >
                             <div className="relative w-full h-full flex items-center justify-center">
@@ -1386,10 +1386,10 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <img 
-                                        src={src} 
-                                        className="max-w-full max-h-full object-contain mix-blend-multiply" 
-                                        alt={`Gallery ${idx}`} 
+                                    <img
+                                        src={src}
+                                        className="max-w-full max-h-full object-contain mix-blend-multiply"
+                                        alt={`Gallery ${idx}`}
                                     />
                                 )}
                                 {idx === 0 && (
@@ -1401,7 +1401,7 @@ const GalleryContent = ({ images, activeIndex, setActiveIndex, onClose }) => {
                         </div>
                     );
                 })}
-                
+
                 <div className="h-40 flex items-center justify-center bg-gray-50/30">
                     <p className="text-[11px] text-gray-400 uppercase tracking-widest font-medium">End of Gallery</p>
                 </div>
