@@ -1,0 +1,1650 @@
+/* ===== rare JEWELS - COMPLETE DESIGN SYSTEM ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --rare-teal: #2B5C6B;
+    --rare-gold: #C8923C;
+    --rare-dark: #1A1A1A;
+    --rare-text: #333333;
+    --rare-gray: #666666;
+    --rare-light-gray: #999999;
+    --rare-border: #E5E5E5;
+    --rare-bg: #F7F7F7;
+    --rare-white: #FFFFFF;
+    --rare-hero-bg: #E8DDD4;
+    --rare-promo-bg: #C8923C;
+}
+
+/* ===== BASE STYLES ===== */
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--rare-white);
+        color: var(--rare-text);
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    section {
+        padding: 0;
+    }
+}
+
+@layer components {
+    .container {
+        @apply max-w-[1440px] mx-auto px-4 md:px-8;
+    }
+}
+
+
+/* ========================================================
+   HEADER
+   ======================================================== */
+
+.rare-announcement-bar {
+    background-color: var(--rare-teal);
+    color: white;
+    text-align: center;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+.rare-header-main {
+    background-color: white;
+    border-bottom: 1px solid var(--rare-border);
+    transition: all 0.3s ease;
+}
+
+.rare-header-scrolled {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.rare-header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+}
+
+.rare-header-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.rare-phone-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--rare-gray);
+    font-size: 12px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.rare-phone-link:hover {
+    color: var(--rare-dark);
+}
+
+.rare-logo {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: var(--rare-dark);
+    text-decoration: none;
+    text-align: center;
+}
+
+.rare-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    flex: 1;
+}
+
+.rare-search-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--rare-border);
+    border-radius: 2px;
+    padding: 6px 12px;
+    gap: 8px;
+    min-width: 160px;
+}
+
+.rare-search-icon {
+    color: var(--rare-light-gray);
+}
+
+.rare-search-input {
+    border: none;
+    outline: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--rare-gray);
+    background: transparent;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.rare-search-input::placeholder {
+    color: var(--rare-light-gray);
+}
+
+.rare-icon-btn {
+    color: var(--rare-gray);
+    transition: color 0.2s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+}
+
+.rare-icon-btn:hover {
+    color: var(--rare-dark);
+}
+
+.rare-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background-color: var(--rare-gold);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+.rare-nav {
+    background-color: white;
+    border-bottom: 1px solid var(--rare-border);
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.rare-nav-scrolled {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+@media (min-width: 1024px) {
+    .rare-nav {
+        display: block;
+    }
+}
+
+.rare-nav-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 0 24px;
+}
+
+.rare-nav-link {
+    display: block;
+    padding: 14px 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--rare-dark);
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.rare-nav-link:hover {
+    color: var(--rare-teal);
+}
+
+.rare-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--rare-teal);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.rare-nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.rare-nav-link.active {
+    color: var(--rare-teal);
+}
+
+.rare-nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Nav Item (wrapper for mega menu) */
+.rare-nav-item {
+    position: static;
+}
+
+
+/* ========================================================
+   MEGA MENU
+   ======================================================== */
+
+.rare-mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 2px solid var(--rare-gold);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    animation: megaMenuFadeIn 0.2s ease-out;
+}
+
+@keyframes megaMenuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rare-mega-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    padding: 0;
+}
+
+/* Left content columns */
+.rare-mega-columns {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 28px 32px;
+}
+
+.rare-mega-col {
+    padding-right: 24px;
+}
+
+.rare-mega-col:not(:last-child) {
+    border-right: 1px solid #f0f0f0;
+    margin-right: 0;
+    padding-right: 24px;
+}
+
+.rare-mega-col:not(:first-child) {
+    padding-left: 24px;
+}
+
+.rare-mega-heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--rare-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    padding-bottom: 0;
+}
+
+.rare-mega-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rare-mega-list li {
+    margin-bottom: 2px;
+}
+
+.rare-mega-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--rare-gray);
+    text-decoration: none;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+}
+
+.rare-mega-link:hover {
+    color: var(--rare-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Gemstone dot */
+.rare-gem-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.rare-mega-icon {
+    font-size: 10px;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+.rare-mega-icon-shape {
+    font-size: 8px;
+    flex-shrink: 0;
+    color: var(--rare-light-gray);
+}
+
+.rare-mega-metal-icon {
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.rare-mega-explore {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--rare-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.rare-mega-explore:hover {
+    color: var(--rare-teal);
+}
+
+.rare-mega-divider {
+    height: 1px;
+    background-color: #f0f0f0;
+    margin: 16px 0;
+}
+
+.rare-mega-price-list .rare-mega-link {
+    font-size: 12px;
+    color: var(--rare-text);
+}
+
+/* Right promotional images */
+.rare-mega-promos {
+    width: 260px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid #f0f0f0;
+}
+
+.rare-mega-promo-card {
+    display: block;
+    text-decoration: none;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.rare-mega-promo-img {
+    width: 100%;
+    height: 100%;
+}
+
+.rare-mega-promo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.rare-mega-promo-card:hover .rare-mega-promo-img img {
+    transform: scale(1.05);
+}
+
+.rare-mega-promo-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
+    padding: 24px 16px 12px;
+}
+
+.rare-mega-promo-label span {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* Nav must be relative for mega menu positioning */
+.rare-nav {
+    position: relative;
+}
+
+
+/* ========================================================
+   HOME PAGE
+   ======================================================== */
+
+.rare-home {
+    overflow-x: hidden;
+    background: white;
+}
+
+/* --- Hero Banner --- */
+.rare-hero {
+    position: relative;
+    padding: 0 !important;
+}
+
+.rare-hero-inner {
+    display: flex;
+    min-height: 520px;
+    background-color: var(--rare-hero-bg);
+}
+
+.rare-hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px 60px 60px;
+    max-width: 50%;
+}
+
+.rare-hero-title {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--rare-dark);
+    line-height: 1.15;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+}
+
+.rare-hero-subtitle {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--rare-gray);
+    margin-bottom: 32px;
+}
+
+.rare-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--rare-gold);
+    color: white;
+    padding: 14px 40px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    border-radius: 2px;
+}
+
+.rare-hero-btn:hover {
+    background-color: #B07E30;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(200, 146, 60, 0.3);
+}
+
+.rare-hero-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    max-width: 55%;
+}
+
+.rare-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+@media (max-width: 768px) {
+    .rare-hero-inner {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .rare-hero-content {
+        max-width: 100%;
+        padding: 40px 24px;
+        order: 2;
+    }
+
+    .rare-hero-image {
+        max-width: 100%;
+        height: 300px;
+        order: 1;
+    }
+}
+
+/* --- Promo Banner --- */
+.rare-promo-bar {
+    background-color: var(--rare-gold);
+    color: white;
+    text-align: center;
+    padding: 12px 16px !important;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* --- Trust Badges --- */
+.rare-trust-badges {
+    background-color: white;
+    border-bottom: 1px solid var(--rare-border);
+    padding: 20px 16px !important;
+}
+
+.rare-trust-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+}
+
+.rare-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--rare-teal);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.rare-trust-item svg {
+    flex-shrink: 0;
+}
+
+.rare-trust-item span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .rare-trust-inner {
+        gap: 20px;
+    }
+
+    .rare-trust-item {
+        font-size: 11px;
+    }
+}
+
+/* --- Sections --- */
+.rare-section {
+    padding: 48px 24px !important;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.rare-section-title {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--rare-dark);
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+}
+
+/* --- Category Grid (4 columns) --- */
+.rare-category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .rare-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.rare-category-card {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.rare-category-card:hover {
+    transform: translateY(-4px);
+}
+
+.rare-category-image {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.rare-category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.rare-category-card:hover .rare-category-image img {
+    transform: scale(1.05);
+}
+
+.rare-category-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0));
+    padding: 32px 16px 16px;
+}
+
+.rare-category-label span {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+/* --- Products Carousel / Grid --- */
+.rare-products-carousel {
+    overflow: hidden;
+}
+
+.rare-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .rare-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .rare-products-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.rare-product-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.rare-product-image-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: white;
+    overflow: hidden;
+    padding: 24px;
+}
+
+.rare-wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    background: none;
+    border: none;
+    color: var(--rare-gray);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.rare-wishlist-btn:hover {
+    color: var(--rare-gold);
+}
+
+.rare-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.rare-product-item:hover .rare-product-img {
+    transform: scale(1.05);
+}
+
+.rare-product-info {
+    padding-top: 14px;
+}
+
+.rare-product-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--rare-dark);
+    line-height: 1.5;
+    margin-bottom: 6px;
+    text-decoration: none;
+}
+
+.rare-product-name:hover {
+    text-decoration: underline;
+}
+
+.rare-product-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rare-dark);
+}
+
+/* --- Carousel Dots --- */
+.rare-carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.rare-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--rare-border);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.rare-dot.active {
+    background-color: var(--rare-dark);
+    width: 10px;
+    height: 10px;
+}
+
+/* --- Discover / View All Button --- */
+.rare-discover-btn-wrap {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.rare-discover-btn {
+    display: inline-block;
+    padding: 10px 36px;
+    border: 1px solid var(--rare-dark);
+    color: var(--rare-dark);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.rare-discover-btn:hover {
+    background-color: var(--rare-dark);
+    color: white;
+}
+
+/* --- Craftsmanship Section --- */
+.rare-craftsmanship {
+    padding: 0 !important;
+    background-color: var(--rare-bg);
+}
+
+.rare-craft-inner {
+    display: flex;
+    min-height: 400px;
+}
+
+.rare-craft-image {
+    flex: 1;
+    overflow: hidden;
+}
+
+.rare-craft-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rare-craft-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 60px;
+    text-align: center;
+}
+
+.rare-craft-title {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--rare-dark);
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.rare-craft-byline {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rare-gray);
+    margin-bottom: 16px;
+}
+
+.rare-craft-text {
+    font-size: 13px;
+    color: var(--rare-light-gray);
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .rare-craft-inner {
+        flex-direction: column;
+    }
+
+    .rare-craft-image {
+        height: 260px;
+    }
+
+    .rare-craft-content {
+        padding: 32px 24px;
+    }
+}
+
+
+/* ========================================================
+   TRENDING NOW - Filter Tabs
+   ======================================================== */
+
+.rare-filter-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+}
+
+.rare-filter-tab {
+    padding: 8px 20px;
+    border: none;
+    background: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--rare-gray);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.rare-filter-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background-color: var(--rare-dark);
+    transition: transform 0.3s ease;
+}
+
+.rare-filter-tab:hover {
+    color: var(--rare-dark);
+}
+
+.rare-filter-tab.active {
+    color: var(--rare-dark);
+    font-weight: 600;
+}
+
+.rare-filter-tab.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+
+/* ========================================================
+   BIRTHSTONE SECTION
+   ======================================================== */
+
+.rare-birthstone-section {
+    padding-bottom: 60px !important;
+}
+
+.rare-birthstone-grid {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .rare-birthstone-grid {
+        gap: 20px;
+    }
+}
+
+.rare-birthstone-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    width: 100px;
+}
+
+.rare-birthstone-item:hover {
+    transform: translateY(-4px);
+}
+
+.rare-birthstone-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.rare-birthstone-item:hover .rare-birthstone-circle {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    transform: scale(1.08);
+}
+
+.rare-birthstone-shine {
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.rare-birthstone-month {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--rare-dark);
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.rare-birthstone-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--rare-light-gray);
+    text-align: center;
+    font-style: italic;
+}
+
+
+/* ========================================================
+   THE EDIT - Editorial Cards
+   ======================================================== */
+
+.rare-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .rare-edit-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.rare-edit-card {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.rare-edit-card:hover {
+    transform: translateY(-4px);
+}
+
+.rare-edit-image {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 16px;
+}
+
+.rare-edit-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.rare-edit-card:hover .rare-edit-image img {
+    transform: scale(1.05);
+}
+
+.rare-edit-info {
+    padding: 0 4px;
+}
+
+.rare-edit-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--rare-dark);
+    line-height: 1.5;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rare-edit-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--rare-teal);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.rare-edit-card:hover .rare-edit-link {
+    color: var(--rare-gold);
+}
+
+
+/* ========================================================
+   CUSTOMER REVIEWS
+   ======================================================== */
+
+.rare-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .rare-reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .rare-reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.rare-review-card {
+    border: 1px solid var(--rare-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    transition: box-shadow 0.3s ease;
+}
+
+.rare-review-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.rare-review-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+}
+
+.rare-review-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rare-review-content {
+    padding: 16px 16px 20px;
+    text-align: center;
+}
+
+.rare-stars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.star-filled {
+    color: #C8923C;
+}
+
+.star-empty {
+    color: #ccc;
+}
+
+.rare-review-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--rare-gray);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rare-readmore {
+    background: none;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--rare-dark);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 0;
+}
+
+.rare-review-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rare-dark);
+}
+
+
+/* ========================================================
+   WHATSAPP BUTTON
+   ======================================================== */
+
+.rare-whatsapp-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.rare-whatsapp-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
+
+.rare-footer {
+    border-top: 1px solid var(--rare-border);
+}
+
+.rare-footer-signup {
+    background: white;
+    text-align: center;
+    padding: 40px 24px;
+    border-bottom: 1px solid var(--rare-border);
+}
+
+.rare-footer-signup h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--rare-dark);
+    margin-bottom: 20px;
+}
+
+.rare-footer-signup h3 span {
+    color: var(--rare-gold);
+}
+
+.rare-signup-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 420px;
+    margin: 0 auto 12px;
+}
+
+.rare-signup-prefix {
+    background-color: var(--rare-bg);
+    border: 1px solid var(--rare-border);
+    border-right: none;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--rare-gray);
+    white-space: nowrap;
+}
+
+.rare-signup-input {
+    flex: 1;
+    border: 1px solid var(--rare-border);
+    border-right: none;
+    padding: 10px 16px;
+    font-size: 13px;
+    outline: none;
+    color: var(--rare-text);
+}
+
+.rare-signup-input::placeholder {
+    color: var(--rare-light-gray);
+}
+
+.rare-signup-btn {
+    padding: 10px 24px;
+    background-color: var(--rare-dark);
+    color: white;
+    border: 1px solid var(--rare-dark);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.rare-signup-btn:hover {
+    background-color: #333;
+}
+
+.rare-footer-privacy {
+    font-size: 11px;
+    color: var(--rare-light-gray);
+    margin-bottom: 20px;
+}
+
+.rare-footer-privacy a {
+    color: var(--rare-dark);
+    text-decoration: underline;
+}
+
+.rare-footer-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.rare-footer-socials span {
+    font-size: 12px;
+    color: var(--rare-gray);
+    font-weight: 500;
+}
+
+.rare-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: var(--rare-gray);
+    transition: color 0.2s;
+}
+
+.rare-social-icon:hover {
+    color: var(--rare-dark);
+}
+
+/* Footer Links Grid */
+.rare-footer-links {
+    background-color: white;
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid var(--rare-border);
+}
+
+.rare-footer-links-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .rare-footer-links-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+}
+
+.rare-footer-col h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--rare-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+
+.rare-footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rare-footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.rare-footer-col ul li a {
+    font-size: 12px;
+    color: var(--rare-teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.rare-footer-col ul li a:hover {
+    color: var(--rare-gold);
+}
+
+.rare-footer-col .footer-contact-info {
+    font-size: 12px;
+    color: var(--rare-gray);
+    line-height: 1.8;
+    text-decoration: none;
+}
+
+.rare-footer-col .footer-contact-info a {
+    color: var(--rare-teal);
+    text-decoration: underline;
+}
+
+/* Payment Row */
+.rare-footer-payments {
+    background: white;
+    padding: 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--rare-border);
+}
+
+.rare-payment-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.rare-payment-icon {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rare-dark);
+    letter-spacing: 0.03em;
+}
+
+.rare-payment-icon.visa {
+    color: #1A1F71;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.rare-payment-icon.mastercard {
+    color: #EB001B;
+}
+
+.rare-payment-icon.rupay {
+    color: #097BBB;
+}
+
+.rare-payment-icon.upi {
+    color: #5F259F;
+    font-weight: 800;
+}
+
+.rare-payment-icon.bhim {
+    color: #00897B;
+}
+
+/* Copyright Bar */
+.rare-footer-copyright {
+    background: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.rare-footer-copyright-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rare-country-select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--rare-gray);
+    border: 1px solid var(--rare-border);
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.rare-footer-copyright p {
+    font-size: 11px;
+    color: var(--rare-light-gray);
+}
+
+.rare-footer-copyright p a {
+    color: var(--rare-gray);
+    text-decoration: underline;
+}
+
+
+/* ========================================================
+   LEGACY / UTILITY CLASSES
+   ======================================================== */
+
+.luxury-card {
+    background: white;
+    border: 1px solid var(--rare-border);
+    transition: all 0.3s ease;
+}
+
+.luxury-card:hover {
+    border-color: rgba(200, 146, 60, 0.3);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.luxury-link {
+    position: relative;
+    transition: color 0.2s;
+    padding: 8px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--rare-dark);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+}
+
+.luxury-link:hover {
+    color: var(--rare-teal);
+}
+
+.luxury-input {
+    width: 100%;
+    border: 1px solid var(--rare-border);
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.luxury-input:focus {
+    border-color: var(--rare-gold);
+}
+
+.btn-primary {
+    background-color: var(--rare-gold);
+    color: white;
+    font-weight: 700;
+    padding: 14px 40px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #B07E30;
+}
+
+/* Slick overrides */
+.slick-dots {
+    bottom: 24px !important;
+}
+
+.slick-dots li button:before {
+    color: white !important;
+    opacity: 0.5 !important;
+    font-size: 8px !important;
+}
+
+.slick-dots li.slick-active button:before {
+    color: white !important;
+    opacity: 1 !important;
+}
+
+.slick-prev,
+.slick-next {
+    z-index: 10 !important;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: var(--rare-dark);
+    opacity: 0.3;
+    font-size: 1.875rem !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.aceScrollBar::-webkit-scrollbar {
+    width: .375rem;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.aceScrollBar::-webkit-scrollbar-thumb,
+.aceScrollBar::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(0 0 0 / 1);
+}
+
+.aceScrollBar::-webkit-scrollbar-thumb {
+    border-radius: .25rem;
+}
+
+.aceScrollBar::-webkit-scrollbar-track {
+    border-radius: .25rem;
+    background-color: rgb(0 0 0 / 0.1);
+}
