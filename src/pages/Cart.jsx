@@ -28,7 +28,7 @@ const Cart = () => {
         return (
             <div className="min-h-screen bg-white pt-32 pb-20 text-center">
                 <div className="max-w-[1400px] mx-auto px-6">
-                    <h1 className="text-2xl font-serif mb-4">Your Shopping Bag is Empty</h1>
+                    <h1 className="text-2xl font-poppins mb-4">Your Shopping Bag is Empty</h1>
                     <p className="text-gray-500 mb-8 text-sm">Discover our finest masterpieces and start your collection.</p>
                     <Link to="/" className="inline-block bg-black text-white px-10 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
                         Browse Jewelry
@@ -41,7 +41,7 @@ const Cart = () => {
     return (
         <div className="bg-[#fcfcfc] min-h-screen pt-24 pb-12">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row gap-8">
-                
+
                 {/* Header Step Counter */}
                 <div className="absolute top-20 right-6 lg:right-12 text-[10px] text-gray-400 font-bold tracking-widest uppercase">
                     STEP 1/3
@@ -51,11 +51,11 @@ const Cart = () => {
                 <div className="flex-grow space-y-4">
                     <div className="bg-white border border-gray-100 p-6 rounded-sm shadow-sm relative">
                         <div className="text-[11px] text-gray-400 font-bold uppercase tracking-widest mb-6">Item : {cartItems.length}</div>
-                        
+
                         <div className="space-y-8">
                             {cartItems.map((item) => (
                                 <div key={item.id} className="flex gap-6 relative border-b border-gray-50 pb-8 last:border-0 last:pb-0">
-                                    <button 
+                                    <button
                                         onClick={() => removeFromCart(item.id)}
                                         className="absolute top-0 right-0 text-gray-400 hover:text-black transition-colors"
                                     >
@@ -73,15 +73,15 @@ const Cart = () => {
                                                 Size : <span className="text-gray-900 ml-1">{item.customizations?.size || '8'}</span>
                                             </div>
                                             <div className="text-[11px] text-gray-500 uppercase font-bold tracking-wider flex items-center gap-2">
-                                                Qty : 
+                                                Qty :
                                                 <div className="inline-flex items-center border border-gray-200 ml-1 bg-white">
-                                                    <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="px-2 py-0.5 hover:bg-gray-50 border-r border-gray-200"><Minus size={10}/></button>
+                                                    <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="px-2 py-0.5 hover:bg-gray-50 border-r border-gray-200"><Minus size={10} /></button>
                                                     <span className="px-3 py-0.5 text-[10px] text-gray-900 font-bold">{item.quantity}</span>
-                                                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-2 py-0.5 hover:bg-gray-50 border-l border-gray-200"><Plus size={10}/></button>
+                                                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-2 py-0.5 hover:bg-gray-50 border-l border-gray-200"><Plus size={10} /></button>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex items-center gap-3">
                                             <span className="text-[14px] font-bold text-gray-900">{formatPrice(item.price * item.quantity)}</span>
                                             <span className="text-[11px] text-gray-400 line-through">{formatPrice(item.price * 1.05 * item.quantity)}</span>
@@ -97,7 +97,7 @@ const Cart = () => {
                     </div>
 
                     {/* Apply Coupons Section */}
-                    <button 
+                    <button
                         onClick={() => setIsCouponDrawerOpen(true)}
                         className="w-full bg-white border border-gray-100 p-5 rounded-sm shadow-sm flex items-center justify-between group hover:bg-gray-50 transition-all"
                     >
@@ -115,7 +115,7 @@ const Cart = () => {
                         <div className="p-5 border-b border-gray-50">
                             <h3 className="text-[11px] text-gray-500 font-bold uppercase tracking-[0.2em]">Make it Special! (Add Ons)</h3>
                         </div>
-                        
+
                         <div className="p-2 space-y-2">
                             {/* Gift Message */}
                             <div className="flex items-center justify-between p-4 hover:bg-[#fcfcfc] transition-colors group border-b border-gray-50 last:border-0">
@@ -130,7 +130,7 @@ const Cart = () => {
                                 </div>
                                 <div className="flex items-center gap-6">
                                     <span className="text-[11px] font-bold text-[#2ebd59] uppercase tracking-widest">Free</span>
-                                    <button 
+                                    <button
                                         onClick={() => setGiftMessage(!giftMessage)}
                                         className={`w-10 h-5 rounded-full relative transition-colors ${giftMessage ? 'bg-[#2ebd59]' : 'bg-gray-200'}`}
                                     >
@@ -152,7 +152,7 @@ const Cart = () => {
                                 </div>
                                 <div className="flex items-center gap-6">
                                     <span className="text-[11px] font-bold text-gray-800 uppercase tracking-widest">₹50</span>
-                                    <button 
+                                    <button
                                         onClick={() => setGiftWrapping(!giftWrapping)}
                                         className={`w-10 h-5 rounded-full relative transition-colors ${giftWrapping ? 'bg-[#2ebd59]' : 'bg-gray-200'}`}
                                     >
@@ -197,7 +197,7 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <button 
+                        <button
                             onClick={() => navigate('/checkout')}
                             className="w-full bg-black text-white py-4 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gray-800 transition-colors flex items-center justify-center gap-3 shadow-lg"
                         >
@@ -218,19 +218,19 @@ const Cart = () => {
                         <h3 className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] text-center mb-10 pb-4 border-b border-gray-50">Why Shop With Us</h3>
                         <div className="grid grid-cols-5 gap-4">
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><X size={16}/></div>
+                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><X size={16} /></div>
                                 <span className="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">BIS Hallmark</span>
                             </div>
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><RotateCcw size={16}/></div>
+                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><RotateCcw size={16} /></div>
                                 <span className="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">Exchange & Buyback</span>
                             </div>
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><Truck size={16}/></div>
+                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><Truck size={16} /></div>
                                 <span className="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">Free 15-Day Returns</span>
                             </div>
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><ShieldCheck size={16}/></div>
+                                <div className="w-10 h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center text-gray-800 mb-2 border border-gray-50 shadow-sm"><ShieldCheck size={16} /></div>
                                 <span className="text-[8px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">Rare Jewels Certified</span>
                             </div>
                             <div className="flex flex-col items-center text-center">
@@ -246,18 +246,18 @@ const Cart = () => {
                     <div className="bg-white border border-gray-100 p-8 rounded-sm shadow-sm mb-12">
                         <h3 className="text-[11px] text-gray-400 font-bold uppercase tracking-[0.1em] text-center mb-8">Need help with your order? We're here</h3>
                         <div className="grid grid-cols-3 gap-2">
-                             <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
+                            <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
                                 <Phone size={18} className="text-gray-800 mb-2" />
                                 <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Call Us</span>
-                             </div>
-                             <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
+                            </div>
+                            <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
                                 <Mail size={18} className="text-gray-800 mb-2" />
                                 <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Email Us</span>
-                             </div>
-                             <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
+                            </div>
+                            <div className="bg-[#fcfcfc] p-4 flex flex-col items-center justify-center group cursor-pointer hover:bg-white transition-all border border-transparent hover:border-gray-100">
                                 <MessageCircle size={18} className="text-gray-800 mb-2" />
                                 <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Chat Now</span>
-                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -267,14 +267,14 @@ const Cart = () => {
             <AnimatePresence>
                 {isCouponDrawerOpen && (
                     <>
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsCouponDrawerOpen(false)}
                             className="fixed inset-0 bg-black/40 z-[120] backdrop-blur-sm"
                         />
-                        <motion.div 
+                        <motion.div
                             initial={{ x: '100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
@@ -287,12 +287,12 @@ const Cart = () => {
                                 </button>
                                 <h2 className="text-[14px] font-bold uppercase tracking-widest">Coupons</h2>
                             </div>
-                            
+
                             <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
                                 <div className="flex gap-2 mb-10">
-                                    <input 
-                                        type="text" 
-                                        placeholder="Enter coupon code" 
+                                    <input
+                                        type="text"
+                                        placeholder="Enter coupon code"
                                         className="flex-1 border border-gray-200 px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest"
                                     />
                                     <button className="bg-white border border-gray-200 px-6 py-3 text-[10px] font-bold uppercase tracking-widest hover:border-black transition-colors rounded-sm">Apply</button>
@@ -320,9 +320,9 @@ const Cart = () => {
                                                     <p className="text-[10px] text-gray-500 leading-relaxed font-medium">{offer.desc}</p>
                                                 </div>
                                                 <div className="mt-6 flex justify-end">
-                                                    <button 
+                                                    <button
                                                         onClick={() => {
-                                                            if(offer.type !== 'login') {
+                                                            if (offer.type !== 'login') {
                                                                 setSelectedCoupon(offer.code);
                                                                 setIsCouponDrawerOpen(false);
                                                             }
@@ -357,15 +357,15 @@ const Cart = () => {
 };
 
 const Tag = ({ size, className, fill }) => (
-    <svg 
-        width={size} 
-        height={size} 
-        viewBox="0 0 24 24" 
-        fill={fill || "none"} 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+    <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill={fill || "none"}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className={className}
     >
         <path d="M7 7h.01M2 9l9.47 9.47a1.5 1.5 0 0 0 2.12 0L22 10V2H14L2 9z" />

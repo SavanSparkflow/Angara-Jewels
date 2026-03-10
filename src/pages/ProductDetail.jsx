@@ -622,7 +622,7 @@ const ProductDetail = () => {
                 <div className="relative h-[240px] md:h-[300px] rounded-sm overflow-hidden group">
                     <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Customize" />
                     <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center p-6">
-                        <h2 className="text-2xl md:text-3xl font-serif text-white mb-4 italic">Customize Any Design</h2>
+                        <h2 className="text-2xl md:text-3xl font-poppins text-white mb-4 italic">Customize Any Design</h2>
                         <p className="text-white/90 text-sm mb-6 max-w-sm">From gemstones to metal types, make it uniquely yours.</p>
                         <button className="bg-white text-black px-8 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-gray-100 transition-colors">Start Customizing</button>
                     </div>
@@ -955,7 +955,7 @@ const ProductDetail = () => {
                                             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400">0/15</span>
                                         </div>
                                         <button className="w-10 border border-gray-300 flex items-center justify-center hover:border-black transition-colors text-gray-600">
-                                            <span className="font-serif italic text-[14px]">Aa</span>
+                                            <span className="font-poppins italic text-[14px]">Aa</span>
                                         </button>
                                         <button className="w-10 border border-gray-300 flex items-center justify-center hover:border-black transition-colors text-gray-600">
                                             <span className="font-sans font-medium text-[12px]">Aa</span>

@@ -36,7 +36,7 @@ const Wishlist = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-gray-100 pb-6">
                     <div>
-                        <h1 className="text-3xl font-serif text-gray-900 mb-2">My Wishlist</h1>
+                        <h1 className="text-3xl font-poppins text-gray-900 mb-2">My Wishlist</h1>
                         <p className="text-[13px] text-gray-500">You have {wishlistItems.length} items in your wishlist.</p>
                     </div>
                     {wishlistItems.length > 0 && (
@@ -47,7 +47,7 @@ const Wishlist = () => {
                 </div>
 
                 {wishlistItems.length === 0 ? (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="py-32 text-center flex flex-col items-center bg-[#fcfcfc] border border-dashed border-gray-200 rounded-sm"
@@ -55,7 +55,7 @@ const Wishlist = () => {
                         <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm mb-6 border border-gray-100">
                             <Heart size={32} className="text-gray-200" strokeWidth={1.5} />
                         </div>
-                        <h2 className="text-2xl font-serif text-gray-800 mb-4">Your wishlist is empty</h2>
+                        <h2 className="text-2xl font-poppins text-gray-800 mb-4">Your wishlist is empty</h2>
                         <p className="text-[13px] text-gray-500 mb-10 max-w-sm leading-relaxed">
                             Looks like you haven't added any of your favorite pieces yet. Start exploring our collections to find something you love.
                         </p>
@@ -84,7 +84,7 @@ const Wishlist = () => {
                                                 className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
                                             />
                                         </Link>
-                                        
+
                                         {/* Remove Action */}
                                         <button
                                             onClick={() => removeFromWishlist(product.id)}
@@ -123,7 +123,7 @@ const Wishlist = () => {
 
                                         {/* Footer Actions */}
                                         <div className="flex gap-2">
-                                            <button 
+                                            <button
                                                 onClick={() => handleMoveToCart(product)}
                                                 className="flex-1 bg-black text-white h-10 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors rounded-sm"
                                             >

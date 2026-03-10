@@ -3,18 +3,18 @@ import { NavLink } from 'react-router-dom';
 
 const PolicyLayout = ({ children }) => {
     const links = [
-        { name: 'About Angara', path: '#' },
+        { name: 'About Rare Jewels', path: '/our-story' },
         { name: 'FAQ', path: '/faq' },
         { name: 'Lifetime Exchange & Buyback', path: '/exchange-buyback' },
         { name: '15-Day Returns', path: '/15-day-returns' },
         { name: 'Resize & Repair', path: '/resizing-policy' },
         { name: 'Cancellation Policy', path: '/cancellation-policy' },
-        { name: 'Shipping Policy', path: '#' },
-        { name: 'Track Your Order', path: '#' },
-        { name: 'Privacy Policy', path: '#' },
-        { name: 'Payment Options', path: '#' },
-        { name: 'Terms & Conditions', path: '#' },
-        { name: 'Corporate', path: '#' },
+        { name: 'Shipping Policy', path: '/shipping-policy' },
+        { name: 'Track Your Order', path: '/track-order' },
+        { name: 'Privacy Policy', path: '/privacy-policy' },
+        { name: 'Payment Options', path: '/payment-options' },
+        { name: 'Terms & Conditions', path: '/terms-conditions' },
+        { name: 'Corporate', path: '/corporate' },
     ];
 
     return (
@@ -26,9 +26,9 @@ const PolicyLayout = ({ children }) => {
                         {links.map((link) => (
                             <li key={link.name}>
                                 {link.path !== '#' ? (
-                                    <NavLink 
-                                        to={link.path} 
-                                        className={({isActive}) => isActive ? "font-semibold text-gray-900" : "hover:text-black hover:font-medium transition-colors"}
+                                    <NavLink
+                                        to={link.path}
+                                        className={({ isActive }) => isActive ? "font-semibold text-gray-900" : "hover:text-black hover:font-medium transition-colors"}
                                     >
                                         {link.name}
                                     </NavLink>

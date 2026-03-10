@@ -83,7 +83,7 @@ const Checkout = () => {
                         <div className="bg-white border border-gray-100 p-4 rounded-sm shadow-sm">
                             <div className="flex justify-between items-center mb-10">
                                 <h1 className="text-[13px] font-bold text-gray-600 tracking-wide">Shipping Address</h1>
-                                <button 
+                                <button
                                     onClick={handleGetLocation}
                                     disabled={isLoadingLocation}
                                     className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all disabled:opacity-50"
@@ -95,15 +95,15 @@ const Checkout = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                                 <div className="space-y-2 md:col-span-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Address*</label>
-                                    <input type="text" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} placeholder="e.g. Flat 5A, Green Heights, MG Road" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} placeholder="e.g. Flat 5A, Green Heights, MG Road" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Flat No/Building</label>
-                                    <input type="text" value={formData.apartment} onChange={(e) => setFormData({...formData, apartment: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.apartment} onChange={(e) => setFormData({ ...formData, apartment: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Landmark</label>
-                                    <input type="text" value={formData.landmark} onChange={(e) => setFormData({...formData, landmark: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.landmark} onChange={(e) => setFormData({ ...formData, landmark: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Country</label>
@@ -111,7 +111,7 @@ const Checkout = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">State*</label>
-                                    <select value={formData.state} onChange={(e) => setFormData({...formData, state: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm appearance-none cursor-pointer">
+                                    <select value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm appearance-none cursor-pointer">
                                         <option value="">Select State</option>
                                         <option value="Gujarat">Gujarat</option>
                                         <option value="Maharashtra">Maharashtra</option>
@@ -120,11 +120,11 @@ const Checkout = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">City*</label>
-                                    <input type="text" value={formData.city} onChange={(e) => setFormData({...formData, city: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Pincode*</label>
-                                    <input type="text" value={formData.pincode} onChange={(e) => setFormData({...formData, pincode: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.pincode} onChange={(e) => setFormData({ ...formData, pincode: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
 
                                 <div className="md:col-span-2 mt-4 mb-2">
@@ -133,22 +133,22 @@ const Checkout = () => {
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">First Name*</label>
-                                    <input type="text" value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Last Name*</label>
-                                    <input type="text" value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="text" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Mobile Number*</label>
                                     <div className="flex">
                                         <div className="px-4 py-3 border border-r-0 border-gray-100 bg-[#fcfcfc] text-[12px] text-gray-500 font-bold">+91</div>
-                                        <input type="text" value={formData.mobile} onChange={(e) => setFormData({...formData, mobile: e.target.value})} placeholder="Enter 10-digit mobile number" className="flex-1 border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                        <input type="text" value={formData.mobile} onChange={(e) => setFormData({ ...formData, mobile: e.target.value })} placeholder="Enter 10-digit mobile number" className="flex-1 border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                     </div>
                                 </div>
                                 <div className="space-y-2 md:col-span-2">
                                     <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Email</label>
-                                    <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} placeholder="Enter your email address" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
+                                    <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Enter your email address" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
                                 </div>
                             </div>
 
@@ -179,28 +179,28 @@ const Checkout = () => {
                                 <input type="text" placeholder="PAN" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest" />
                             </div>
                             <label className="flex items-start gap-4 cursor-pointer group">
-                                <input 
-                                    type="checkbox" 
+                                <input
+                                    type="checkbox"
                                     checked={useGstInvoice}
                                     onChange={(e) => setUseGstInvoice(e.target.checked)}
-                                    className="mt-1 w-4 h-4 accent-black" 
+                                    className="mt-1 w-4 h-4 accent-black"
                                 />
                                 <span className="text-[11px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-black transition-colors">Use GST Invoice</span>
                             </label>
 
                             {useGstInvoice && (
                                 <div className="mt-6 max-w-xs">
-                                    <input 
-                                        type="text" 
-                                        placeholder="GSTIN" 
-                                        className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest" 
+                                    <input
+                                        type="text"
+                                        placeholder="GSTIN"
+                                        className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest"
                                     />
                                 </div>
                             )}
                         </div>
 
                         <div className="flex justify-center mt-20 mb-8 overflow-hidden transform group cursor-pointer hover:opacity-80 transition-all">
-                             <img src="https://images.unsplash.com/photo-1512336332152-cb4db696f5b9?auto=format&fit=crop&q=80&w=600" className="h-24 w-full object-cover grayscale opacity-10 hover:grayscale-0 hover:opacity-100 transition-all duration-700" alt="banner" />
+                            <img src="https://images.unsplash.com/photo-1512336332152-cb4db696f5b9?auto=format&fit=crop&q=80&w=600" className="h-24 w-full object-cover grayscale opacity-10 hover:grayscale-0 hover:opacity-100 transition-all duration-700" alt="banner" />
                         </div>
                     </div>
 
@@ -263,26 +263,26 @@ const Checkout = () => {
 
                             {/* Why Shop Icons Reused */}
                             <div className="grid grid-cols-5 gap-2 border-t border-gray-50 pt-10">
-                                 {[
-                                     { icon: X, label: 'BIS Hallmark' },
-                                     { icon: RotateCcw, label: 'Exchange & Buyback' },
-                                     { icon: Truck, label: 'Free Returns' },
-                                     { icon: ShieldCheck, label: 'Rare Jewels Certified' },
-                                     { label: '4.7/5', text: 'Rated 4.7/5' }
-                                 ].map((item, idx) => (
-                                     <div key={idx} className="flex flex-col items-center text-center">
-                                         <div className="w-8 h-8 md:w-10 md:h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center border border-gray-50 mb-1">
-                                             {item.icon ? <item.icon size={14}/> : <span className="text-[9px] font-bold italic">{item.label}</span>}
-                                         </div>
-                                         <span className="text-[7px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">{item.text || item.label}</span>
-                                     </div>
-                                 ))}
+                                {[
+                                    { icon: X, label: 'BIS Hallmark' },
+                                    { icon: RotateCcw, label: 'Exchange & Buyback' },
+                                    { icon: Truck, label: 'Free Returns' },
+                                    { icon: ShieldCheck, label: 'Rare Jewels Certified' },
+                                    { label: '4.7/5', text: 'Rated 4.7/5' }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex flex-col items-center text-center">
+                                        <div className="w-8 h-8 md:w-10 md:h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center border border-gray-50 mb-1">
+                                            {item.icon ? <item.icon size={14} /> : <span className="text-[9px] font-bold italic">{item.label}</span>}
+                                        </div>
+                                        <span className="text-[7px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">{item.text || item.label}</span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             {/* Payment Icons Footer Reused */}
             <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-20 pt-12 border-t border-gray-100 text-center pb-12">
                 <div className="flex flex-wrap justify-center gap-12 mb-8 opacity-40 grayscale group hover:opacity-100 transition-all">
@@ -293,9 +293,9 @@ const Checkout = () => {
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/BHIM_Logo.svg/1024px-BHIM_Logo.svg.png" className="h-4" alt="BHIM" />
                 </div>
                 <div className="flex flex-wrap justify-center gap-12 items-center opacity-60 mb-10 overflow-hidden">
-                     <span className="text-[12px] font-serif font-bold tracking-tight">THE ECONOMIC TIMES</span>
-                     <span className="text-[12px] font-sans font-black tracking-tight border-b-2 border-red-600">INDIA TODAY</span>
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/CNBC_TV18_logo.png" className="h-6" alt="cnbc" />
+                    <span className="text-[12px] font-poppins font-bold tracking-tight">THE ECONOMIC TIMES</span>
+                    <span className="text-[12px] font-sans font-black tracking-tight border-b-2 border-red-600">INDIA TODAY</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/CNBC_TV18_logo.png" className="h-6" alt="cnbc" />
                 </div>
                 <p className="text-[9px] text-gray-400 uppercase tracking-[0.2em]">© 2028 Rare Jewels Jewels Private Limited All Rights Reserved. | Accessibility | Privacy Policy | T&C | Corporate</p>
             </div>
@@ -304,15 +304,15 @@ const Checkout = () => {
 };
 
 const Info = ({ size, className }) => (
-    <svg 
-        width={size} 
-        height={size} 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+    <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className={className}
     >
         <circle cx="12" cy="12" r="10" />

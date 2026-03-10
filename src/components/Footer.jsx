@@ -18,7 +18,7 @@ const Footer = () => {
                     <button className="rare-signup-btn">Sign Up</button>
                 </div>
                 <p className="rare-footer-privacy">
-                    Your privacy matters. For details, see our <a href="#">Privacy Policy</a>.
+                    Your privacy matters. For details, see our <Link to="/privacy-policy">Privacy Policy</Link>.
                 </p>
                 <div className="rare-footer-socials">
                     <span>Follow Us</span>
@@ -49,7 +49,7 @@ const Footer = () => {
                             <li><Link to="/resizing-policy">Resizing Policy</Link></li>
                             <li><Link to="/exchange-buyback">Lifetime Exchange & Buyback</Link></li>
                             <li><Link to="/cancellation-policy">Cancellation Policy</Link></li>
-                            <li><Link to="#">Track Your Order</Link></li>
+                            <li><Link to="/track-order">Track Your Order</Link></li>
                         </ul>
                         <div className="footer-contact-info" style={{ marginTop: '16px' }}>
                             <p style={{ fontWeight: 600, marginBottom: '8px' }}><Link to="/faq" className="hover:underline">FAQs</Link></p>
@@ -68,15 +68,15 @@ const Footer = () => {
                     <div className="rare-footer-col">
                         <h4>ABOUT US</h4>
                         <ul>
-                            <li><a href="/our-story">Our Story</a></li>
-                            <li><a href="#">Rare Jewels Blog</a></li>
-                            <li><a href="#">Rare Jewels In The Press</a></li>
+                            <li><Link to="/our-story">Our Story</Link></li>
+                            <li><Link to="/corporate">Corporate</Link></li>
+                            <li><Link to="/blog">Rare Jewels Blog</Link></li>
                         </ul>
                         <h4 style={{ marginTop: '24px' }}>CERTIFICATES</h4>
                         <ul>
-                            <li><a href="#">BIS Hallmarking</a></li>
-                            <li><a href="#">IGI Certificate</a></li>
-                            <li><a href="#">SGL Certificate</a></li>
+                            <li><Link to="/bis-hallmarking">BIS Hallmarking</Link></li>
+                            <li><Link to="/igi-certificate">IGI Certificate</Link></li>
+                            <li><Link to="/sgl-certificate">SGL Certificate</Link></li>
                         </ul>
                     </div>
 
@@ -84,10 +84,10 @@ const Footer = () => {
                     <div className="rare-footer-col">
                         <h4>EXPERIENCE RARE JEWELS</h4>
                         <ul>
-                            <li><a href="#">The Rare Jewels Difference</a></li>
-                            <li><a href="#">Free Shipping</a></li>
-                            <li><a href="#">Payment Options</a></li>
-                            <li><a href="#">Gold Rate</a></li>
+                            <li><Link to="/rare-jewels-difference">The Rare Jewels Difference</Link></li>
+                            <li><Link to="/shipping-policy">Free Shipping</Link></li>
+                            <li><Link to="/payment-options">Payment Options</Link></li>
+                            <li><Link to="/gold-rate">Gold Rate</Link></li>
                         </ul>
                     </div>
 
@@ -140,7 +140,7 @@ const Footer = () => {
                 </div>
                 <p>
                     © 2026 Rare Jewels Jewels Private Limited. All Rights Reserved. |{' '}
-                    <a href="#">Accessibility</a> | <a href="#">Privacy Policy</a> | <a href="#">T&C</a> | <a href="#">Cookies</a>
+                    <a href="#">Accessibility</a> | <Link to="/privacy-policy">Privacy Policy</Link> | <Link to="/terms-conditions">T&C</Link> | <a href="#">Cookies</a>
                 </p>
             </div>
         </footer>

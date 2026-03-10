@@ -5,19 +5,19 @@ const OurStory = () => {
         <div className="w-full bg-white select-none">
             {/* 1. Top Banner */}
             <div className="w-full h-[300px] md:h-[500px] bg-gray-100 mb-16 overflow-hidden">
-                <img 
-                   src="https://images.unsplash.com/photo-1599643478514-4a11011c77f0?auto=format&fit=crop&q=80&w=2000" 
-                   alt="Jewelry Design Sketch" 
-                   className="w-full h-full object-cover object-center opacity-80" 
+                <img
+                    src="https://images.unsplash.com/photo-1599643478514-4a11011c77f0?auto=format&fit=crop&q=80&w=2000"
+                    alt="Jewelry Design Sketch"
+                    className="w-full h-full object-cover object-center opacity-80"
                 />
             </div>
 
             {/* 2. Intro Text */}
             <div className="max-w-4xl mx-auto px-6 text-center mb-24 space-y-6">
-                <h1 className="text-[22px] md:text-[26px] text-gray-800 tracking-wide font-medium font-serif mb-8">Our Story</h1>
+                <h1 className="text-[22px] md:text-[26px] text-gray-800 tracking-wide font-medium font-poppins mb-8">Our Story</h1>
                 <p className="text-[15px] md:text-[17px] text-gray-600 leading-relaxed font-sans max-w-3xl mx-auto pb-4">
-                    We're so glad you're looking here for the perfect piece of jewellery.<br className="hidden md:block"/>
-                    Our hope is that every piece you create with us speaks to your soul, in the way only<br className="hidden md:block"/>
+                    We're so glad you're looking here for the perfect piece of jewellery.<br className="hidden md:block" />
+                    Our hope is that every piece you create with us speaks to your soul, in the way only<br className="hidden md:block" />
                     vibrant coloured gemstones can.
                 </p>
             </div>
@@ -25,10 +25,10 @@ const OurStory = () => {
             {/* 3. Story Section 1: Image Left, Text Right */}
             <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center gap-12 lg:gap-20 mb-32">
                 <div className="flex-1 w-full h-[400px] md:h-[600px] bg-gray-100 overflow-hidden shadow-sm">
-                    <img 
-                        src="https://images.unsplash.com/photo-1583937438497-6a74653dd758?auto=format&fit=crop&q=80&w=1000" 
-                        alt="Ankur & Aditi Daga" 
-                        className="w-full h-full object-cover object-center grayscale-[20%]" 
+                    <img
+                        src="https://images.unsplash.com/photo-1583937438497-6a74653dd758?auto=format&fit=crop&q=80&w=1000"
+                        alt="Ankur & Aditi Daga"
+                        className="w-full h-full object-cover object-center grayscale-[20%]"
                     />
                 </div>
                 <div className="flex-1 space-y-6 text-[14px] text-gray-600 leading-[1.8] font-sans md:pr-4">
@@ -53,16 +53,16 @@ const OurStory = () => {
             {/* 4. Full Width Quote Banner */}
             <div className="w-full bg-[#f4f4f4] relative h-[300px] md:h-[400px] mb-32 flex items-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="https://images.unsplash.com/photo-1620655452843-ea844c3ad297?auto=format&fit=crop&q=80&w=2000" 
-                        alt="Beautiful Color Rings" 
-                        className="w-full h-full object-cover opacity-30 mix-blend-multiply" 
+                    <img
+                        src="https://images.unsplash.com/photo-1620655452843-ea844c3ad297?auto=format&fit=crop&q=80&w=2000"
+                        alt="Beautiful Color Rings"
+                        className="w-full h-full object-cover opacity-30 mix-blend-multiply"
                     />
                 </div>
                 <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-12 flex justify-end">
                     <div className="max-w-2xl text-center md:text-right text-gray-900 py-8 px-6 bg-white/40 backdrop-blur-sm rounded-sm">
-                        <p className="text-[18px] md:text-[24px] font-serif leading-snug mb-8 relative px-8">
-                            <span className="text-5xl text-gray-400 font-serif absolute top-[-10px] left-0">"</span>
+                        <p className="text-[18px] md:text-[24px] font-poppins leading-snug mb-8 relative px-8">
+                            <span className="text-5xl text-gray-400 font-poppins absolute top-[-10px] left-0">"</span>
                             The world needs more colour in every way. We're on a mission to find it and share it, so you can celebrate life's precious moments with colour.
                         </p>
                         <p className="font-bold text-[13px] tracking-wide uppercase">- Ankur & Aditi Daga</p>
@@ -106,10 +106,10 @@ const OurStory = () => {
                     </div>
                 </div>
                 <div className="flex-1 w-full h-[400px] md:h-[650px] bg-[#f9f9f9] flex items-center justify-center overflow-hidden shadow-sm">
-                    <img 
-                        src="https://images.unsplash.com/photo-1605100804763-247f67b4546e?auto=format&fit=crop&q=80&w=1000" 
-                        alt="Stacked Rings" 
-                        className="w-full h-full object-cover object-center mix-blend-multiply" 
+                    <img
+                        src="https://images.unsplash.com/photo-1605100804763-247f67b4546e?auto=format&fit=crop&q=80&w=1000"
+                        alt="Stacked Rings"
+                        className="w-full h-full object-cover object-center mix-blend-multiply"
                     />
                 </div>
             </div>
@@ -126,17 +126,17 @@ const OurStory = () => {
                 <div className="w-56 h-56 flex-shrink-0 flex items-center justify-center filter drop-shadow-xl hover:scale-105 transition-transform duration-500">
                     {/* The blue octagon collage container */}
                     <div className="w-full h-full bg-[#0a1a47] relative overflow-hidden" style={{ clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)" }}>
-                        <img 
-                            src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=800" 
-                            className="w-full h-full object-cover absolute inset-0 opacity-80 mix-blend-luminosity" 
-                            alt="Blue Collage" 
+                        <img
+                            src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=800"
+                            className="w-full h-full object-cover absolute inset-0 opacity-80 mix-blend-luminosity"
+                            alt="Blue Collage"
                         />
-                         {/* Optional grid overlay to simulate the mosaic puzzle feel */}
-                         <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-0.5 pointer-events-none">
-                             {[...Array(16)].map((_, i) => (
-                                 <div key={i} className="bg-white/10 backdrop-blur-[1px]"></div>
-                             ))}
-                         </div>
+                        {/* Optional grid overlay to simulate the mosaic puzzle feel */}
+                        <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-0.5 pointer-events-none">
+                            {[...Array(16)].map((_, i) => (
+                                <div key={i} className="bg-white/10 backdrop-blur-[1px]"></div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

@@ -89,7 +89,7 @@ const ProductCard = ({ product }) => {
                 </p>
 
                 <Link to={`/product/${product.id}`} className="block mb-3">
-                    <h3 className="text-rare-dark font-serif font-medium text-sm leading-relaxed hover:text-rare-primary transition-colors tracking-wide max-w-[200px]">
+                    <h3 className="text-rare-dark font-poppins font-medium text-sm leading-relaxed hover:text-rare-primary transition-colors tracking-wide max-w-[200px]">
                         {product.name}
                     </h3>
                 </Link>
