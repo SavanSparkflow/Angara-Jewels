@@ -134,7 +134,7 @@ const GoldRate = () => {
                             <li><strong>Market Volatility:</strong> It is common for many Indian households to consider forms making out assets. For gold is safeguard themselves against price movements and market risks. The demand for gold is constant, and hence, it is regarded as a reliable investment choice.</li>
                         </ul>
                         <p className="mt-4">
-                            Every piece of jewellery at Angara undergoes a rigorous quality measurement to comply with industry standards. We assure you that our strictly quality jewellery makes its way to your heart and doorstep.
+                            Every piece of jewellery at Rare Jewels undergoes a rigorous quality measurement to comply with industry standards. We assure you that our strictly quality jewellery makes its way to your heart and doorstep.
                         </p>
                         <p>
                             The varying gold rates across cities are due to transportation costs and location. However, we provide you with the best of the live stocks in terms of price and quality despite the gold rate fluctuations.
@@ -162,7 +162,7 @@ const GoldRate = () => {
                             </div>
                             <div>
                                 <h3 className="font-bold text-[#1a1a1a] mb-2">4. Is the price of regular and hallmarked gold different?</h3>
-                                <p>The prices of regular and hallmarked gold are no different. However, hallmarked gold ensures quality and purity without any additional charges. Angara offers products that undergo even strict BIS hallmarking processes to provide you with jewellery and gold coins that are authentic and competitively priced.</p>
+                                <p>The prices of regular and hallmarked gold are no different. However, hallmarked gold ensures quality and purity without any additional charges. Rare Jewels offers products that undergo even strict BIS hallmarking processes to provide you with jewellery and gold coins that are authentic and competitively priced.</p>
                             </div>
                         </div>
                     </div>

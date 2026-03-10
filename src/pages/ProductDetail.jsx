@@ -45,7 +45,7 @@ const customerReviews = [
     },
     {
         id: 8, initial: 'G', name: 'Gerard J.', verified: true, rating: 5,
-        title: 'Outstanding Quality', text: 'Bought these as an anniversary present for my wife and she was thrilled with the Cut & Brilliance of the Diamond Studs. We will be purchasing more jewelry from Angara!',
+        title: 'Outstanding Quality', text: 'Bought these as an anniversary present for my wife and she was thrilled with the Cut & Brilliance of the Diamond Studs. We will be purchasing more jewelry from Rare Jewels!',
         helpful: 6, unhelpful: 2
     },
     {

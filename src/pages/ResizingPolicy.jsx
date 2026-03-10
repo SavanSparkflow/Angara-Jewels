@@ -23,7 +23,7 @@ const ResizingPolicy = () => {
                 <strong className="font-medium text-gray-900">Still got queries?</strong>
             </p>
             <p className="text-[14px] text-gray-700 leading-[1.8]">
-                Reach out to our customer service team by phone or WhatsApp chat on +91-8001001313, or email at india.support@angara.com.
+                Reach out to our customer service team by phone or WhatsApp chat on +91-8001001313, or email at india.support@Rare Jewels.com.
             </p>
         </PolicyLayout>
     );

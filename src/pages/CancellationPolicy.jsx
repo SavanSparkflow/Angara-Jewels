@@ -37,10 +37,10 @@ const CancellationPolicy = () => {
             <p className="text-[14px] text-gray-700 leading-[1.8] mb-8">
                 Orders for customised, personalised, or engraved jewellery shall be treated as FINAL SALE and cannot be cancelled.
             </p>
-            
+
             <p className="text-[14px] text-gray-700 leading-[1.8] mb-1">Questions? We've got answers!</p>
             <p className="text-[14px] text-gray-700 leading-[1.8]">
-                Reach out to our customer service team by phone or WhatsApp chat on +91-8001001313, or email at india.support@angara.com.
+                Reach out to our customer service team by phone or WhatsApp chat on +91-8001001313, or email at india.support@Rare Jewels.com.
             </p>
         </PolicyLayout>
     );

@@ -25,7 +25,7 @@ const PrivacyPolicy = () => {
 
                 <h2 className="text-xl font-bold text-[#1a1a1a] mt-8 mb-4">Contact Us</h2>
                 <p>
-                    For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at india.support@angara.com or by mail using the details provided below:
+                    For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at india.support@Rare Jewels.com or by mail using the details provided below:
                 </p>
                 <p className="mt-4">
                     Rare Jewels Jewels Pvt. Ltd.<br />

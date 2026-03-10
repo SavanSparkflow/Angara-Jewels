@@ -54,7 +54,7 @@ const Footer = () => {
                         <div className="footer-contact-info" style={{ marginTop: '16px' }}>
                             <p style={{ fontWeight: 600, marginBottom: '8px' }}><Link to="/faq" className="hover:underline">FAQs</Link></p>
                             <p>📞 +91-800-100-1313</p>
-                            <p>📧 <a href="mailto:india.support@angara.com">Email Us</a></p>
+                            <p>📧 <a href="mailto:india.support@rarejewels.com">Email Us</a></p>
                             <p>💬 <a href="#">Chat on WhatsApp</a></p>
                             <p style={{ marginTop: '12px', fontSize: '11px', lineHeight: '1.6' }}>
                                 📍 Rare Jewels Jewels Pvt. Ltd.<br />

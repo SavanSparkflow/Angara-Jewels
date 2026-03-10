@@ -3,7 +3,7 @@ import PolicyLayout from '../components/PolicyLayout';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const FAQ = () => {
-    const [openCategories, setOpenCategories] = useState({0: true}); // Open first category by default
+    const [openCategories, setOpenCategories] = useState({ 0: true }); // Open first category by default
 
     const toggleAccordion = (index) => {
         setOpenCategories(prev => ({
@@ -26,7 +26,7 @@ const FAQ = () => {
                 },
                 {
                     q: "Can I upgrade my purchase to a better gemstone?",
-                    a: "Yes, you can! Our gemstone experts can definitely help you upgrade your jewellery. Feel free to contact us via +91-8001001313 or india.support@angara.com to find out more."
+                    a: "Yes, you can! Our gemstone experts can definitely help you upgrade your jewellery. Feel free to contact us via +91-8001001313 or india.support@Rare Jewels.com to find out more."
                 },
                 {
                     q: "How to know if a promotion code is going to be applied to a purchase?",
@@ -77,11 +77,11 @@ const FAQ = () => {
     return (
         <PolicyLayout>
             <h1 className="text-2xl font-poppins text-gray-900 mb-8 font-light">Frequently Asked Questions</h1>
-            
+
             <div className="space-y-4">
                 {faqs.map((category, idx) => (
                     <div key={idx} className="border border-gray-100 rounded-sm overflow-hidden bg-white shadow-sm">
-                        <button 
+                        <button
                             className="w-full text-left px-6 py-5 bg-[#fcfcfc] hover:bg-gray-50 flex justify-between items-center transition-colors border-b border-transparent"
                             onClick={() => toggleAccordion(idx)}
                             style={{ borderBottomColor: openCategories[idx] ? '#f3f4f6' : 'transparent' }}
@@ -89,7 +89,7 @@ const FAQ = () => {
                             <span className="uppercase tracking-widest text-[13px] font-semibold text-gray-900">{category.category}</span>
                             {openCategories[idx] ? <ChevronUp size={16} className="text-gray-500" /> : <ChevronDown size={16} className="text-gray-500" />}
                         </button>
-                        
+
                         {openCategories[idx] && (
                             <div className="px-6 py-6 border-gray-100 space-y-6 animate-in slide-in-from-top-2 duration-300">
                                 {category.items.map((item, itemIdx) => (
@@ -103,11 +103,11 @@ const FAQ = () => {
                     </div>
                 ))}
             </div>
-            
+
             <div className="mt-12 bg-gray-50 p-6 md:p-8 rounded-sm">
-                 <h2 className="text-lg font-poppins text-gray-900 mb-2 font-medium">Still got queries?</h2>
-                 <p className="text-[14px] text-gray-600 leading-[1.8]">
-                    Reach out to our customer service team by phone or WhatsApp chat on <a href="tel:+918001001313" className="font-medium hover:text-black hover:underline">+91-8001001313</a>, or email at <a href="mailto:india.support@angara.com" className="font-medium hover:text-black hover:underline">india.support@angara.com</a>.
+                <h2 className="text-lg font-poppins text-gray-900 mb-2 font-medium">Still got queries?</h2>
+                <p className="text-[14px] text-gray-600 leading-[1.8]">
+                    Reach out to our customer service team by phone or WhatsApp chat on <a href="tel:+918001001313" className="font-medium hover:text-black hover:underline">+91-8001001313</a>, or email at <a href="mailto:india.support@rarejewels.com" className="font-medium hover:text-black hover:underline">india.support@rarejewels.com</a>.
                 </p>
             </div>
         </PolicyLayout>

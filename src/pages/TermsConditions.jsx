@@ -35,7 +35,7 @@ const TermsConditions = () => {
                     If you have any queries about these Terms and Conditions, please reach out to us at:
                 </p>
                 <p className="mt-4">
-                    Email: india.support@angara.com
+                    Email: india.support@Rare Jewels.com
                 </p>
             </div>
         </PolicyLayout>

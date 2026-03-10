@@ -36,7 +36,7 @@ const BlogCategory = () => {
                 date: "Jan 10, 2026"
             },
             {
-                title: "How Angara Helps You Personalise Jewellery With Meaningful Details",
+                title: "How Rare Jewels Helps You Personalise Jewellery With Meaningful Details",
                 excerpt: "In India, the gift of jewelry usually lies at the heart of when someone reaches a milestone, celebrate their birth, or when a couple celebrates their first year. When a dream is achieved, when art meets to celebrate, and when we do...",
                 image: "/images/mega_aurora_1772788806767.png",
                 date: "Jan 05, 2026"
@@ -104,7 +104,7 @@ const BlogCategory = () => {
         ],
         "gifting_ideas": [
             {
-                title: "How Angara Helps You Personalise Jewellery With Meaningful Details",
+                title: "How Rare Jewels Helps You Personalise Jewellery With Meaningful Details",
                 excerpt: "In India, the gift of jewelry usually lies at the heart of when someone reaches a milestone, celebrate their birth, or when a couple celebrates their first year. When a dream is achieved, when art meets to celebrate, and when we do...",
                 image: "/images/mega_aurora_1772788806767.png",
                 date: "Jan 05, 2026"
