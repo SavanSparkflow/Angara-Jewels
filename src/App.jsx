@@ -31,6 +31,8 @@ import IGICertificate from './pages/IGICertificate';
 import SGLCertificate from './pages/SGLCertificate';
 import RareJewelsDifference from './pages/RareJewelsDifference';
 import GoldRate from './pages/GoldRate';
+import BlogCategory from './pages/BlogCategory';
+import BlogDetail from './pages/BlogDetail';
 
 function App() {
     useEffect(() => {
@@ -73,6 +75,8 @@ function App() {
                                 <Route path="sgl-certificate" element={<SGLCertificate />} />
                                 <Route path="rare-jewels-difference" element={<RareJewelsDifference />} />
                                 <Route path="gold-rate" element={<GoldRate />} />
+                                <Route path="blog/category/:category" element={<BlogCategory />} />
+                                <Route path="blog/:slug" element={<BlogDetail />} />
                             </Route>
                         </Routes>
                     </Router>

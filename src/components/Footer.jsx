@@ -95,18 +95,18 @@ const Footer = () => {
                     <div className="rare-footer-col">
                         <h4>SHOP</h4>
                         <ul>
-                            <li><a href="#">Diamond Rings</a></li>
-                            <li><a href="#">Lab Grown Emerald Rings</a></li>
-                            <li><a href="#">Lab Grown Blue Sapphire Rings</a></li>
-                            <li><a href="#">Blue Sapphire Pendants</a></li>
-                            <li><a href="#">Lab Grown Diamond Jewellery</a></li>
-                            <li><a href="#">Amethyst Jewellery</a></li>
-                            <li><a href="#">Aquamarine Jewellery</a></li>
-                            <li><a href="#">Engagement Rings</a></li>
-                            <li><a href="#">Initials Pendants</a></li>
-                            <li><a href="#">Birthstone Jewellery</a></li>
-                            <li><a href="#">Hoop Earrings</a></li>
-                            <li><a href="#">Solitaire Rings</a></li>
+                            <li><Link to="/shop">Diamond Rings</Link></li>
+                            <li><Link to="/shop">Lab Grown Emerald Rings</Link></li>
+                            <li><Link to="/shop">Lab Grown Blue Sapphire Rings</Link></li>
+                            <li><Link to="/shop">Blue Sapphire Pendants</Link></li>
+                            <li><Link to="/shop">Lab Grown Diamond Jewellery</Link></li>
+                            <li><Link to="/shop">Amethyst Jewellery</Link></li>
+                            <li><Link to="/shop">Aquamarine Jewellery</Link></li>
+                            <li><Link to="/shop">Engagement Rings</Link></li>
+                            <li><Link to="/shop">Initials Pendants</Link></li>
+                            <li><Link to="/shop">Birthstone Jewellery</Link></li>
+                            <li><Link to="/shop">Hoop Earrings</Link></li>
+                            <li><Link to="/shop">Solitaire Rings</Link></li>
                         </ul>
                     </div>
                 </div>
