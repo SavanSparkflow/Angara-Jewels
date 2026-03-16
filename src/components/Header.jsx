@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, User, Heart, ShoppingBag, Menu, X, Phone, ChevronDown } from 'lucide-react';
+import { Search, User, Heart, ShoppingBag, Menu, X, Phone, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { useWishlist } from '../hooks/useWishlist';
 import { useLogin } from '../contexts/LoginContext';
@@ -654,6 +654,73 @@ const ANNOUNCEMENTS = [
     "Easy 30-Day Returns & Exchanges 🔄"
 ];
 
+const POPULAR_PRODUCTS = [
+    {
+        id: 1,
+        name: "Lab-Grown Basket-Set Solitaire Diamond Stud Earrings",
+        price: "₹8,044 - ₹10,36,969",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 2,
+        name: "Lab-Grown Classic Round Diamond Tennis Bracelet",
+        price: "₹48,014 - ₹10,60,810",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 3,
+        name: "Lab-Grown East-West Bezel-Set Emerald-Cut Diamond Pendant",
+        price: "₹33,539 - ₹3,69,674",
+        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 4,
+        name: "Oval & Pear Pink Sapphire Drop Earrings With Diamond Halo",
+        price: "₹97,445 - ₹9,99,650",
+        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=200",
+    }
+];
+
+const POPULAR_CATEGORIES = [
+    "Lab Grown Jewellery",
+    "Natural Diamond Jewellery",
+    "Gemstone Jewellery"
+];
+
+const RELATED_PRODUCTS = [
+    {
+        id: 5,
+        name: "Prong-Set Oval Lab-Grown Diamond V-Bale Solitaire...",
+        price: "₹30,534 - ₹4,49,442",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 6,
+        name: "Bezel-Set Solitaire Heart Lab-Grown Diamond Pendant-...",
+        price: "₹34,626 - ₹4,78,014",
+        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 7,
+        name: "Lab-Grown S Curl Sapphire And Diamond Tennis Bracelet",
+        price: "₹57,030 - ₹2,40,696",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=200",
+    },
+    {
+        id: 8,
+        name: "Lab-Grown Semi Bezel-Set Oval Sapphire And Diamond Tennis...",
+        price: "₹1,09,013 - ₹2,93,074",
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=200",
+    }
+];
+
+const RELATED_CATEGORIES = [
+    "Asscher Lab-Grown Diamond Rings",
+    "Cushion Lab-Grown Diamond Rings",
+    "Cushion Rectangular Lab-Grown Diamond Rings",
+    "Emerald Cut Lab-Grown Diamond Earrings"
+];
+
 // ============ HEADER COMPONENT ============
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -665,6 +732,8 @@ const Header = () => {
     const { cartCount } = useCart();
     const { wishlistItems } = useWishlist();
     const { openLogin, isLoggedIn } = useLogin();
+    const [isSearchDrawerOpen, setIsSearchDrawerOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -722,14 +791,14 @@ const Header = () => {
                         </a>
                     </div>
 
-                    <Link to="/" className="rare-logo flex items-center justify-center">
+                    <Link to="/" className="rare-logo hidden lg:flex items-center justify-center">
                         <img src="/images/Rare-Jewels-logo.svg" alt="Rare Jewels" className="h-6 md:h-12" />
                     </Link>
 
                     <div className="rare-header-right">
-                        <div className="rare-search-box hidden lg:flex">
+                        <div className="rare-search-box hidden lg:flex cursor-pointer" onClick={() => setIsSearchDrawerOpen(true)}>
                             <Search size={16} className="rare-search-icon" />
-                            <input type="text" placeholder="SEARCH" className="rare-search-input" />
+                            <span className="rare-search-placeholder">SEARCH</span>
                         </div>
                         <button onClick={() => isLoggedIn ? navigate('/dashboard') : openLogin()} className="rare-icon-btn hidden sm:block">
                             <User size={20} strokeWidth={1.5} />
@@ -857,6 +926,178 @@ const Header = () => {
                             </div>
                         </motion.div>
                     </>
+                )}
+            </AnimatePresence>
+
+            {/* ===== SEARCH DRAWER OVERLAY ===== */}
+            <AnimatePresence>
+                {isSearchDrawerOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="absolute top-0 shadow left-0 right-0 w-full h-auto bg-white z-50"
+                    >
+                        <div className="rare-search-drawer-header container flex items-center gap-4 py-6 border-b border-gray-100">
+                            <button onClick={() => setIsSearchDrawerOpen(false)} className="rare-drawer-close-btn p-2">
+                                <ChevronLeft size={24} strokeWidth={1.5} />
+                            </button>
+                            <div className="flex-1 relative flex items-center border border-gray-200 rounded px-4 py-2">
+                                <input
+                                    type="text"
+                                    className="w-full text-sm outline-none bg-transparent h-8"
+                                    placeholder="Search"
+                                    autoFocus
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                {searchQuery && (
+                                    <div className="flex items-center gap-1 md:gap-4 ml-2">
+                                        <button 
+                                            onClick={() => setSearchQuery('')}
+                                            className="text-[9px] md:text-[10px] font-semibold text-gray-400 uppercase tracking-widest whitespace-nowrap hover:text-gray-600"
+                                        >
+                                            Clear All
+                                        </button>
+                                        <button onClick={() => setSearchQuery('')} className="text-gray-400 hover:text-gray-600">
+                                            <X size={18} />
+                                        </button>
+                                    </div>
+                                )}
+                                <div className="ml-4 bg-black p-2 rounded cursor-pointer">
+                                    <Search size={18} className="text-white" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="container py-8">
+                            {(() => {
+                                // Simple simulation of search results
+                                const hasResults = searchQuery && (
+                                    RELATED_PRODUCTS.some(p => p.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                                    RELATED_CATEGORIES.some(c => c.toLowerCase().includes(searchQuery.toLowerCase()))
+                                );
+
+                                // CASE 1: No search query yet - Show Popular Products
+                                if (!searchQuery) {
+                                    return (
+                                        <div className="flex flex-col lg:flex-row gap-12">
+                                            <div className="flex-1">
+                                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Most Popular Products</h3>
+                                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                                                    {POPULAR_PRODUCTS.map((prod) => (
+                                                        <div key={prod.id} className="rare-search-prod-item group cursor-pointer">
+                                                            <div className="aspect-square bg-white border border-gray-50 flex items-center justify-center p-4 relative overflow-hidden">
+                                                                <button className="absolute top-2 right-2 text-gray-400">
+                                                                    <Heart size={16} strokeWidth={1} />
+                                                                </button>
+                                                                <img src={prod.image} alt={prod.name} className="w-full h-full object-contain transition-transform group-hover:scale-105" />
+                                                            </div>
+                                                            <div className="mt-4">
+                                                                <h4 className="text-[10px] leading-relaxed text-gray-600 mb-1 line-clamp-2">{prod.name}</h4>
+                                                                <p className="text-[11px] font-bold text-gray-900">{prod.price}</p>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="w-full lg:w-72">
+                                                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Most Popular Categories</h3>
+                                                <ul className="space-y-4">
+                                                    {POPULAR_CATEGORIES.map((cat, i) => (
+                                                        <li key={i}>
+                                                            <Link to="/shop" className="text-[13px] text-gray-800 hover:underline hover:text-rare-gold transition-colors">{cat}</Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                // CASE 2: Query entered but NO matches - Show "No results" + Popular Products
+                                if (!hasResults) {
+                                    return (
+                                        <>
+                                            <div className="text-center mb-8">
+                                                <p className="text-sm text-gray-400">No results found for "{searchQuery}"</p>
+                                            </div>
+                                            <div className="flex flex-col lg:flex-row gap-12">
+                                                <div className="flex-1">
+                                                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Most Popular Products</h3>
+                                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                                                        {POPULAR_PRODUCTS.map((prod) => (
+                                                            <div key={prod.id} className="rare-search-prod-item group cursor-pointer">
+                                                                <div className="aspect-square bg-white border border-gray-50 flex items-center justify-center p-4 relative overflow-hidden">
+                                                                    <button className="absolute top-2 right-2 text-gray-400">
+                                                                        <Heart size={16} strokeWidth={1} />
+                                                                    </button>
+                                                                    <img src={prod.image} alt={prod.name} className="w-full h-full object-contain transition-transform group-hover:scale-105" />
+                                                                </div>
+                                                                <div className="mt-4">
+                                                                    <h4 className="text-[10px] leading-relaxed text-gray-600 mb-1 line-clamp-2">{prod.name}</h4>
+                                                                    <p className="text-[11px] font-bold text-gray-900">{prod.price}</p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <div className="w-full lg:w-72">
+                                                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Most Popular Categories</h3>
+                                                    <ul className="space-y-4">
+                                                        {POPULAR_CATEGORIES.map((cat, i) => (
+                                                            <li key={i}>
+                                                                <Link to="/shop" className="text-[13px] text-gray-800 hover:underline hover:text-rare-gold transition-colors">{cat}</Link>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </>
+                                    );
+                                }
+
+                                // CASE 3: Query entered and has matches - Show Related Items
+                                return (
+                                    <div className="flex flex-col lg:flex-row gap-12">
+                                        <div className="flex-1">
+                                            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Related Products</h3>
+                                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                                                {RELATED_PRODUCTS.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase())).map((prod) => (
+                                                    <div key={prod.id} className="rare-search-prod-item group cursor-pointer">
+                                                        <div className="aspect-square bg-white border border-gray-50 flex items-center justify-center p-4 relative overflow-hidden">
+                                                            <button className="absolute top-2 right-2 text-gray-400">
+                                                                <Heart size={16} strokeWidth={1} />
+                                                            </button>
+                                                            <img src={prod.image} alt={prod.name} className="w-full h-full object-contain transition-transform group-hover:scale-105" />
+                                                        </div>
+                                                        <div className="mt-4">
+                                                            <h4 className="text-[10px] leading-relaxed text-gray-600 mb-1 line-clamp-2">{prod.name}</h4>
+                                                            <p className="text-[11px] font-bold text-gray-900">{prod.price}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="w-full lg:w-72">
+                                            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-[0.2em] mb-8">Related Categories</h3>
+                                            <ul className="space-y-4 mb-4">
+                                                {RELATED_CATEGORIES.filter(c => c.toLowerCase().includes(searchQuery.toLowerCase())).map((cat, i) => (
+                                                    <li key={i}>
+                                                        <Link to="/shop" className="text-[13px] text-gray-800 hover:underline hover:text-rare-gold transition-colors">{cat}</Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <Link to="/shop" className="text-[11px] font-semibold text-gray-400 flex items-center gap-2 hover:text-gray-900 transition-colors uppercase tracking-widest">
+                                                View more <ChevronRight size={14} />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                );
+                            })()}
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </header>

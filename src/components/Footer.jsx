@@ -115,17 +115,11 @@ const Footer = () => {
             {/* ===== PAYMENT ICONS ===== */}
             <div className="rare-footer-payments">
                 <div className="rare-payment-icons">
-                    <span className="rare-payment-icon visa">VISA</span>
-                    <span className="rare-payment-icon mastercard">
-                        <svg width="36" height="24" viewBox="0 0 40 26">
-                            <circle cx="15" cy="13" r="10" fill="#EB001B" />
-                            <circle cx="25" cy="13" r="10" fill="#F79E1B" />
-                            <path d="M20 5.3a10 10 0 0 1 0 15.4 10 10 0 0 1 0-15.4z" fill="#FF5F00" />
-                        </svg>
-                    </span>
-                    <span className="rare-payment-icon rupay" style={{ fontWeight: 800 }}>RuPay</span>
-                    <span className="rare-payment-icon upi" style={{ fontWeight: 800, letterSpacing: '0.05em' }}>UPI</span>
-                    <span className="rare-payment-icon bhim" style={{ fontWeight: 800 }}>BHIM</span>
+                    <img src="/images/visa.svg" alt="Visa" className='w-12 h-12 object-contain' />
+                    <img src="/images/mastercard.svg" alt="Mastercard" className='w-12 h-12 object-contain' />
+                    <img src="/images/rupay.svg" alt="RuPay" className='w-12 h-12 object-contain' />
+                    <img src="/images/upi-icon.svg" alt="UPI" className='w-12 h-12 object-contain' />
+                    <img src="/images/bhim-app-icon.svg" alt="BHIM" className='w-12 h-12 object-contain' />
                 </div>
             </div>
 

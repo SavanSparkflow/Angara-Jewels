@@ -73,7 +73,7 @@
 }
 
 .rare-header-container {
-    max-width: 1440px;
+    /* max-width: 1440px; */
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -88,7 +88,6 @@
 }
 
 .rare-phone-link {
-    display: flex;
     align-items: center;
     gap: 6px;
     color: var(--rare-gray);
@@ -145,8 +144,50 @@
     text-transform: uppercase;
 }
 
-.rare-search-input::placeholder {
+.rare-search-placeholder {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     color: var(--rare-light-gray);
+    text-transform: uppercase;
+}
+
+/* --- Search Drawer --- */
+.rare-search-drawer-header {
+    background-color: white;
+}
+
+.rare-drawer-close-btn {
+    color: var(--rare-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.rare-drawer-close-btn:hover {
+    transform: translateX(-2px);
+}
+
+.rare-search-prod-item .aspect-square {
+    background-color: #ffffff;
+    border: 1px solid #f5f5f5;
+    transition: all 0.3s ease;
+}
+
+.rare-search-prod-item:hover .aspect-square {
+    border-color: var(--rare-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.rare-search-prod-item h4 {
+    font-family: 'Inter', sans-serif;
+    color: var(--rare-gray);
+    transition: color 0.2s;
+}
+
+.rare-search-prod-item:hover h4 {
+    color: var(--rare-dark);
 }
 
 .rare-icon-btn {
@@ -1441,7 +1482,7 @@
 /* Payment Row */
 .rare-footer-payments {
     background: white;
-    padding: 24px;
+    padding: 14px;
     text-align: center;
     border-bottom: 1px solid var(--rare-border);
 }
