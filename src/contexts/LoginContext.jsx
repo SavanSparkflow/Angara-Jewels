@@ -1,26 +1,31 @@
 import React, { createContext, useState, useContext } from 'react';
-import LoginModal from '../components/LoginModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsAuthenticated, logout as logoutAction } from '../redux/slices/authSlice';
 
 const LoginContext = createContext();
 
 export const useLogin = () => {
-    return useContext(LoginContext);
+    const context = useContext(LoginContext);
+    return context || {};
 };
 
+import LoginModal from '../components/LoginModal';
+
 export const LoginProvider = ({ children }) => {
+    const dispatch = useDispatch();
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = useSelector(selectIsAuthenticated);
 
     const openLogin = () => setIsLoginOpen(true);
     const closeLogin = () => setIsLoginOpen(false);
 
     const login = () => {
-        setIsLoggedIn(true);
+        // Redux will handle this via setCredentials in LoginModal
         closeLogin();
     };
 
     const logout = () => {
-        setIsLoggedIn(false);
+        dispatch(logoutAction());
     };
 
     return (

@@ -39,12 +39,12 @@ const ProductCard = ({ product }) => {
             {/* Badges - Top Left */}
             <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
                 {product.isNew && (
-                    <span className="bg-rare-primary text-white text-[9px] font-bold px-1.5 py-0.5 uppercase tracking-widest">
+                    <span className="bg-rare-primary text-white text-[9px] font-bold px-1.5 py-0.5 uppercase ">
                         New
                     </span>
                 )}
                 {product.isTrending && (
-                    <span className="bg-rare-gold text-black text-[9px] font-bold px-1.5 py-0.5 uppercase tracking-widest">
+                    <span className="bg-rare-gold text-black text-[9px] font-bold px-1.5 py-0.5 uppercase ">
                         Trending
                     </span>
                 )}
@@ -73,7 +73,7 @@ const ProductCard = ({ product }) => {
                                     e.preventDefault();
                                     addToCart(product);
                                 }}
-                                className="w-full bg-rare-primary text-white py-3 text-[10px] uppercase tracking-[0.2em] font-bold font-sans shadow-lg hover:bg-rare-dark transition-all"
+                                className="w-full bg-rare-primary text-white py-3 text-[10px] uppercase tracking-[0.2em] font-bold shadow-lg hover:bg-rare-dark transition-all"
                             >
                                 Quick Add
                             </button>
@@ -84,7 +84,7 @@ const ProductCard = ({ product }) => {
 
             {/* Product Info */}
             <div className="p-6 flex flex-col items-center flex-grow text-center">
-                <p className="text-[9px] text-rare-gold uppercase tracking-[0.25em] mb-2 font-bold opacity-80 font-sans">
+                <p className="text-[9px] text-rare-gold uppercase tracking-[0.25em] mb-2 font-bold opacity-80">
                     {product.gemstone} • {product.metal}
                 </p>
 
@@ -106,7 +106,7 @@ const ProductCard = ({ product }) => {
                     </div>
                 </div>
 
-                <p className="text-rare-primary font-bold text-base tracking-widest font-sans">
+                <p className="text-rare-primary font-bold text-base">
                     {formatPrice(product.price)}
                 </p>
             </div>

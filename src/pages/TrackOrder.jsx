@@ -10,7 +10,7 @@ const TrackOrder = () => {
                 {/* Sequel Card */}
                 <div className="bg-white border border-gray-200 rounded-lg p-8 flex flex-col items-center shadow-sm">
                     <div className="h-16 flex items-center justify-center mb-8">
-                        <div className="flex items-center text-[#c23632] font-bold text-xl tracking-wider">
+                        <div className="flex items-center text-[#c23632] font-bold text-xl">
                             <div className="w-4 h-4 bg-[#c23632] mr-2 flex justify-center items-center">
                                 <div className="w-2 h-2 bg-white rounded-full"></div>
                             </div>
@@ -24,7 +24,7 @@ const TrackOrder = () => {
                             className="w-full bg-[#fcfcfc] border border-gray-200 text-gray-700 px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-300 transition-colors text-sm"
                         />
                     </div>
-                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs tracking-widest font-semibold py-4 rounded-md transition-colors">
+                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs  font-semibold py-4 rounded-md transition-colors">
                         TRACK ORDER
                     </button>
                 </div>
@@ -32,7 +32,7 @@ const TrackOrder = () => {
                 {/* Blue Dart Card */}
                 <div className="bg-white border border-gray-200 rounded-lg p-8 flex flex-col items-center shadow-sm">
                     <div className="h-16 flex items-center justify-center mb-8">
-                        <div className="flex items-center font-bold text-xl italic tracking-wider">
+                        <div className="flex items-center font-bold text-xl italic">
                             <span className="text-[#0052a3]">BLUE</span>
                             <span className="text-[#00b050] ml-1">DART</span>
                             <svg className="w-5 h-5 text-[#00b050] ml-1" viewBox="0 0 24 24" fill="currentColor">
@@ -47,7 +47,7 @@ const TrackOrder = () => {
                             className="w-full bg-[#fcfcfc] border border-gray-200 text-gray-700 px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-300 transition-colors text-sm"
                         />
                     </div>
-                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs tracking-widest font-semibold py-4 rounded-md transition-colors">
+                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs  font-semibold py-4 rounded-md transition-colors">
                         TRACK ORDER
                     </button>
                 </div>
@@ -58,7 +58,7 @@ const TrackOrder = () => {
                         <div className="text-[#132d56] font-bold text-3xl font-poppins">
                             BVC<span className="text-xs absolute -mt-1">&reg;</span>
                         </div>
-                        <div className="text-[#132d56] text-[10px] tracking-widest font-semibold mt-1">
+                        <div className="text-[#132d56] text-[10px]  font-semibold mt-1">
                             LOGISTICS
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const TrackOrder = () => {
                             className="w-full bg-[#fcfcfc] border border-gray-200 text-gray-700 px-4 py-3 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-300 transition-colors text-sm"
                         />
                     </div>
-                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs tracking-widest font-semibold py-4 rounded-md transition-colors">
+                    <button className="w-full bg-[#20202d] hover:bg-[#1a1a24] text-white text-xs  font-semibold py-4 rounded-md transition-colors">
                         TRACK ORDER
                     </button>
                 </div>

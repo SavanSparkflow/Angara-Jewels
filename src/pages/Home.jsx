@@ -1,519 +1,749 @@
 import React, { useState, useEffect } from 'react';
-import { products } from '../data/products';
-import { Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, FreeMode } from 'swiper/modules';
+import { Heart, Star, ChevronRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useWishlist } from '../hooks/useWishlist';
+import { useCurrency } from '../contexts/CurrencyContext';
+import VirtualAppointmentModal from '../components/VirtualAppointmentModal';
+const Cartificate1 = "/images/cartificate_1.svg";
+const Cartificate2 = "/images/cartificate_2.svg";
+const Cartificate3 = "/images/cartificate_3.svg";
+const Cartificate4 = "/images/cartificate_4.svg";
+const BannerImg1 = "/images/banner_01.png";
+const BannerImg2 = "/images/banner_02.png";
+const BannerImg3 = "/images/banner_03.png";
+const BannerImg4 = "/images/banner_04.png";
+
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/free-mode';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getBanners } from '../redux/slices/bannerSlice';
+import { getCollections } from '../redux/slices/collectionSlice';
+import { getDiamondShapes } from '../redux/slices/diamondShapeSlice';
+import { getProducts, getTrendingProducts } from '../redux/slices/productSlice';
+import { getDiamondTypes } from '../redux/slices/diamondTypeSlice';
+import { getBirthstones } from '../redux/slices/birthstoneSlice';
 
 const Home = () => {
-    const [trendingFilter, setTrendingFilter] = useState('Lab Grown Diamond');
-    const [mostLovedPage, setMostLovedPage] = useState(0);
-    const [trendingPage, setTrendingPage] = useState(0);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { banners: apiBanners, loading: isBannersLoading } = useSelector(state => state.banner);
+    const { celebrate: apiCelebrate, gifts: apiGifts, loading: isCollectionsLoading } = useSelector(state => state.collection);
+    const { shapes: apiShapes, loading: isShapesLoading } = useSelector(state => state.diamondShape);
+    const { products: apiProducts, trendingProducts: apiTrendingProducts, loading: isProductsLoading, trendingLoading: isTrendingLoading } = useSelector(state => state.product);
+    const { diamondTypes: apiDiamondTypes, loading: isDiamondTypesLoading } = useSelector(state => state.diamondType);
+    const { birthstones: apiBirthstones, loading: isBirthstonesLoading } = useSelector(state => state.birthstone);
+    const { toggleWishlist, isInWishlist } = useWishlist();
+
+    // Map API data to the banner structure or use empty array
+    const heroBanners = apiBanners && apiBanners.length > 0 
+        ? apiBanners.map(b => ({
+            title: b.title || "",
+            subtitle: b.subtitle || "",
+            img: b.image?.url || "",
+            link: b.linkCategory ? `/shop?cat=${b.linkCategory.toLowerCase()}` : ""
+        })) 
+        : [];
+
+    const [trendingFilter, setTrendingFilter] = useState(''); // Store selected diamondType ID
     const [heroIndex, setHeroIndex] = useState(0);
-    const [birthstonePage, setBirthstonePage] = useState(0);
-    const [editPage, setEditPage] = useState(0);
-    const [socialPage, setSocialPage] = useState(0);
+    const [isVirtualModalOpen, setIsVirtualModalOpen] = useState(false);
 
+    useEffect(() => {
+        dispatch(getBanners());
+        dispatch(getCollections({ placement: 'celebrate' }));
+        dispatch(getCollections({ placement: 'gifts' }));
+        dispatch(getDiamondShapes());
+        dispatch(getProducts({})); // Fetch products without payload
+        dispatch(getDiamondTypes()); // Fetch diamond types for trending section
+        dispatch(getBirthstones());
+    }, [dispatch]);
 
-    const heroBanners = [
-        {
-            title: "ARTISTRY IN EVERY FACET",
-            subtitle: "Expertly designed lab-grown jewellery.",
-            img: "/images/hero-banner.png"
-        },
-        {
-            title: "RADIANT EXCELLENCE",
-            subtitle: "Discover the brilliance of rare diamonds.",
-            img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=1200"
-        },
-        {
-            title: "COLOURS OF LOVE",
-            subtitle: "Vibrant gemstones that tell your story.",
-            img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=1200"
+    // Initial trending filter setup
+    useEffect(() => {
+        if (apiDiamondTypes?.length > 0 && !trendingFilter) {
+            setTrendingFilter(apiDiamondTypes[0]._id);
         }
-    ];
+    }, [apiDiamondTypes, trendingFilter]);
 
-    // ==================== DATA ====================
-
-    const celebrateCategories = [
-        { name: "Engagement Rings", img: "/images/engagement-ring.png" },
-        { name: "Men's Jewellery", img: "/images/mens-jewellery.png" },
-        { name: "Gardens at Twilight", img: "/images/gardens-twilight.png" },
-        { name: "Bridal Jewellery", img: "/images/bridal-jewellery.png" },
-    ];
-
-    const giftsCategories = [
-        { name: "Solitaire Jewellery", img: "/images/solitaire-jewellery.png" },
-        { name: "Initials Jewellery", img: "/images/initials-jewellery.png" },
-        { name: "Heart Jewellery", img: "/images/heart-jewellery.png" },
-        { name: "Smart Watch Charm", img: "/images/smartwatch-charm.png" },
-    ];
-
-    const trendingFilters = [
-        'Lab Grown Diamond', 'Aquamarine', 'Natural Diamond', 'Blue Sapphire', 'London Blue Topaz'
-    ];
-
-    const birthstones = [
-        { month: "December", stone: "Tanzanite", color: "#6B5BD2", gradient: "linear-gradient(135deg, #6B5BD2 0%, #9B8FE8 50%, #4A3AB0 100%)" },
-        { month: "January", stone: "Garnet", color: "#8B1A1A", gradient: "linear-gradient(135deg, #C62828 0%, #8B1A1A 50%, #E53935 100%)" },
-        { month: "February", stone: "Amethyst", color: "#7B1FA2", gradient: "linear-gradient(135deg, #9C27B0 0%, #7B1FA2 50%, #BA68C8 100%)" },
-        { month: "March", stone: "Aquamarine", color: "#4FC3F7", gradient: "linear-gradient(135deg, #4FC3F7 0%, #81D4FA 50%, #29B6F6 100%)" },
-        { month: "April", stone: "Diamond", color: "#E0E0E0", gradient: "linear-gradient(135deg, #FAFAFA 0%, #E0E0E0 30%, #FFFFFF 50%, #BDBDBD 100%)" },
-        { month: "May", stone: "Emerald", color: "#2E7D32", gradient: "linear-gradient(135deg, #43A047 0%, #2E7D32 50%, #66BB6A 100%)" },
-        { month: "June", stone: "Pearl", color: "#F5F5F5", gradient: "linear-gradient(135deg, #FAFAFA 0%, #E8E8E8 30%, #FFFFFF 60%, #F0E6D8 100%)" },
-    ];
-
-    const editorials = [
-        {
-            img: "/images/edit-sapphire.png",
-            title: "How Rare Jewels Helps You Personalise Jewellery With Meaningful Details",
-            link: "Read & Shop"
-        },
-        {
-            img: "/images/edit-diamond.png",
-            title: "1 Carat Diamond Price in India 2026: Latest Trends and Buying Advice",
-            link: "Read & Shop"
-        },
-        {
-            img: "/images/edit-gemstone.png",
-            title: "CVD vs HPHT Lab-Grown Diamonds: Which One is Better?",
-            link: "Read & Shop"
-        },
-        {
-            img: "/images/edit-sapphire.png",
-            title: "The Ultimate Guide to Choosing Your Engagement Ring",
-            link: "Read & Shop"
-        },
-        {
-            img: "/images/edit-diamond.png",
-            title: "Why Color Stones are the New Trend in Bridal Jewelry",
-            link: "Read & Shop"
-        },
-        {
-            img: "/images/edit-gemstone.png",
-            title: "The Legacy of Fine Jewelry Craftsmanship in India",
-            link: "Read & Shop"
+    // Fetch trending products when filter changes
+    useEffect(() => {
+        if (trendingFilter) {
+            dispatch(getTrendingProducts({ diamondType: [trendingFilter] }));
         }
-    ];
+    }, [dispatch, trendingFilter]);
+
+    const handleCollectionClick = (id) => {
+        navigate(`/shop?featuredId=${id}`);
+    };
+
+    useEffect(() => {
+        if (heroBanners.length > 0) {
+            const interval = setInterval(() => {
+                setHeroIndex((prev) => (prev + 1) % heroBanners.length);
+            }, 5000);
+            return () => clearInterval(interval);
+        }
+    }, [heroBanners.length]);
+
+    const diamondShapes = apiShapes && apiShapes.length > 0
+        ? apiShapes.map(s => ({
+            name: s.name,
+            shape: s.image?.url,
+            id: s._id
+        }))
+        : [];
+
+    const celebrateCategories = apiCelebrate && apiCelebrate.length > 0
+        ? apiCelebrate.map(c => ({
+            name: c.name,
+            img: c.image?.url || "",
+            id: c._id
+        }))
+        : [];
+
+    const giftsCategories = apiGifts && apiGifts.length > 0
+        ? apiGifts.map(c => ({
+            name: c.name,
+            img: c.image?.url || "",
+            id: c._id
+        }))
+        : [];
+
+    const trendingFilters = apiDiamondTypes || [];
+
+    const birthstones = apiBirthstones && apiBirthstones.length > 0
+        ? apiBirthstones.map(b => ({
+            month: b.month,
+            stone: b.stoneName,
+            image: b.image?.url
+        }))
+        : [];
 
     const customerReviews = [
         {
-            img: "/images/review-1.png",
             rating: 4,
-            text: "My experience with Rare Jewels has been incredible! Responses to my queries have been prompt, cust...",
-            name: "Monica Paul"
+            text: "My experience with Rare Jewels has been incredible! Responses to my queries have been prompt, quality is top-notch.",
+            name: "Monica Paul",
+            image: "/images/review_1.png"
         },
         {
-            img: "/images/review-2.png",
             rating: 5,
-            text: "Right from the day of enquiry to the days after the delivery, the team was in constant touch for sugge...",
-            name: "Sudarshan Sridharan"
+            text: "Right from the day of enquiry to the days after the delivery, the team was in constant touch for suggestions.",
+            name: "Sudarshan Sridharan",
+            image: "/images/review_2.png"
         },
         {
-            img: "/images/review-3.png",
             rating: 5,
-            text: "My fiancé and I recently bought an engagement ring online from Rare Jewels and had an amazing ex...",
-            name: "Aroonabha Ghose"
+            text: "My fiancé and I recently bought an engagement ring online from Rare Jewels and had an amazing experience.",
+            name: "Aroonabha Ghose",
+            image: "/images/review_3.png"
         },
         {
-            img: "/images/review-4.png",
-            rating: 5,
-            text: "It was a great shopping experience with Rare Jewels. The Product was upto the mark with regards quality, weig...",
-            name: "Anandita Gupta"
+            rating: 4,
+            text: "It was a great shopping experience with Rare Jewels. The Product was up to the mark with regards quality.",
+            name: "Anandita Gupta",
+            image: "/images/review_4.png"
         },
     ];
 
-    const trendingProducts = products.filter(p => p.isTrending).slice(0, 8);
-    const mostLovedProducts = products.filter(p => p.isTrending || p.isNew).slice(0, 8);
-    const totalMostLovedPages = Math.ceil(mostLovedProducts.length / 4);
-    const totalTrendingPages = Math.ceil(trendingProducts.length / 4);
-    const totalBirthstonePages = Math.ceil(birthstones.length / 4);
-    const totalEditPages = Math.ceil(editorials.length / 3);
+    // Use API products for 'Trending Now' section
+    const trendingProducts = apiTrendingProducts && apiTrendingProducts.length > 0
+        ? apiTrendingProducts.map(p => ({
+            id: p?._id,
+            name: p?.title,
+            price: p?.variants?.[0]?.price || 0,
+            image: p?.variants?.[0]?.images?.[0]?.url || "",
+            originalData: p
+        }))
+        : [];
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setHeroIndex((prev) => (prev + 1) % heroBanners.length);
-            setMostLovedPage((prev) => (prev + 1) % totalMostLovedPages);
-            setTrendingPage((prev) => (prev + 1) % totalTrendingPages);
-            setBirthstonePage((prev) => (prev + 1) % totalBirthstonePages);
-            setEditPage((prev) => (prev + 1) % totalEditPages);
-            setSocialPage((prev) => (prev + 1) % 1); // 3 items in a single page for now
-        }, 5000); // 5 seconds interval for all auto sliders
-        return () => clearInterval(interval);
-    }, [totalMostLovedPages, totalTrendingPages, totalBirthstonePages, totalEditPages]);
+    // Use API products for 'Most Loved' section
+    const mostLovedProducts = apiProducts && apiProducts.length > 0
+        ? apiProducts.map(p => ({
+            id: p?._id,
+            name: p?.title,
+            price: p?.variants?.[0]?.price || 0,
+            image: p?.variants?.[0]?.images?.[0]?.url || "",
+            originalData: p
+        }))
+        : [];
 
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            maximumFractionDigits: 0,
-        }).format(price);
-    };
+    const { formatPrice, formatPriceRange: contextFormatPriceRange } = useCurrency();
 
     const formatPriceRange = (price) => {
-        const low = formatPrice(price);
-        const high = formatPrice(Math.round(price * 1.5));
-        return `${low} - ${high}`;
-    };
-
-    // Render star rating
-    const renderStars = (rating) => {
-        return (
-            <div className="rare-stars">
-                {[...Array(5)].map((_, i) => (
-                    <Star
-                        key={i}
-                        size={14}
-                        className={i < rating ? 'star-filled' : 'star-empty'}
-                        fill={i < rating ? '#C8923C' : 'none'}
-                        stroke={i < rating ? '#C8923C' : '#ccc'}
-                    />
-                ))}
-            </div>
-        );
+        const low = price;
+        const high = Math.round(price * 1.5);
+        return contextFormatPriceRange(`${low} - ${high}`);
     };
 
     return (
-        <div className="rare-home">
+        <div className="rare-home-v2">
 
-            {/* ===================== HERO BANNER ===================== */}
-            <section className="rare-hero relative min-h-[600px] overflow-hidden">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={heroIndex}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                        className="w-full h-full absolute inset-0"
-                    >
-                        <div className="rare-hero-inner h-full flex flex-col md:flex-row mx-auto px-6 relative">
-                            <div className="rare-hero-content w-full md:w-1/2 flex flex-col justify-center h-full z-10 pt-20 pb-10">
-                                <h1 className="rare-hero-title">
-                                    {heroBanners[heroIndex].title}
-                                </h1>
-                                <p className="rare-hero-subtitle">
-                                    {heroBanners[heroIndex].subtitle}
-                                </p>
-                                <Link to="/shop" className="rare-hero-btn">
-                                    SHOP NOW
-                                </Link>
-                            </div>
-                            <div className="rare-hero-image w-full md:w-1/2 flex items-center justify-center p-8">
-                                <img src={heroBanners[heroIndex].img} alt={heroBanners[heroIndex].title} className="object-cover" />
-                            </div>
+            {/* ===================== PREMIUM HERO BANNER ===================== */}
+            <section className="relative h-[650px] w-full bg-black overflow-hidden group">
+                {heroBanners.length > 0 ? (
+                    <div className="relative h-full w-full">
+                        <AnimatePresence>
+                            <motion.div
+                                key={heroIndex}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 1.2, ease: "easeInOut" }}
+                                className="absolute inset-0 w-full h-full"
+                            >
+                                {/* Full Background Image with Better Contrast Overlay */}
+                                <div className="absolute inset-0 w-full h-full overflow-hidden">
+                                    <motion.img 
+                                        initial={{ scale: 1.1 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ duration: 10, ease: "linear" }}
+                                        src={heroBanners[heroIndex].img} 
+                                        alt={heroBanners[heroIndex].title} 
+                                        className="w-full h-full object-cover"
+                                    />
+                                    {/* Dual-layered overlay for depth and readability */}
+                                    <div className="absolute inset-0 bg-black/30"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
+                                </div>
+
+                                {/* Content Overlay */}
+                                <div className="relative h-full container flex items-center justify-center text-center">
+                                    <div className="max-w-3xl px-6">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 15 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.4, duration: 0.8 }}
+                                        >
+                                            <span className="text-white/80 text-[10px] sm:text-[11px] font-bold tracking-[0.5em] uppercase mb-4 block drop-shadow-md">
+                                                Rare Jewels Collection
+                                            </span>
+                                        </motion.div>
+                                        
+                                        <motion.h1 
+                                            initial={{ opacity: 0, y: 25 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.6, duration: 0.8 }}
+                                            className="unna-font text-white text-4xl sm:text-5xl md:text-7xl font-normal leading-tight mb-6 drop-shadow-lg"
+                                        >
+                                            {heroBanners[heroIndex].title}
+                                        </motion.h1>
+
+                                        <motion.p 
+                                            initial={{ opacity: 0, y: 15 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.8, duration: 0.8 }}
+                                            className="text-white/90 text-lg sm:text-xl font-light italic mb-10 unna-font tracking-wide drop-shadow-md"
+                                        >
+                                            {heroBanners[heroIndex].subtitle}
+                                        </motion.p>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 1, duration: 0.5 }}
+                                        >
+                                            <Link 
+                                                to={heroBanners[heroIndex].link || "/shop"} 
+                                                className="inline-block bg-white text-black px-12 py-4 text-[12px] font-bold tracking-[0.2em] uppercase hover:bg-black hover:text-white transition-all duration-500 shadow-2xl"
+                                            >
+                                                Explore Collection
+                                            </Link>
+                                        </motion.div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+
+                        {/* Aesthetic Navigation Dots */}
+                        <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-4 z-20">
+                            {heroBanners.map((_, i) => (
+                                <button
+                                    key={i}
+                                    className={`group h-[2px] transition-all duration-500 relative ${heroIndex === i ? 'w-12 bg-white' : 'w-6 bg-white/30 hover:bg-white/50'}`}
+                                    onClick={() => setHeroIndex(i)}
+                                >
+                                    <span className="absolute -top-4 left-0 w-full h-8 cursor-pointer"></span>
+                                </button>
+                            ))}
                         </div>
-                    </motion.div>
-                </AnimatePresence>
-                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-20">
-                    {heroBanners.map((_, i) => (
-                        <button
-                            key={i}
-                            className={`h-2 rounded-full transition-all duration-300 ${heroIndex === i ? 'bg-black w-6' : 'bg-gray-400 w-2'}`}
-                            onClick={() => setHeroIndex(i)}
-                        />
-                    ))}
-                </div>
+
+                        {/* Side Arrows - Visible on Hover */}
+                        <button 
+                            onClick={() => setHeroIndex((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
+                            className="absolute left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors z-20 hidden md:block"
+                        >
+                            <span className="text-3xl font-light">←</span>
+                        </button>
+                        <button 
+                            onClick={() => setHeroIndex((prev) => (prev + 1) % heroBanners.length)}
+                            className="absolute right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors z-20 hidden md:block"
+                        >
+                            <span className="text-3xl font-light">→</span>
+                        </button>
+                    </div>
+                ) : (
+                    <div className="h-full w-full flex flex-col items-center justify-center bg-[#fdfaf7]">
+                        <div className="w-16 h-[1px] bg-[#C8923C] mb-4"></div>
+                        <span className="unna-font text-[#AD8868] text-2xl italic">No Banner Found</span>
+                        <div className="w-16 h-[1px] bg-[#C8923C] mt-4"></div>
+                    </div>
+                )}
             </section>
 
-            {/* ===================== PROMO BANNER ===================== */}
-            <section className="rare-promo-bar">
-                <p>FLAT 5% OFF WITH CODE 'CELEBRATE' | FREE 15-DAY RETURNS | LIFETIME EXCHANGE</p>
-            </section>
-
-            {/* ===================== TRUST BADGES ===================== */}
-            <section className="rare-trust-badges">
-                <div className="rare-trust-inner">
-                    <div className="rare-trust-item">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-                        <span>BIS Hallmark</span>
-                    </div>
-                    <div className="rare-trust-item">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><path d="M9 12l2 2 4-4" /></svg>
-                        <span>Free 15-Day Returns</span>
-                    </div>
-                    <div className="rare-trust-item">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 12l2 2 4-4" /></svg>
-                        <span>Rare Jewels Certified</span>
-                    </div>
-                    <div className="rare-trust-item">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                        <span>Lifetime Exchange and Buyback</span>
-                    </div>
+            {/* ===================== SHOP BY DIAMOND (NEW) ===================== */}
+            <section className="py-16">
+                <div className="container mx-auto text-center px-4">
+                    <h2 className="text-2xl mb-12">Shop By Diamond Shape</h2>
+                    {diamondShapes.length > 0 ? (
+                        <div className="flex flex-wrap justify-center items-center gap-8">
+                            {diamondShapes.map((item, i) => (
+                                <Link key={i} to={`/shop?shapeId=${item.id}`} className="group flex flex-col items-center gap-4">
+                                    <img src={item.shape} alt={item.name} className="w-12 h-12" />
+                                    <span className="text-sm font-medium text-[#475569]">{item.name}</span>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center">
+                            <div className="w-12 h-[1px] bg-[#C8923C] mb-3"></div>
+                            <span className="unna-font text-[#AD8868] text-xl italic">No Shape Found</span>
+                            <div className="w-12 h-[1px] bg-[#C8923C] mt-3"></div>
+                        </div>
+                    )}
                 </div>
             </section>
 
             {/* ===================== CELEBRATE WITH RARE JEWELS ===================== */}
-            <section className="rare-section">
-                <h2 className="rare-section-title">Celebrate With Rare Jewels</h2>
-                <div className="rare-category-grid">
-                    {celebrateCategories.map((cat, i) => (
-                        <Link key={i} to="/shop" className="rare-category-card">
-                            <div className="rare-category-image">
-                                <img src={cat.img} alt={cat.name} />
-                            </div>
-                            <div className="rare-category-label">
-                                <span>{cat.name}</span>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            </section>
-
-            {/* ===================== MOST LOVED ON RARE JEWELS ===================== */}
-            <section className="rare-section">
-                <h2 className="rare-section-title">Most Loved on Rare Jewels</h2>
-                <div className="rare-products-carousel overflow-hidden">
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={mostLovedPage}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                            className="rare-products-grid"
-                        >
-                            {mostLovedProducts.slice(mostLovedPage * 4, mostLovedPage * 4 + 4).map((product) => (
-                            <div key={product.id} className="rare-product-item">
-                                <div className="rare-product-image-wrap group overflow-hidden">
-                                    <button className="rare-wishlist-btn z-10">
-                                        <Heart size={18} strokeWidth={1.5} />
-                                    </button>
-                                    <Link to={`/product/${product.id}`}>
-                                        <img src={product.image} alt={product.name} className="rare-product-img transition-transform duration-700 group-hover:scale-105" />
-                                    </Link>
-
-                                    {/* Customize Button on Hover */}
-                                    <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20">
-                                        <button className="w-full bg-black text-white py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg">
-                                            Customize
-                                        </button>
+            <section className="pt-16">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">Celebrate With Rare Jewels</h2>
+                    </div>
+                    {isCollectionsLoading ? (
+                        <div className="flex justify-center py-10">
+                            <div className="w-8 h-8 border-2 border-[#AD8868] border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : celebrateCategories.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {celebrateCategories.map((cat, i) => (
+                                <div
+                                    key={i}
+                                    onClick={() => handleCollectionClick(cat.id)}
+                                    className="group relative overflow-hidden block aspect-[4/5] cursor-pointer rounded-sm shadow-sm"
+                                >
+                                    <div className="absolute inset-0 z-0">
+                                        <img src={cat.img} alt={cat.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                                    </div>
+                                    
+                                    <div className="absolute inset-0 z-10 flex flex-col justify-end p-8 text-center text-white">
+                                        <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <h3 className="unna-font text-2xl mb-4 italic leading-tight">{cat.name}</h3>
+                                            <div className="h-[1px] w-0 group-hover:w-full bg-white/60 mx-auto transition-all duration-700"></div>
+                                            <button className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center gap-2 mx-auto text-[10px] uppercase tracking-[0.2em] font-bold">
+                                                Explore Now <span className="text-lg">→</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="rare-product-info">
-                                    <Link to={`/product/${product.id}`}>
-                                        <h3 className="rare-product-name">{product.name}</h3>
-                                    </Link>
-                                    <p className="rare-product-price">{formatPriceRange(product.price)}</p>
-                                </div>
-                            </div>
-                        ))}
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-                <div className="rare-carousel-dots">
-                    {Array.from({ length: totalMostLovedPages }).map((_, i) => (
-                        <button
-                            key={i}
-                            className={`rare-dot ${mostLovedPage === i ? 'active' : ''}`}
-                            onClick={() => setMostLovedPage(i)}
-                        />
-                    ))}
-                </div>
-                <div className="rare-discover-btn-wrap">
-                    <Link to="/shop" className="rare-discover-btn">Discover</Link>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center">
+                            <div className="w-12 h-[1px] bg-[#C8923C] mb-3"></div>
+                            <span className="unna-font text-[#AD8868] text-xl italic">No Collection Found</span>
+                            <div className="w-12 h-[1px] bg-[#C8923C] mt-3"></div>
+                        </div>
+                    )}
                 </div>
             </section>
 
-            {/* ===================== CRAFTSMANSHIP SECTION ===================== */}
-            <section className="rare-craftsmanship">
-                <div className="rare-craft-inner">
-                    <div className="rare-craft-image">
-                        <img src="/images/craftsmanship.png" alt="Master Indian Artisans" />
+            {/* ===================== MOST LOVED ON RARE JEWELS (SWIPER) ===================== */}
+            <section className="pt-16">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">Most Loved on Rare Jewels</h2>
                     </div>
-                    <div className="rare-craft-content">
-                        <h2 className="rare-craft-title">
-                            Exceptional Craftsmanship, Handcrafted with Heart & Heritage
-                        </h2>
-                        <p className="rare-craft-byline">by Master Indian Artisans</p>
-                        <p className="rare-craft-text">
-                            Your vision inspires our craft — from sketch to sparkle, every jewel is crafted with precision to bring dreams alive!
-                        </p>
+                    {isProductsLoading ? (
+                        <div className="flex justify-center py-10">
+                            <div className="w-8 h-8 border-2 border-[#AD8868] border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : mostLovedProducts.length > 0 ? (
+                        <>
+                            <Swiper
+                                modules={[Pagination, Autoplay]}
+                                slidesPerView={1}
+                                spaceBetween={20}
+                                autoplay={{ delay: 4000 }}
+                                breakpoints={{
+                                    640: { slidesPerView: 2 },
+                                    1024: { slidesPerView: 4 },
+                                }}
+                                className="product-slider relative pb-16"
+                            >
+                                {mostLovedProducts.map((product) => (
+                                    <SwiperSlide key={product.id}>
+                                        <div 
+                                            className="group transition-all h-full bg-white relative rounded-xl overflow-hidden cursor-pointer shadow-md"
+                                            onClick={() => navigate(`/product/${product.id}`)}
+                                        >
+                                                <button 
+                                                    className={`absolute top-4 right-4 z-10 shadow-sm p-1.5 rounded-full transition-colors ${isInWishlist(product.id, product.name) ? 'bg-black text-white' : 'bg-white text-gray-400 hover:text-red-500'}`}
+                                                    onClick={(e) => { e.stopPropagation(); toggleWishlist(product.originalData || product, { type: 'product' }); }}
+                                                >
+                                                    <Heart size={16} fill={isInWishlist(product.id, product.name) ? "white" : "none"} />
+                                                </button>
+                                            <div className="relative aspect-square overflow-hidden mb-4 bg-[#F5F5F3]">
+                                                <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                                            </div>
+                                            <div className="text-center pb-4 px-2">
+                                                <h3 className="text-[13px] font-medium mb-2 h-10 overflow-hidden line-clamp-2 text-gray-800">{product.name}</h3>
+                                                <p className="text-[12px] text-gray-900 font-bold">{formatPriceRange(product.price)}</p>
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+
+                            <div className="flex justify-center mt-4">
+                                <Link to="/shop" className="px-12 py-2.5 border border-gray-800 rounded text-[13px]  uppercase hover:bg-black hover:text-white transition-all">
+                                    Discover
+                                </Link>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-12">
+                            <div className="w-12 h-[1px] bg-[#C8923C] mb-3"></div>
+                            <span className="unna-font text-[#AD8868] text-xl italic">No Products Found</span>
+                            <div className="w-12 h-[1px] bg-[#C8923C] mt-3"></div>
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            {/* ===================== PROPER BANNER (MINIMAL YET MEANINGFUL) ===================== */}
+            <section className="pt-16">
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* LEFT GRID OF 3 */}
+                        <div className="grid grid-cols-2 gap-4">
+                            <img src={BannerImg1} alt="Eternal Shine" className="w-full h-full object-contain" />
+                            <img src={BannerImg2} alt="Pure Luxury" className="w-full h-full object-contain" />
+                            <img src={BannerImg3} alt="Pure Brilliance" className="w-full col-span-2 object-contain" />
+                        </div>
+                        {/* RIGHT CONTENT SECTION */}
+                        <img src={BannerImg4} alt="Pure Brilliance" className="w-full object-contain" />
+                    </div>
+                </div>
+            </section>
+
+            {/* ===================== POLICY FEATURED ICONS ===================== */}
+            <section className="pt-16">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-wrap justify-center md:justify-between items-center gap-6">
+                        <div className="flex items-center flex-col gap-4 group">
+                            <img src={Cartificate1} alt="BIS Hallmark" className="w-12 h-12" />
+                            <span className="text-xs font-medium uppercase  text-[#475569]">BIS Hallmark</span>
+                        </div>
+                        <div className="flex items-center flex-col gap-4 group">
+                            <img src={Cartificate2} alt="Free 15-Day Returns" className="w-12 h-12" />
+                            <span className="text-xs font-medium uppercase  text-[#475569]">Free 15-Day Returns</span>
+                        </div>
+                        <div className="flex items-center flex-col gap-4 group">
+                            <img src={Cartificate3} alt="Rare Certified" className="w-12 h-12" />
+                            <span className="text-xs font-medium uppercase  text-[#475569]">Rare Jewels Certified</span>
+                        </div>
+                        <div className="flex items-center flex-col gap-4 group">
+                            <img src={Cartificate4} alt="Lifetime Exchange" className="w-12 h-12" />
+                            <span className="text-xs font-medium uppercase  text-[#475569]">Lifetime Exchange and Buyback</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===================== BOOK A VIRTUAL APPOINTMENT ===================== */}
+            <section className="pt-16 relative overflow-hidden">
+                <div className="relative z-10">
+                    <div className="relative min-h-[500px] flex items-center md:justify-start justify-center">
+                        {/* High-res background with subtle overlay */}
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src="/images/virtual-consultation-v3.png"
+                                alt="Professional Consultation"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        {/* Liquid-Design Floating Card */}
+                        <div className="relative z-10 w-full max-w-[340px] md:max-w-xl lg:max-w-3xl bg-[#AD8868]/95 backdrop-blur-md p-8 md:ml-52 rounded-3xl text-white border border-white/20 shadow-2xl">
+                            <h2 className="unna-font text-3xl md:text-4xl font-normal mb-2">
+                                Book A Virtual Appointment
+                            </h2>
+                            <p className="text-sm md:text-md mb-10 font-normal text-white">
+                                Book a personalized appointment to explore designs that match your
+                                style. Let our experts guide you in finding or creating something truly special.
+                            </p>
+                            <button 
+                                onClick={() => setIsVirtualModalOpen(true)}
+                                className="w-full sm:w-auto bg-[#876548] text-white px-10 py-4 text-[13px] font-bold tracking-[0.2em] uppercase rounded shadow-xl hover:bg-black hover:transform hover:-translate-y-1 transition-all duration-300 border border-white/10"
+                            >
+                                Book Appointment
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ===================== GIFTS THAT SAY IT ALL ===================== */}
-            <section className="rare-section">
-                <h2 className="rare-section-title">Gifts That Say It All</h2>
-                <div className="rare-category-grid">
-                    {giftsCategories.map((cat, i) => (
-                        <Link key={i} to="/shop" className="rare-category-card">
-                            <div className="rare-category-image">
-                                <img src={cat.img} alt={cat.name} />
-                            </div>
-                            <div className="rare-category-label">
-                                <span>{cat.name}</span>
-                            </div>
-                        </Link>
-                    ))}
+            <section className="pt-16">
+                <div className='container mx-auto px-4'>
+                    <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">Gifts That Say It All</h2>
+                    </div>
+                    {isCollectionsLoading ? (
+                        <div className="flex justify-center py-20">
+                            <div className="w-8 h-8 border-2 border-[#AD8868] border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : giftsCategories.length > 0 ? (
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-6xl mx-auto">
+                            {giftsCategories.map((cat, i) => (
+                                <div key={i} onClick={() => handleCollectionClick(cat.id)} className="group flex flex-col items-center cursor-pointer">
+                                    <div className="relative w-full aspect-square rounded-full overflow-hidden mb-6 p-2 border border-gray-100 group-hover:border-[#C8923C] transition-colors duration-500">
+                                        <div className="w-full h-full rounded-full overflow-hidden bg-[#F9F9F9]">
+                                            <img src={cat.img} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-lg text-gray-800 mb-1">{cat.name}</h3>
+                                        <span className="text-[10px] uppercase tracking-[0.2em] text-[#AD8868] font-bold border-b border-transparent group-hover:border-[#AD8868] transition-all">Shop Gift</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center">
+                            <div className="w-12 h-[1px] bg-[#C8923C] mb-3"></div>
+                            <span className="unna-font text-[#AD8868] text-xl italic">No Collection Found</span>
+                            <div className="w-12 h-[1px] bg-[#C8923C] mt-3"></div>
+                        </div>
+                    )}
                 </div>
             </section>
 
             {/* ===================== TRENDING NOW ===================== */}
-            <section className="rare-section">
-                <h2 className="rare-section-title">Trending Now</h2>
-                <div className="rare-filter-tabs">
-                    {trendingFilters.map((filter) => (
-                        <button
-                            key={filter}
-                            className={`rare-filter-tab ${trendingFilter === filter ? 'active' : ''}`}
-                            onClick={() => { setTrendingFilter(filter); setTrendingPage(0); }}
-                        >
-                            {filter}
-                        </button>
-                    ))}
-                </div>
-                <div className="rare-products-carousel overflow-hidden">
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={trendingPage}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                            className="rare-products-grid"
-                        >
-                            {trendingProducts.slice(trendingPage * 4, trendingPage * 4 + 4).map((product) => (
-                            <div key={product.id} className="rare-product-item">
-                                <div className="rare-product-image-wrap group overflow-hidden">
-                                    <button className="rare-wishlist-btn z-10">
-                                        <Heart size={18} strokeWidth={1.5} />
-                                    </button>
-                                    <Link to={`/product/${product.id}`}>
-                                        <img src={product.image} alt={product.name} className="rare-product-img transition-transform duration-700 group-hover:scale-105" />
-                                    </Link>
+            <section className="pt-20">
+                <div className="container mx-auto px-4">
+                   <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">Trending Now</h2>
+                    </div>
 
-                                    {/* Customize Button on Hover */}
-                                    <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20">
-                                        <button className="w-full bg-black text-white py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors shadow-lg">
-                                            Customize
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="rare-product-info">
-                                    <Link to={`/product/${product.id}`}>
-                                        <h3 className="rare-product-name">{product.name}</h3>
-                                    </Link>
-                                    <p className="rare-product-price">{formatPriceRange(product.price)}</p>
-                                </div>
-                            </div>
+                    {/* Centered Tabs */}
+                    <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-12 min-h-[40px]">
+                        {trendingFilters.map((filter) => (
+                            <button
+                                key={filter._id}
+                                className={`pb-2 text-[11px] uppercase tracking-[0.2em] font-bold transition-all relative ${trendingFilter === filter._id ? 'text-black' : 'text-[#94a3b8] hover:text-black'}`}
+                                onClick={() => setTrendingFilter(filter._id)}
+                            >
+                                {filter.name}
+                                {trendingFilter === filter._id && (
+                                    <motion.div
+                                        layoutId="trending-tab-underline"
+                                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#CFAE8B]"
+                                    />
+                                )}
+                            </button>
                         ))}
+                    </div>
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={trendingFilter}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.4 }}
+                            className="relative px-12"
+                        >
+                            {isTrendingLoading ? (
+                                <div className="flex justify-center py-20">
+                                    <div className="w-8 h-8 border-2 border-[#AD8868] border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                            ) : trendingProducts.length > 0 ? (
+                                <Swiper
+                                    modules={[Autoplay]}
+                                    slidesPerView={1}
+                                    spaceBetween={20}
+                                    autoplay={{ delay: 5000, disableOnInteraction: false }}
+                                    breakpoints={{
+                                        640: { slidesPerView: 2 },
+                                        1024: { slidesPerView: 4 },
+                                    }}
+                                    className="trending-swiper"
+                                >
+                                    {trendingProducts.map((product) => (
+                                        <SwiperSlide key={product.id}>
+                                            <div 
+                                                className="group border border-gray-100 flex flex-col h-full bg-white overflow-hidden hover:shadow-lg transition-all cursor-pointer"
+                                                onClick={() => navigate(`/product/${product.id}`)}
+                                            >
+                                                <div className="relative aspect-square overflow-hidden bg-[#f8f9fb]">
+                                                    <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                                    <button 
+                                                        className={`absolute top-3 right-3 z-10 shadow-sm p-1.5 rounded-full transition-colors ${isInWishlist(product.id, product.name) ? 'bg-black text-white' : 'bg-white text-gray-400 hover:text-red-500'}`}
+                                                        onClick={(e) => { e.stopPropagation(); toggleWishlist(product.originalData || product, { type: 'product' }); }}
+                                                    >
+                                                        <Heart size={14} fill={isInWishlist(product.id, product.name) ? "white" : "none"} />
+                                                    </button>
+                                                </div>
+                                                <div className="p-4 text-center">
+                                                    <h3 className="text-[13px] font-medium mb-2 h-10 overflow-hidden line-clamp-2 text-gray-800 tracking-wide">{product.name}</h3>
+                                                    <p className="text-[12px] text-gray-400 font-medium">{formatPriceRange(product.price)}</p>
+                                                </div>
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center py-6">
+                                    <div className="w-12 h-[1px] bg-[#C8923C] mb-3"></div>
+                                    <span className="unna-font text-[#AD8868] text-xl italic">No Products Found</span>
+                                    <div className="w-12 h-[1px] bg-[#C8923C] mt-3"></div>
+                                </div>
+                            )}
                         </motion.div>
                     </AnimatePresence>
-                </div>
-                <div className="rare-carousel-dots">
-                    {Array.from({ length: totalTrendingPages }).map((_, i) => (
-                        <button
-                            key={i}
-                            className={`rare-dot ${trendingPage === i ? 'active' : ''}`}
-                            onClick={() => setTrendingPage(i)}
-                        />
-                    ))}
                 </div>
             </section>
 
             {/* ===================== MAKE BIRTHDAYS MORE COLOURFUL ===================== */}
-            <section className="rare-section rare-birthstone-section overflow-hidden">
-                <h2 className="rare-section-title">Make Birthdays More Colourful</h2>
-                <AnimatePresence mode="wait">
-                    <motion.div 
-                        key={birthstonePage}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.5 }}
-                        className="rare-birthstone-grid p-2"
-                    >
-                        {birthstones.slice(birthstonePage * 4, birthstonePage * 4 + 4).map((stone, i) => (
-                            <Link key={i} to="/shop" className="rare-birthstone-item">
-                                <div className="rare-birthstone-circle" style={{ background: stone.gradient }}>
-                                    <div className="rare-birthstone-shine"></div>
-                                </div>
-                                <p className="rare-birthstone-month">{stone.month}</p>
-                                <p className="rare-birthstone-name">{stone.stone}</p>
-                            </Link>
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
-                <div className="rare-carousel-dots mt-8 flex justify-center gap-2">
-                    {Array.from({ length: totalBirthstonePages }).map((_, i) => (
-                        <button
-                            key={i}
-                            className={`rounded-full transition-all duration-300 ${birthstonePage === i ? 'bg-[#c8923c] w-6 h-2' : 'bg-gray-300 w-2 h-2'}`}
-                            onClick={() => setBirthstonePage(i)}
-                        />
-                    ))}
-                </div>
-                <div className="rare-discover-btn-wrap mt-6">
-                    <Link to="/shop" className="rare-discover-btn">View All</Link>
-                </div>
-            </section>
+            <section className="pt-20">
+                <div className="container mx-auto px-4 relative">
+                    <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">Make Birthdays More Colourful</h2>
+                    </div>
 
-            {/* ===================== THE EDIT ===================== */}
-            <section className="rare-section overflow-hidden">
-                <h2 className="rare-section-title">The Edit</h2>
-                <AnimatePresence mode="wait">
-                    <motion.div 
-                        key={editPage}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.5 }}
-                        className="rare-edit-grid"
-                    >
-                        {editorials.slice(editPage * 3, editPage * 3 + 3).map((item, i) => (
-                            <Link key={i} to="/shop" className="rare-edit-card block">
-                                <div className="rare-edit-image overflow-hidden">
-                                    <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    <div className="relative px-16 group">
+                        <Swiper
+                            modules={[Autoplay, FreeMode, Navigation, Pagination]}
+                            slidesPerView={2}
+                            spaceBetween={20}
+                            autoplay={{ delay: 4000, disableOnInteraction: false }}
+                            navigation={{
+                                prevEl: '.birth-prev',
+                                nextEl: '.birth-next',
+                            }}
+                            pagination={{
+                                el: '.birth-pagination',
+                                clickable: true,
+                            }}
+                            breakpoints={{
+                                640: { slidesPerView: 4 },
+                                1024: { slidesPerView: 7 },
+                            }}
+                            className="birthstone-swiper pb-16"
+                        >
+                            {isBirthstonesLoading ? (
+                                <div className="flex justify-center items-center py-20 w-full col-span-full">
+                                    <div className="w-8 h-8 border-2 border-[#AD8868] border-t-transparent rounded-full animate-spin"></div>
                                 </div>
-                                <div className="rare-edit-info mt-4">
-                                    <h3 className="rare-edit-title text-[14px] leading-relaxed mb-3">{item.title}</h3>
-                                    <span className="rare-edit-link text-[11px] font-bold uppercase tracking-widest text-black flex items-center gap-1">
-                                        {item.link}
-                                        <ChevronRight size={14} />
-                                    </span>
+                            ) : birthstones.length > 0 ? (
+                                birthstones.map((stone, i) => (
+                                    <SwiperSlide key={i}>
+                                        <Link to={`/shop?month=${stone.month}`} className="group flex flex-col items-center">
+                                            <div className="mb-6 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                                                <img src={stone.image} alt={stone.stone} className="w-28 md:w-32 h-28 md:h-32 object-contain" />
+                                            </div>
+                                            <p className="text-[12px] font-medium text-[#1A1A1A] mb-1">{stone.month}</p>
+                                            <p className="text-[11px] italic font-medium text-[#999999] opacity-80">{stone.stone}</p>
+                                        </Link>
+                                    </SwiperSlide>
+                                ))
+                            ) : (
+                                <div className="col-span-full text-center py-10 text-gray-500 italic">
+                                    No birthstones found.
                                 </div>
-                            </Link>
-                        ))}
-                    </motion.div>
-                </AnimatePresence>
-                <div className="rare-carousel-dots mt-10 flex justify-center gap-2">
-                    {Array.from({ length: totalEditPages }).map((_, i) => (
-                        <button
-                            key={i}
-                            className={`rounded-full transition-all duration-300 ${editPage === i ? 'bg-black w-6 h-2' : 'bg-gray-300 w-2 h-2'}`}
-                            onClick={() => setEditPage(i)}
-                        />
-                    ))}
-                </div>
-                <div className="rare-discover-btn-wrap mt-6">
-                    <Link to="/shop" className="rare-discover-btn">Explore</Link>
+                            )}
+                        </Swiper>
+
+                        {/* Custom Navigation */}
+                        <button className="birth-prev absolute left-0 top-[35%] -translate-y-1/2 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-gray-200 transition-colors z-20 shadow-sm border border-gray-100">
+                            <ChevronRight className="rotate-180" size={18} />
+                        </button>
+                        <button className="birth-next absolute right-0 top-[35%] -translate-y-1/2 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 hover:bg-gray-200 transition-colors z-20 shadow-sm border border-gray-100">
+                            <ChevronRight size={18} />
+                        </button>
+                    </div>
+
+                    {/* Custom Pagination Container */}
+                    <div className="birth-pagination flex justify-center gap-2 mb-10 mt-5"></div>
+
+                    {/* View All Button */}
+                    <div className="flex justify-center pt-2">
+                        <Link to="/shop" className="px-14 py-3 border border-gray-800 text-sm font-medium text-gray-800 hover:bg-black hover:text-white transition-all duration-300">
+                            View All
+                        </Link>
+                    </div>
                 </div>
             </section>
 
             {/* ===================== WHAT CUSTOMERS ARE SAYING ===================== */}
-            <section className="rare-section">
-                <h2 className="rare-section-title">What Customers are Saying</h2>
-                <div className="rare-reviews-grid">
-                    {customerReviews.map((review, i) => (
-                        <div key={i} className="rare-review-card">
-                            <div className="rare-review-image">
-                                <img src={review.img} alt={`Review by ${review.name}`} />
-                            </div>
-                            <div className="rare-review-content">
-                                {renderStars(review.rating)}
-                                <p className="rare-review-text">
-                                    {review.text} <button className="rare-readmore">Read more</button>
-                                </p>
-                                <p className="rare-review-name">{review.name}</p>
-                            </div>
-                        </div>
-                    ))}
+            <section className="pt-20">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-6">
+                        <h2 className="text-xl md:text-2xl text-gray-900 leading-tight">What Customers are Saying</h2>
+                    </div>
+                    <Swiper
+                        modules={[Autoplay]}
+                        slidesPerView={1}
+                        spaceBetween={20}
+                        autoplay={{ delay: 5000 }}
+                        breakpoints={{
+                            640: { slidesPerView: 2 },
+                            1024: { slidesPerView: 4 },
+                        }}
+                        className="customer-reviews-swiper"
+                    >
+                        {customerReviews.map((review, i) => (
+                            <SwiperSlide key={i}>
+                                <div className="flex flex-col h-full bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                    <div className="h-[260px] relative overflow-hidden">
+                                        <img src={review.image} alt="Customer Wear" className="w-full h-full object-cover" />
+                                    </div>
+                                    <div className="p-6 flex flex-col items-center">
+                                        <div className="flex justify-center gap-1 mb-4">
+                                            {[...Array(5)].map((_, starI) => (
+                                                <Star
+                                                    key={starI}
+                                                    size={14}
+                                                    fill={starI < review.rating ? "#C8923C" : "none"}
+                                                    color={starI < review.rating ? "#C8923C" : "#E5E7EB"}
+                                                />
+                                            ))}
+                                        </div>
+                                        <p className="text-[13px] text-gray-500 mb-6 leading-relaxed line-clamp-3">
+                                            {review.text} <span className="text-[#1a1a1a] font-bold underline cursor-pointer ml-1">Read more</span>
+                                        </p>
+                                        <h4 className="text-[13px] font-bold text-gray-900 mt-auto">{review.name}</h4>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
             </section>
 
-            {/* ===================== SOCIAL MEDIA SLIDER SECTION ===================== */}
-            <section className="rare-social-slider rare-section">
+            {/* ===================== SOCIAL MEDIA ===================== */}
+            <section className="pt-20">
                 <div className="rare-social-header">
                     <p className="rare-social-subtitle">Follow our journey <span>@RareJewelsIndia</span> as we</p>
                     <h2 className="rare-social-title">#CELEBRATEWITHCOLOUR</h2>
@@ -530,6 +760,12 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <VirtualAppointmentModal 
+                isOpen={isVirtualModalOpen} 
+                onClose={() => setIsVirtualModalOpen(false)} 
+            />
+
         </div>
     );
 };

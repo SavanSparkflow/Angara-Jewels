@@ -1,141 +1,243 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFooter } from '../redux/slices/footerSlice';
+import { getCategories } from '../redux/slices/categorySlice';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Phone, Mail, MessageCircle, MapPin, Facebook, Youtube, Instagram, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
-    return (
-        <footer className="rare-footer">
+    const dispatch = useDispatch();
+    const { footerData, loading } = useSelector(state => state.footer);
 
-            {/* ===== SIGN UP SECTION ===== */}
-            <div className="rare-footer-signup">
-                <h3>Get Additional <span>5% off</span> On Your First Order</h3>
-                <div className="rare-signup-form">
-                    <span className="rare-signup-prefix">🇮🇳 +91</span>
-                    <input
-                        type="text"
-                        placeholder="Enter your mobile number*"
-                        className="rare-signup-input"
-                    />
-                    <button className="rare-signup-btn">Sign Up</button>
-                </div>
-                <p className="rare-footer-privacy">
-                    Your privacy matters. For details, see our <Link to="/privacy-policy">Privacy Policy</Link>.
-                </p>
-                <div className="rare-footer-socials">
-                    <span>Follow Us</span>
-                    {/* Social icons - X, YouTube, Pinterest, Instagram */}
-                    <a href="#" className="rare-social-icon" aria-label="Twitter/X">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-                    </a>
-                    <a href="#" className="rare-social-icon" aria-label="YouTube">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
-                    </a>
-                    <a href="#" className="rare-social-icon" aria-label="Pinterest">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 0 0-4.373 23.178c-.07-.937-.134-2.376.028-3.401.147-.927.949-4.028.949-4.028s-.242-.485-.242-1.202c0-1.126.653-1.967 1.466-1.967.691 0 1.025.519 1.025 1.141 0 .695-.442 1.735-.671 2.7-.191.805.404 1.462 1.199 1.462 1.438 0 2.543-1.516 2.543-3.702 0-1.935-1.39-3.288-3.376-3.288-2.3 0-3.65 1.725-3.65 3.507 0 .695.268 1.44.602 1.844a.242.242 0 0 1 .056.232c-.061.256-.199.805-.226.917-.035.148-.116.18-.268.108-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.67 1.566-.997 2.097A12 12 0 1 0 12 0z" /></svg>
-                    </a>
-                    <a href="#" className="rare-social-icon" aria-label="Instagram">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" /></svg>
-                    </a>
+    useEffect(() => {
+        dispatch(getFooter());
+        dispatch(getCategories());
+    }, [dispatch]);
+
+    const { categories: categoriesFromSlice } = useSelector(state => state.category);
+
+    const assistance = footerData?.assistance || {};
+
+    const copyright = footerData?.copyright || "";
+    const shopItems = footerData?.shop || [];
+    const categories = shopItems.filter(item => item.itemType === 'category');
+    const menuItems = shopItems.filter(item => item.itemType === 'menuitem');
+
+    return (
+        <footer className="w-full">
+            <div className="bg-white py-10 border-t border-gray-100">
+                <div className="container mx-auto px-4 text-center max-w-2xl">
+                    <h3 className="text-2xl font-light mb-4">Get Additional <span className="text-[#C8923C] font-bold">5% off</span> On Your First Order</h3>
+                    <div className="flex flex-col sm:flex-row border border-gray-200 bg-white shadow-sm overflow-hidden rounded-sm mx-auto max-w-lg">
+                        <div className="flex flex-1 border-b sm:border-b-0 sm:border-r border-gray-100">
+                            <div className="flex items-center px-3 sm:px-4 text-[11px] sm:text-[12px] text-gray-400 whitespace-nowrap bg-gray-50/50 sm:bg-transparent">
+                                🇮🇳 +91
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Enter your mobile number*"
+                                className="flex-1 px-4 py-3 sm:py-4 text-[13px] outline-none w-full min-w-0"
+                            />
+                        </div>
+                        <button className="bg-black text-white px-6 sm:px-10 py-3 sm:py-4 text-[11px] sm:text-[12px] font-bold uppercase  hover:bg-gray-800 transition-colors whitespace-nowrap">
+                            Sign Up
+                        </button>
+                    </div>
+                    <p className="rare-footer-privacy mt-4 text-[11px] text-gray-400">
+                        Your privacy matters. For details, see our <Link to="/privacy-policy" className="text-gray-900 underline hover:text-black">Privacy Policy</Link>.
+                    </p>
                 </div>
             </div>
+            {/* ===================== TOP SECTION (BROWN) ===================== */}
+            <div className="bg-[#94785C] text-white pt-10 pb-8 px-4 relative overflow-hidden">
+                {/* Background decorative logo watermark */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 pointer-events-none select-none">
+                    <img src="/images/logo.svg" alt="" className="w-[600px] h-[600px] grayscale brightness-0 invert" />
+                </div>
 
-            {/* ===== LINKS SECTION ===== */}
-            <div className="rare-footer-links">
-                <div className="rare-footer-links-inner">
-                    {/* ASSISTANCE */}
-                    <div className="rare-footer-col">
-                        <h4>ASSISTANCE</h4>
-                        <ul>
-                            <li><Link to="/15-day-returns">15-Day Returns</Link></li>
-                            <li><Link to="/resizing-policy">Resizing Policy</Link></li>
-                            <li><Link to="/exchange-buyback">Lifetime Exchange & Buyback</Link></li>
-                            <li><Link to="/cancellation-policy">Cancellation Policy</Link></li>
-                            <li><Link to="/track-order">Track Your Order</Link></li>
-                        </ul>
-                        <div className="footer-contact-info" style={{ marginTop: '16px' }}>
-                            <p style={{ fontWeight: 600, marginBottom: '8px' }}><Link to="/faq" className="hover:underline">FAQs</Link></p>
-                            <p>📞 +91-800-100-1313</p>
-                            <p>📧 <a href="mailto:india.support@rarejewels.com">Email Us</a></p>
-                            <p>💬 <a href="#">Chat on WhatsApp</a></p>
-                            <p style={{ marginTop: '12px', fontSize: '11px', lineHeight: '1.6' }}>
-                                📍 Rare Jewels Jewels Pvt. Ltd.<br />
-                                2nd Floor, A-28, Vidyadhara<br />
-                                Marg, Tilak Nagar, Jaipur-302004
-                            </p>
+                <div className="container mx-auto relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                        {/* Col 1: RARE JEWELS */}
+                        <div>
+                            <h4 className="text-[14px] font-bold tracking-[0.1em] mb-8 uppercase">RARE JEWELS</h4>
+                            <ul className="space-y-3">
+                                {[
+                                    { name: 'Our Story', path: '/our-story' },
+                                    { name: 'Rare Jewels Blog', path: '/blog' },
+                                    { name: 'Reviews', path: '/reviews' },
+                                    { name: "FAQ's", path: '/faq' },
+                                    { name: '15-Day Return Policy', path: '/15-day-returns' },
+                                    { name: 'Shipping Policy', path: '/shipping-policy' },
+                                    { name: 'Return/Exchange Policy', path: '/exchange-buyback' },
+                                    { name: 'Terms Of Service', path: '/terms-conditions' },
+                                    { name: 'Privacy Policy', path: '/privacy-policy' },
+                                    { name: 'Contact Us', path: '/contact' },
+                                ].map((item) => (
+                                    <li key={item.name}><Link to={item.path} className="text-[12px] opacity-80 hover:opacity-100 hover:underline transition-all">{item.name}</Link></li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Col 2: Category */}
+                        <div>
+                            <h4 className="text-[14px] font-bold tracking-[0.1em] mb-8 uppercase">Category</h4>
+                            <ul className="space-y-3">
+                                {categories.length > 0 ? categories.map((item) => (
+                                    <li key={item.itemId}>
+                                        <Link 
+                                            to={`/shop?category=${item.title.toLowerCase().replace(/\s+/g, '-')}`} 
+                                            className="text-[12px] opacity-80 hover:opacity-100 hover:underline transition-all"
+                                        >
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                )) : (
+                                    <li className="text-[11px] opacity-50 italic">No categories</li>
+                                )}
+                            </ul>
+                        </div>
+
+                        {/* Col 3: Menu Item */}
+                        <div>
+                            <h4 className="text-[14px] font-bold tracking-[0.1em] mb-8 uppercase">Menu Item</h4>
+                            <ul className="space-y-3">
+                                {menuItems.length > 0 ? menuItems.map((item) => (
+                                    <li key={item.itemId}>
+                                        <Link 
+                                            to={`/shop?menuitem=${item.title.toLowerCase().replace(/\s+/g, '-')}`} 
+                                            className="text-[12px] opacity-80 hover:opacity-100 hover:underline transition-all"
+                                        >
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                )) : (
+                                    <li className="text-[11px] opacity-50 italic">No items</li>
+                                )}
+                            </ul>
+                        </div>
+
+                        {/* Col 4: CONTACT & FOLLOW */}
+                        <div>
+                            <div className="space-y-6">
+                                <a href={`tel:${assistance.mobile}`} className="flex items-center gap-3 text-[13px] opacity-90 hover:opacity-100 group transition-all">
+                                    <Phone size={18} fill="white" className="border border-white/20 p-1 rounded-sm group-hover:bg-white group-hover:text-[#94785C]" />
+                                    <span>{assistance.mobile}</span>
+                                </a>
+                                <a href={`mailto:${assistance.email}`} className="flex items-center gap-3 text-[13px] opacity-90 hover:opacity-100 group transition-all underline">
+                                    <Mail size={18} className="border border-white/20 p-1 rounded-sm group-hover:bg-white group-hover:text-[#94785C]" />
+                                    <span>{assistance.email}</span>
+                                </a>
+                                <a href={`https://wa.me/${assistance.mobile?.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[13px] opacity-90 hover:opacity-100 group transition-all underline">
+                                    <MessageCircle size={18} className="border border-white/20 p-1 rounded-sm group-hover:bg-white group-hover:text-[#94785C]" />
+                                    <span>Chat on WhatsApp</span>
+                                </a>
+                                <div className="flex gap-3 text-[11px] opacity-80 leading-relaxed group">
+                                    <MapPin size={18} className="shrink-0 border border-white/20 p-1 rounded-sm" />
+                                    <div className="whitespace-pre-line">
+                                        {assistance.address}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-12">
+                                <h4 className="text-[14px] font-bold tracking-[0.1em] mb-6 uppercase">FOLLOW US</h4>
+                                <div className="flex gap-4">
+                                    <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-[#94785C] transition-all"><Facebook size={18} /></a>
+                                    <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-[#94785C] transition-all"><Youtube size={18} /></a>
+                                    <a href="#" className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-[#94785C] transition-all"><Instagram size={18} /></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* ABOUT US */}
-                    <div className="rare-footer-col">
-                        <h4>ABOUT US</h4>
-                        <ul>
-                            <li><Link to="/our-story">Our Story</Link></li>
-                            <li><Link to="/corporate">Corporate</Link></li>
-                            <li><Link to="/blog">Rare Jewels Blog</Link></li>
-                        </ul>
-                        <h4 style={{ marginTop: '24px' }}>CERTIFICATES</h4>
-                        <ul>
-                            <li><Link to="/bis-hallmarking">BIS Hallmarking</Link></li>
-                            <li><Link to="/igi-certificate">IGI Certificate</Link></li>
-                            <li><Link to="/sgl-certificate">SGL Certificate</Link></li>
-                        </ul>
+                    {/* Secondary Link Row */}
+                    <div className="flex flex-wrap justify-center gap-6 pb-12">
+                        {[
+                            { name: 'Resizing Policy', path: '/resizing-policy' },
+                            { name: 'Track your order', path: '/track-order' },
+                            { name: 'Payment Options', path: '/payment-options' },
+                            { name: 'Corporate', path: '/corporate' },
+                        ].map(item => (
+                            <Link key={item.name} to={item.path} className="text-[11px] opacity-70 hover:opacity-100 underline">{item.name}</Link>
+                        ))}
                     </div>
 
-                    {/* EXPERIENCE RARE JEWELS */}
-                    <div className="rare-footer-col">
-                        <h4>EXPERIENCE RARE JEWELS</h4>
-                        <ul>
-                            <li><Link to="/rare-jewels-difference">The Rare Jewels Difference</Link></li>
-                            <li><Link to="/shipping-policy">Free Shipping</Link></li>
-                            <li><Link to="/payment-options">Payment Options</Link></li>
-                            <li><Link to="/gold-rate">Gold Rate</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* SHOP */}
-                    <div className="rare-footer-col">
-                        <h4>SHOP</h4>
-                        <ul>
-                            <li><Link to="/shop">Diamond Rings</Link></li>
-                            <li><Link to="/shop">Lab Grown Emerald Rings</Link></li>
-                            <li><Link to="/shop">Lab Grown Blue Sapphire Rings</Link></li>
-                            <li><Link to="/shop">Blue Sapphire Pendants</Link></li>
-                            <li><Link to="/shop">Lab Grown Diamond Jewellery</Link></li>
-                            <li><Link to="/shop">Amethyst Jewellery</Link></li>
-                            <li><Link to="/shop">Aquamarine Jewellery</Link></li>
-                            <li><Link to="/shop">Engagement Rings</Link></li>
-                            <li><Link to="/shop">Initials Pendants</Link></li>
-                            <li><Link to="/shop">Birthstone Jewellery</Link></li>
-                            <li><Link to="/shop">Hoop Earrings</Link></li>
-                            <li><Link to="/shop">Solitaire Rings</Link></li>
-                        </ul>
+                    {/* Branding Bar */}
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-white/10">
+                        <div className="flex items-center gap-2">
+                            <img src="/images/logo.svg" alt="Rare Jewels" className="h-12 brightness-0 invert opacity-90" />
+                        </div>
+                        <div className="text-[11px]">
+                            {copyright}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4 md:h-6 bg-white px-2 py-1 rounded" alt="PayPal" />
+                            <img src="/images/visa.svg" className="h-4 md:h-6 bg-white px-2 py-1 rounded" alt="Visa" />
+                            <img src="/images/mastercard.svg" className="h-4 md:h-6 bg-white px-2 py-1 rounded" alt="Mastercard" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Pay_Logo_%282020%29.svg" className="h-4 md:h-6 bg-white px-2 py-1 rounded" alt="GPay" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg" className="h-4 md:h-6 bg-white px-2 py-1 rounded" alt="ApplePay" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* ===== PAYMENT ICONS ===== */}
-            <div className="rare-footer-payments">
-                <div className="rare-payment-icons">
-                    <img src="/images/visa.svg" alt="Visa" className='w-12 h-12 object-contain' />
-                    <img src="/images/mastercard.svg" alt="Mastercard" className='w-12 h-12 object-contain' />
-                    <img src="/images/rupay.svg" alt="RuPay" className='w-12 h-12 object-contain' />
-                    <img src="/images/upi-icon.svg" alt="UPI" className='w-12 h-12 object-contain' />
-                    <img src="/images/bhim-app-icon.svg" alt="BHIM" className='w-12 h-12 object-contain' />
+            <div className="bg-white">
+                <div className='bg-[#E6E6E6] py-3 mb-10'>
+                    <h2 className="text-[16px] font-bold text-center text-gray-800 tracking-widest uppercase">Popular Jewelry</h2>
                 </div>
-            </div>
+                <div className="container mx-auto px-4 pb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 max-w-6xl mx-auto">
+                        {/* Left Column */}
+                        <div className="space-y-10">
+                            {categoriesFromSlice && categoriesFromSlice.slice(0, 3).map((cat) => (
+                                <div key={cat._id} className="border-b border-gray-100 pb-8 last:border-0 last:pb-0">
+                                    <h4 className="text-[13px] font-bold text-gray-900 mb-4 uppercase tracking-wider">{cat.name}</h4>
+                                    <div className="flex flex-wrap items-center text-[11px] leading-relaxed">
+                                        {cat.sections?.flatMap(section => section.items).map((item, idx, arr) => (
+                                            <React.Fragment key={item._id}>
+                                                <Link 
+                                                    to={`/shop?category=${cat.name.toLowerCase().replace(/\s+/g, '-')}&product=${item.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                                    className="text-gray-500 hover:text-[#94785C] transition-colors"
+                                                >
+                                                    {item.title}
+                                                </Link>
+                                                {idx < arr.length - 1 && <span className="text-gray-300 mx-2">|</span>}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
 
-            {/* ===== COPYRIGHT BAR ===== */}
-            <div className="rare-footer-copyright">
-                <div className="rare-footer-copyright-left">
-                    <div className="rare-country-select">
-                        <span>🇮🇳</span>
-                        <span>India (INR)</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
+                        {/* Right Column */}
+                        <div className="space-y-10">
+                            {categoriesFromSlice && categoriesFromSlice.slice(3, 6).map((cat) => (
+                                <div key={cat._id} className="border-b border-gray-100 pb-8 last:border-0 last:pb-0">
+                                    <h4 className="text-[13px] font-bold text-gray-900 mb-4 uppercase tracking-wider">{cat.name}</h4>
+                                    <div className="flex flex-wrap items-center text-[11px] leading-relaxed">
+                                        {cat.sections?.flatMap(section => section.items).map((item, idx, arr) => (
+                                            <React.Fragment key={item._id}>
+                                                <Link 
+                                                    to={`/shop?category=${cat.name.toLowerCase().replace(/\s+/g, '-')}&product=${item.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                                    className="text-gray-500 hover:text-[#94785C] transition-colors"
+                                                >
+                                                    {item.title}
+                                                </Link>
+                                                {idx < arr.length - 1 && <span className="text-gray-300 mx-2">|</span>}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {(!categoriesFromSlice || categoriesFromSlice.length === 0) && (
+                            <div className="col-span-full text-center py-10 text-gray-400 text-sm italic">
+                                Loading popular collections...
+                            </div>
+                        )}
                     </div>
                 </div>
-                <p>
-                    © 2026 Rare Jewels Jewels Private Limited. All Rights Reserved. |{' '}
-                    <a href="#">Accessibility</a> | <Link to="/privacy-policy">Privacy Policy</Link> | <Link to="/terms-conditions">T&C</Link> | <a href="#">Cookies</a>
-                </p>
             </div>
         </footer>
     );

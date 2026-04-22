@@ -59,14 +59,14 @@ const RareJewelsDifference = () => {
                 </div>
             </div>
 
-            <div className="max-w-[1200px] mx-auto px-4 py-12 md:py-20 text-center">
+            <div className="container px-4 mx-auto py-12 md:py-20 text-center">
                 <p className="text-[#132d56] text-xl md:text-2xl font-poppins max-w-4xl mx-auto leading-relaxed">
                     What starts as a family's passion spanning generations, has now become a tradition of crafting pieces that tell your unique story.
                 </p>
             </div>
 
             {/* Section 1: Making Generations of Dreamers */}
-            <div className="flex flex-col md:flex-row max-w-[1440px] mx-auto px-4 gap-8 items-center py-10">
+            <div className="flex flex-col md:flex-row container px-4 mx-auto gap-8 items-center py-10">
                 <div className="w-full md:w-1/2">
                     <img src="/images/craftsmanship.png" alt="Generations" className="w-full h-auto object-cover" />
                 </div>
@@ -79,7 +79,7 @@ const RareJewelsDifference = () => {
             </div>
 
             {/* Section 2: Your Choice, Our Craft */}
-            <div className="flex flex-col md:flex-row max-w-[1440px] mx-auto px-4 gap-8 items-center py-10 md:py-20 bg-gray-50">
+            <div className="flex flex-col md:flex-row container px-4 mx-auto gap-8 items-center py-10 md:py-20 bg-gray-50">
                 <div className="w-full md:w-1/3 text-center md:text-left md:pr-8 mb-8 md:mb-0">
                     <h2 className="text-[#132d56] text-2xl md:text-3xl font-poppins mb-4">Your Choice, Our Craft</h2>
                     <p className="text-gray-600 leading-relaxed mb-6">
@@ -93,7 +93,7 @@ const RareJewelsDifference = () => {
             </div>
 
             {/* Section 3: It Will Always Sparkle */}
-            <div className="flex flex-col md:flex-row-reverse max-w-[1440px] mx-auto px-4 gap-8 items-center py-10 md:py-20">
+            <div className="flex flex-col md:flex-row-reverse container px-4 mx-auto gap-8 items-center py-10 md:py-20">
                 <div className="w-full md:w-1/2">
                     <img src="/images/edit-diamond.png" alt="Sparkle" className="w-full h-[300px] md:h-[400px] object-cover" />
                 </div>
@@ -117,7 +117,7 @@ const RareJewelsDifference = () => {
             </div>
 
             {/* Features (Icons) */}
-            <div className="max-w-[1000px] mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center border-b border-gray-200">
+            <div className="container px-4 mx-auto py-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center border-b border-gray-200">
                 <div className="flex flex-col items-center">
                     <div className="w-20 h-20 mb-4 bg-gray-100 rounded-full flex items-center justify-center">
                         <svg className="w-10 h-10 text-[#132d56]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
@@ -142,14 +142,14 @@ const RareJewelsDifference = () => {
             </div>
 
             {/* Testimonials */}
-            <div className="max-w-[1200px] mx-auto px-4 py-16">
+            <div className="container px-4 mx-auto py-16">
                 <h2 className="text-[#132d56] text-2xl md:text-3xl font-poppins mb-10 text-center">Your Words, Not Ours</h2>
                 <div className="px-4">
                     <Slider {...reviewSettings}>
                         {reviews.map((rev, idx) => (
                             <div key={idx} className="p-4">
                                 <div className="bg-[#fcf8f0] p-8 text-center rounded flex flex-col items-center justify-center h-[200px]">
-                                    <div className="text-xs tracking-widest text-[#132d56] uppercase mb-2 font-semibold">
+                                    <div className="text-xs  text-[#132d56] uppercase mb-2 font-semibold">
                                         "{rev.title}"
                                     </div>
                                     <div className="flex justify-center mb-3">
@@ -171,7 +171,7 @@ const RareJewelsDifference = () => {
             </div>
 
             {/* Shop by Category Footer Menu Links */}
-            <div className="max-w-[1200px] mx-auto px-4 py-16 text-center">
+            <div className="container px-4 mx-auto py-16 text-center">
                 <h2 className="text-[#132d56] text-xl font-poppins mb-8">Shop By Category</h2>
                 <div className="flex flex-wrap justify-center gap-6 md:gap-12">
                     <Link to="/search" className="text-gray-600 hover:text-[#132d56] hover:underline">Necklaces</Link>

@@ -100,10 +100,10 @@ const BlogDetail = () => {
     };
 
     return (
-        <div className="w-full bg-white font-sans text-[#1e1e1e]">
+        <div className="w-full bg-white text-[#1e1e1e]">
             {/* Breadcrumbs */}
             <div className="container mx-auto px-4 max-w-4xl py-6">
-                <div className="flex items-center gap-2 text-[10px] md:text-[11px] tracking-widest text-gray-400 uppercase">
+                <div className="flex items-center gap-2 text-[10px] md:text-[11px]  text-gray-400 uppercase">
                     <Link to="/" className="hover:text-black">HOME</Link>
                     <span>/</span>
                     <Link to="/blog" className="hover:text-black">BLOG</Link>
@@ -117,10 +117,10 @@ const BlogDetail = () => {
                 <span className="text-[10px] md:text-xs tracking-[0.2em] font-medium mb-4 uppercase text-gray-400 block">
                     {blogData.category}
                 </span>
-                <h1 className="text-2xl md:text-4xl lg:text-5xl font-serif leading-tight mb-4">
+                <h1 className="text-2xl md:text-4xl lg:text-5xl  leading-tight mb-4">
                     {blogData.title}
                 </h1>
-                <p className="text-gray-400 text-xs md:text-sm tracking-widest uppercase">
+                <p className="text-gray-400 text-xs md:text-sm  uppercase">
                     {blogData.date}
                 </p>
             </div>
@@ -142,10 +142,10 @@ const BlogDetail = () => {
                             return <p key={idx} className="text-gray-700 leading-relaxed mb-8 text-[15px] md:text-[17px]">{item.text}</p>;
                         }
                         if (item.type === "heading") {
-                            return <h2 key={idx} className="font-serif text-2xl md:text-3xl mt-12 mb-6 text-black">{item.text}</h2>;
+                            return <h2 key={idx} className=" text-2xl md:text-3xl mt-12 mb-6 text-black">{item.text}</h2>;
                         }
                         if (item.type === "subheading") {
-                            return <h3 key={idx} className="font-serif text-xl md:text-2xl mt-8 mb-4 text-black">{item.text}</h3>;
+                            return <h3 key={idx} className=" text-xl md:text-2xl mt-8 mb-4 text-black">{item.text}</h3>;
                         }
                         if (item.type === "list") {
                             return (
@@ -163,7 +163,7 @@ const BlogDetail = () => {
                 {/* Social Share */}
                 <div className="border-y border-gray-100 py-8 mt-16 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                        <span className="text-[11px] tracking-widest font-bold uppercase text-gray-400">SHARE ON:</span>
+                        <span className="text-[11px]  font-bold uppercase text-gray-400">SHARE ON:</span>
                         <div className="flex gap-4">
                             <a href="#" className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-full text-gray-400 hover:text-white hover:bg-[#3b5998] hover:border-[#3b5998] transition-all">
                                 <FaFacebookF size={12} />
@@ -190,8 +190,8 @@ const BlogDetail = () => {
                                 <div className="h-[200px] overflow-hidden mb-4 rounded-sm">
                                     <img src={post.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={post.title} />
                                 </div>
-                                <h5 className="font-serif text-lg leading-tight group-hover:text-gray-600 transition-colors uppercase tracking-tight">{post.title}</h5>
-                                <span className="text-[9px] tracking-widest font-bold uppercase text-gray-400 mt-2 block border-b border-black w-max pb-1">READ MORE</span>
+                                <h5 className=" text-lg leading-tight group-hover:text-gray-600 transition-colors uppercase tracking-tight">{post.title}</h5>
+                                <span className="text-[9px]  font-bold uppercase text-gray-400 mt-2 block border-b border-black w-max pb-1">READ MORE</span>
                             </Link>
                         ))}
                     </div>

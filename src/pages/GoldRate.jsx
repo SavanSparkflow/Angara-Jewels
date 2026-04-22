@@ -69,13 +69,13 @@ const GoldRate = () => {
 
     return (
         <div className="w-full bg-white pb-20">
-            <div className="max-w-[1440px] mx-auto px-4 py-8 md:px-8">
+            <div className="container px-4 mx-auto py-8">
                 <h1 className="text-3xl font-bold text-[#1a1a1a] mb-8 font-poppins">Gold Rate Today</h1>
 
                 {/* Rate Calculator Banner */}
                 <div className="bg-[#4d4d4d] rounded-md p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 mb-12 shadow-sm text-white">
                     <div className="w-full md:w-1/4">
-                        <label className="block text-xs uppercase tracking-wider mb-2 font-medium">Select State</label>
+                        <label className="block text-xs uppercase mb-2 font-medium">Select State</label>
                         <select
                             className="w-full bg-white text-gray-800 text-sm py-2 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             value={selectedState}
@@ -89,7 +89,7 @@ const GoldRate = () => {
                     </div>
 
                     <div className="w-full md:w-1/4">
-                        <label className="block text-xs uppercase tracking-wider mb-2 font-medium">Select City</label>
+                        <label className="block text-xs uppercase mb-2 font-medium">Select City</label>
                         <select
                             className="w-full bg-white text-gray-800 text-sm py-2 px-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:text-gray-500"
                             value={selectedCity}
@@ -105,7 +105,7 @@ const GoldRate = () => {
 
                     <div className="w-full md:w-auto mt-4 md:mt-0 pt-2 md:pt-6">
                         <div className="text-2xl md:text-3xl font-bold flex items-baseline">
-                            <span className="font-sans mr-1">₹</span> {currentRate.toLocaleString('en-IN')} <span className="text-lg md:text-xl font-normal ml-2">24K Rate / Gram</span>
+                            <span className="mr-1">₹</span> {currentRate.toLocaleString('en-IN')} <span className="text-lg md:text-xl font-normal ml-2">24K Rate / Gram</span>
                         </div>
                         <div className="text-xs text-gray-300 mt-1 italic">*Prices may vary locally</div>
                     </div>

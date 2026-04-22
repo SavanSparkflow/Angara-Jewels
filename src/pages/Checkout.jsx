@@ -1,323 +1,508 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
-import { ShieldCheck, Truck, ChevronRight, ChevronLeft, MapPin, X, RotateCcw, Award, Phone, Mail, MessageCircle } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAddresses } from '../redux/slices/addressSlice';
+import { ChevronRight, ChevronDown, Info, HelpCircle, ShieldCheck } from 'lucide-react';
+import { useCurrency } from '../contexts/CurrencyContext';
+import { apiInstance } from '../redux/services/axiosApi';
+import { VALIDATE_COUPON, CREATE_ORDER, VERIFY_PAYMENT } from '../api/constApi';
+import visaIcon from '/images/visa.svg';
+import mastercardIcon from '/images/mastercard.svg';
+import rupayIcon from '/images/rupay.svg';
+import upiIcon from '/images/upi-icon.svg';
+import shopPayIcon from '/images/Shop_Pay.svg';
+import googlePayIcon from '/images/GooglePay.svg';
 
 const Checkout = () => {
-    const { cartItems, cartTotal } = useCart();
+    const { cartItems, cartTotal, clearCart } = useCart();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { addresses } = useSelector(state => state.address);
+    const defaultAddress = addresses?.find(addr => addr.isDefault === true);
+
+    useEffect(() => {
+        dispatch(getAddresses());
+    }, [dispatch]);
+
     const [formData, setFormData] = useState({
+        email: '',
         firstName: '',
         lastName: '',
-        mobile: '',
-        email: '',
         address: '',
         apartment: '',
-        landmark: '',
-        state: '',
         city: '',
+        state: '',
         pincode: '',
-        pan: ''
+        phone: '',
+        country: 'India'
     });
-    const [useGstInvoice, setUseGstInvoice] = useState(false);
-    const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
-    const handleGetLocation = () => {
-        if ("geolocation" in navigator) {
-            setIsLoadingLocation(true);
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    // Simulating a reverse geocoding API response
-                    setTimeout(() => {
-                        setFormData(prev => ({
-                            ...prev,
-                            address: 'Hari ichha Industrial Estate, 73, Karanj (Navagam), Karanj, Varachha',
-                            city: 'Surat',
-                            state: 'Gujarat',
-                            pincode: '395006',
-                            firstName: 'savan',
-                            lastName: 'asodariya',
-                            mobile: '9737531475'
-                        }));
-                        setIsLoadingLocation(false);
-                    }, 600);
-                },
-                (error) => {
-                    console.error("Error obtaining location", error);
-                    setIsLoadingLocation(false);
-                    alert("Please allow location access so we can automatically fill your address.");
-                }
-            );
-        } else {
-            alert("Geolocation is not supported by your browser");
+    useEffect(() => {
+        if (defaultAddress) {
+            setFormData(prev => ({
+                ...prev,
+                firstName: defaultAddress.firstName || '',
+                lastName: defaultAddress.lastName || '',
+                address: defaultAddress.address || '',
+                apartment: defaultAddress.apartment || '',
+                city: defaultAddress.city || '',
+                state: defaultAddress.state || '',
+                pincode: defaultAddress.pincode || '',
+                phone: defaultAddress.phone || '',
+                country: defaultAddress.country || 'India'
+            }));
+        }
+    }, [defaultAddress]);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const [tip, setTip] = useState(0);
+    const [selectedTip, setSelectedTip] = useState('none');
+    const [customTip, setCustomTip] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('credit_card');
+
+    const handleTipSelect = (type, percent) => {
+        setSelectedTip(type);
+        if (type === 'percent') {
+            setTip(Math.round(cartTotal * (percent / 100)));
+        } else if (type === 'none') {
+            setTip(0);
         }
     };
 
+    const { formatPrice, currency } = useCurrency();
 
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            maximumFractionDigits: 0,
-        }).format(price);
+    // Coupon logic
+    const [couponCode, setCouponCode] = useState('');
+    const [discount, setDiscount] = useState(0);
+    const [couponError, setCouponError] = useState('');
+    const [isValidating, setIsValidating] = useState(false);
+    const [appliedCoupon, setAppliedCoupon] = useState(null);
+    const [couponDescription, setCouponDescription] = useState('');
+
+    const handleApplyCoupon = async () => {
+        if (!couponCode) return;
+        setIsValidating(true);
+        setCouponError('');
+        try {
+            const response = await apiInstance.post(VALIDATE_COUPON, {
+                couponCode,
+                cartTotal: cartTotal.toString()
+            });
+            if (response.data.success) {
+                const { discountAmount, description } = response.data.data;
+                setDiscount(discountAmount || 0);
+                setCouponDescription(description || '');
+                setAppliedCoupon(couponCode);
+                setCouponCode('');
+            } else {
+                setCouponError(response.data.error || response.data.message || 'Invalid coupon code');
+            }
+        } catch (error) {
+            setCouponError(error.response?.data?.error || error.response?.data?.message || 'Error validating coupon');
+        } finally {
+            setIsValidating(false);
+        }
     };
 
-    const discount = 25000;
-    const total = cartTotal - discount;
+    const handleRemoveCoupon = () => {
+        setDiscount(0);
+        setAppliedCoupon(null);
+        setCouponDescription('');
+        setCouponError('');
+    };
+
+    // Order creation logic
+    const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+
+    const handlePayNow = async () => {
+        if (!defaultAddress) {
+            alert("Please provide a valid delivery address.");
+            return;
+        }
+
+        setIsCreatingOrder(true);
+        try {
+            // STEP 1: Create Order on Backend (Initiate Razorpay Order)
+            const res = await apiInstance.post(CREATE_ORDER, {
+                addressId: defaultAddress._id,
+                couponCode: appliedCoupon || ""
+            });
+
+            if (!res.data.success) {
+                alert(res.data.message || "Failed to initiate order");
+                setIsCreatingOrder(false);
+                return;
+            }
+
+            const { razorpayOrderId, amount, currency } = res.data.data;
+
+            // STEP 2: Configure Razorpay Checkout
+            const options = {
+                key: 'rzp_test_SVkYHZgMnWC1fP', // REPLACE THIS WITH YOUR ACTUAL RAZORPAY KEY ID
+                amount: amount,
+                currency: currency,
+                name: "Rare Jewels",
+                description: "Luxury Jewelry Purchase",
+                image: "/images/Rare-Jewels-logo.svg",
+                order_id: razorpayOrderId,
+                handler: async function (response) {
+                    // STEP 3: Verify Payment and Create Final Order on Backend
+                    try {
+                        setIsCreatingOrder(true);
+                        const verifyRes = await apiInstance.post(VERIFY_PAYMENT, {
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature,
+                            addressId: defaultAddress._id,
+                            couponCode: appliedCoupon || ""
+                        });
+
+                        if (verifyRes.data.success) {
+                            alert("Payment successful! Order placed successfully.");
+                            clearCart(); // Clear the local cart after successful purchase
+                            navigate('/dashboard'); // Navigate to orders page or dashboard
+                        } else {
+                            alert(verifyRes.data.message || "Payment verification failed.");
+                        }
+                    } catch (err) {
+                        console.error("Verification error:", err);
+                        alert("Error finalizing order. Please contact support.");
+                    } finally {
+                        setIsCreatingOrder(false);
+                    }
+                },
+                prefill: {
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    contact: formData.phone
+                },
+                notes: {
+                    address: defaultAddress.address
+                },
+                theme: {
+                    color: "#1F4E56"
+                },
+                modal: {
+                    ondismiss: function() {
+                        setIsCreatingOrder(false);
+                    }
+                }
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+
+        } catch (error) {
+            console.error("Order creation error:", error);
+            alert(error.response?.data?.message || "Error creating order. Please try again.");
+            setIsCreatingOrder(false);
+        }
+    };
+
+    const finalTotal = cartTotal + tip - discount;
 
     return (
-        <div className="bg-[#fcfcfc] min-h-screen pt-24 pb-12">
-            <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                <div className="flex items-center justify-between mb-8">
-                    <Link to="/cart" className="flex items-center gap-2 text-[10px] uppercase font-bold text-gray-400 hover:text-black transition-colors tracking-widest">
-                        <ChevronLeft size={16} /> Add Address
-                    </Link>
-                    <div className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">
-                        STEP 2/3
-                    </div>
-                </div>
+        <div className="bg-white min-h-screen md:pt-12 pb-18">
+            <div className="container px-4 mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
 
-                <div className="flex flex-col lg:flex-row gap-8">
-                    {/* LEFT: Shipping Form */}
-                    <div className="flex-grow space-y-6">
-                        <div className="bg-white border border-gray-100 p-4 rounded-sm shadow-sm">
-                            <div className="flex justify-between items-center mb-10">
-                                <h1 className="text-[13px] font-bold text-gray-600 tracking-wide">Shipping Address</h1>
-                                <button
-                                    onClick={handleGetLocation}
-                                    disabled={isLoadingLocation}
-                                    className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full text-[10px] font-bold uppercase tracking-widest hover:border-black transition-all disabled:opacity-50"
+                {/* LEFT COLUMN: FORM */}
+                <div className="lg:col-span-7 space-y-12">
+                    {/* Brand Link */}
+                    <Link to="/" className="inline-block mb-4">
+                        <img src="/images/Rare-Jewels-logo.svg" alt="Rare Jewels" className="h-10" />
+                    </Link>
+
+                    {/* Express Checkout */}
+                    <div className="space-y-4">
+                        <div className="text-center">
+                            <span className="text-[11px] text-gray-400 uppercase  font-medium">Express checkout</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <button className="h-12 bg-[#5A31F4] rounded-sm flex items-center justify-center hover:opacity-90 transition-opacity">
+                                <img src={shopPayIcon} className="h-5" alt="Shop Pay" />
+                            </button>
+                            <button className="h-12 bg-black rounded-sm flex items-center justify-center hover:opacity-90 transition-opacity">
+                                <img src={googlePayIcon} className="h-4" alt="Google Pay" />
+                            </button>
+                        </div>
+                        <div className="relative flex items-center justify-center py-4">
+                            <div className="w-full border-t border-gray-100"></div>
+                            <span className="absolute bg-white px-4 text-[10px] text-gray-400 uppercase  italic font-bold">OR</span>
+                        </div>
+                    </div>
+
+                    {/* Contact */}
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-baseline">
+                            <h2 className="text-[18px] font-bold text-gray-800">Contact</h2>
+                            <Link to="#" className="text-[12px] text-gray-500 underline underline-offset-4 font-medium">Log in</Link>
+                        </div>
+                        <div className="space-y-4">
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder="Email"
+                                className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm"
+                            />
+                            <div className="flex items-center gap-2 group cursor-pointer">
+                                <input type="checkbox" id="news" className="w-4 h-4 bg-gray-50 border-gray-200 rounded-sm focus:ring-0 accent-[#1F4E56]" defaultChecked />
+                                <label htmlFor="news" className="text-[12px] text-gray-600 font-medium tracking-tight">Email me with news and offers</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Delivery */}
+                    <div className="space-y-6">
+                        <h2 className="text-[18px] font-bold text-gray-800">Delivery</h2>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="col-span-2 relative">
+                                <select 
+                                    name="country" 
+                                    value={formData.country} 
+                                    onChange={handleInputChange} 
+                                    className="w-full border border-gray-200 p-4 pt-6 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm appearance-none bg-white"
                                 >
-                                    <MapPin size={14} /> {isLoadingLocation ? 'Getting...' : 'Get Location'}
+                                    <option value="India">India</option>
+                                </select>
+                                <span className="absolute top-2 left-4 text-[10px] text-gray-400 uppercase  font-bold">Country/Region</span>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                            </div>
+                            <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} placeholder="First name" className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Last name" className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <input type="text" name="address" value={formData.address} onChange={handleInputChange} placeholder="Address" className="col-span-2 w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <input type="text" name="apartment" value={formData.apartment} onChange={handleInputChange} placeholder="Apartment, suite, etc. (optional)" className="col-span-2 w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <input type="text" name="city" value={formData.city} onChange={handleInputChange} placeholder="City" className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <div className="relative">
+                                <select name="state" value={formData.state} onChange={handleInputChange} className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm appearance-none bg-white">
+                                    <option value="">State</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                </select>
+                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
+                            </div>
+                            <input type="text" name="pincode" value={formData.pincode} onChange={handleInputChange} placeholder="PIN code" className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm" />
+                            <div className="col-span-2 relative">
+                                <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Phone (optional)" className="w-full border border-gray-200 p-4 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm pr-10" />
+                                <HelpCircle className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
+                            </div>
+                            <div className="col-span-2 flex items-center gap-2 group cursor-pointer pt-2">
+                                <input type="checkbox" id="text-news" className="w-4 h-4 bg-gray-50 border-gray-200 rounded-sm focus:ring-0 accent-[#1F4E56]" />
+                                <label htmlFor="text-news" className="text-[12px] text-gray-600 font-medium tracking-tight">Text me with news and offers</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Add tip */}
+                    <div className="space-y-4">
+                        <h2 className="text-[18px] font-bold text-gray-800 leading-none">Add tip</h2>
+                        <div className="bg-white border border-gray-100 rounded-sm p-8 shadow-sm space-y-6">
+                            <div className="flex items-start gap-4 cursor-pointer group">
+                                <input type="checkbox" id="support" className="mt-1 w-4 h-4 bg-gray-50 border-gray-200 rounded-sm focus:ring-0 accent-[#1F4E56]" defaultChecked />
+                                <label htmlFor="support" className="text-[13px] font-semibold text-gray-800 leading-snug">Show your support for the team at Rare Jewels</label>
+                            </div>
+
+                            <div className="grid grid-cols-4 gap-4">
+                                {[5, 10, 15].map(p => (
+                                    <button
+                                        key={p}
+                                        onClick={() => handleTipSelect('percent', p)}
+                                        className={`p-2 border text-center transition-all ${selectedTip === 'percent' && tip === Math.round(cartTotal * (p / 100)) ? 'border-[#1F4E56] bg-[#F9FBFC] ring-1 ring-[#1F4E56]' : 'border-gray-100 hover:border-gray-200'}`}
+                                    >
+                                        <div className="text-[13px] font-bold text-gray-900">{p}%</div>
+                                        <div className="text-[10px] text-gray-400 mt-1">{formatPrice(Math.round(cartTotal * (p / 100)))}</div>
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={() => handleTipSelect('none')}
+                                    className={`p-2 border text-center transition-all ${selectedTip === 'none' ? 'border-[#1F4E56] bg-[#F9FBFC] ring-1 ring-[#1F4E56]' : 'border-gray-100 hover:border-gray-200'}`}
+                                >
+                                    <div className="text-[13px] font-bold text-gray-900">None</div>
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                                <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Address*</label>
-                                    <input type="text" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} placeholder="e.g. Flat 5A, Green Heights, MG Road" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Flat No/Building</label>
-                                    <input type="text" value={formData.apartment} onChange={(e) => setFormData({ ...formData, apartment: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Landmark</label>
-                                    <input type="text" value={formData.landmark} onChange={(e) => setFormData({ ...formData, landmark: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Country</label>
-                                    <input type="text" value="India" readOnly className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] text-gray-400 outline-none rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">State*</label>
-                                    <select value={formData.state} onChange={(e) => setFormData({ ...formData, state: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm appearance-none cursor-pointer">
-                                        <option value="">Select State</option>
-                                        <option value="Gujarat">Gujarat</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Delhi">Gujarat</option>
-                                    </select>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">City*</label>
-                                    <input type="text" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Pincode*</label>
-                                    <input type="text" value={formData.pincode} onChange={(e) => setFormData({ ...formData, pincode: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-
-                                <div className="md:col-span-2 mt-4 mb-2">
-                                    <h2 className="text-[13px] font-bold text-gray-600 tracking-wide">Contact Details</h2>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">First Name*</label>
-                                    <input type="text" value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Last Name*</label>
-                                    <input type="text" value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                                <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Mobile Number*</label>
-                                    <div className="flex">
-                                        <div className="px-4 py-3 border border-r-0 border-gray-100 bg-[#fcfcfc] text-[12px] text-gray-500 font-bold">+91</div>
-                                        <input type="text" value={formData.mobile} onChange={(e) => setFormData({ ...formData, mobile: e.target.value })} placeholder="Enter 10-digit mobile number" className="flex-1 border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2 md:col-span-2">
-                                    <label className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Email</label>
-                                    <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Enter your email address" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm" />
-                                </div>
-                            </div>
-
-                            <div className="space-y-6 pt-10 border-t border-gray-50">
-                                <label className="flex items-start gap-4 cursor-pointer group">
-                                    <input type="checkbox" defaultChecked className="mt-1 w-4 h-4 accent-black" />
-                                    <span className="text-[11px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-black transition-colors">Keep my Shipping and Billing Addresses same</span>
-                                </label>
-                                <label className="flex items-start gap-4 cursor-pointer group">
-                                    <input type="checkbox" defaultChecked className="mt-1 w-4 h-4 accent-black" />
-                                    <span className="text-[11px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-black transition-colors">Sign up for offers and updates from Rare Jewels.</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* PAN Alert Box */}
-                        <div className="bg-[#fff1f1] p-6 rounded-sm border border-[#ffcfcf] flex items-start gap-4">
-                            <Info size={18} className="text-[#d8000c] mt-0.5" />
-                            <p className="text-[11px] font-medium text-[#d8000c] leading-relaxed italic">Please provide your PAN details.</p>
-                        </div>
-
-                        <div className="bg-white border border-gray-100 p-10 rounded-sm shadow-sm">
-                            <div className="mb-6 flex items-center gap-2">
-                                <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">PAN Verification</span>
-                                <Info size={12} className="text-gray-300" />
-                            </div>
-                            <div className="max-w-xs mb-10">
-                                <input type="text" placeholder="PAN" className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest" />
-                            </div>
-                            <label className="flex items-start gap-4 cursor-pointer group">
-                                <input
-                                    type="checkbox"
-                                    checked={useGstInvoice}
-                                    onChange={(e) => setUseGstInvoice(e.target.checked)}
-                                    className="mt-1 w-4 h-4 accent-black"
-                                />
-                                <span className="text-[11px] font-bold text-gray-600 uppercase tracking-widest group-hover:text-black transition-colors">Use GST Invoice</span>
-                            </label>
-
-                            {useGstInvoice && (
-                                <div className="mt-6 max-w-xs">
+                            <div className="flex gap-4 items-center pt-2">
+                                <div className="flex-1 relative flex items-center border border-gray-100 rounded-sm overflow-hidden">
+                                    <span className="bg-[#f2f2f2] px-3 py-3 text-gray-400 text-[14px]">{formatPrice(0).substring(0, 1)}</span>
                                     <input
                                         type="text"
-                                        placeholder="GSTIN"
-                                        className="w-full border border-gray-100 bg-[#fcfcfc] px-4 py-3 text-[12px] outline-none focus:border-black transition-colors rounded-sm uppercase tracking-widest"
+                                        placeholder="Custom Tip"
+                                        value={customTip}
+                                        onChange={(e) => setCustomTip(e.target.value)}
+                                        className="flex-1 p-3 text-[13px] outline-none"
                                     />
+                                    <div className="flex border-l border-gray-100 divide-x divide-gray-100">
+                                        <button className="px-3 hover:bg-gray-50"><Minus size={14} /></button>
+                                        <button className="px-3 hover:bg-gray-50"><Plus size={14} /></button>
+                                    </div>
+                                </div>
+                                <button className="bg-[#E6E6E6] text-gray-600 px-6 py-3.5 text-[11px] font-bold uppercase  rounded-sm hover:bg-gray-200 transition-colors">Add tip</button>
+                            </div>
+                            <p className="text-[11px] text-gray-500 italic">Thank you, we appreciate it.</p>
+                        </div>
+                    </div>
+
+                    {/* Remember me */}
+                    <div className="space-y-4">
+                        <h2 className="text-[18px] font-bold text-gray-800 leading-none">Remember me</h2>
+                        <div className="bg-white border border-gray-100 rounded-sm p-8 shadow-sm group cursor-pointer hover:bg-gray-50 transition-colors">
+                            <div className="flex items-center gap-4">
+                                <input type="checkbox" id="remember" className="w-4 h-4 border-gray-200 rounded-sm focus:ring-0 accent-[#1F4E56]" />
+                                <label htmlFor="remember" className="text-[13px] font-semibold text-gray-800 cursor-pointer">Save my information for a faster checkout</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Pay Button */}
+                    <div className="pt-8">
+                        <div className="text-[11px] text-gray-400 flex items-center gap-2 mb-6 uppercase  font-bold">
+                            <ShieldCheck size={14} /> Secure and encrypted
+                        </div>
+                        <button 
+                            onClick={handlePayNow}
+                            disabled={isCreatingOrder}
+                            className={`w-full bg-[#1F4E56] text-white py-3 text-[16px] font-bold uppercase tracking-[0.2em] shadow-lg hover:bg-[#153439] transition-all rounded-sm flex items-center justify-center gap-2 group ${isCreatingOrder ? 'opacity-70 cursor-not-allowed' : ''}`}
+                        >
+                            {isCreatingOrder ? 'Processing...' : 'Pay now'}
+                        </button>
+                        {/* Footer Links */}
+                        <div className="flex gap-4 pt-12 pb-24 text-[10px] text-gray-400 font-bold uppercase  justify-center">
+                            {['15-day Returns', 'Resizing Policy', 'Lifetime Exchange & Buyback', 'Cancellation Policy'].map(p => (
+                                <Link key={p} to="#" className="text-[#1F4E56]/60 underline underline-offset-4 hover:text-[#1F4E56] transition-colors whitespace-nowrap">{p}</Link>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+
+                {/* RIGHT COLUMN: SUMMARY */}
+                <div className="lg:col-span-5 bg-[#F9FBFC] border-l border-gray-100 -mr-12 px-8 pt-20 h-fit min-h-screen">
+                    <div className="space-y-8">
+                        {/* Cart Items */}
+                        <div className="space-y-6">
+                            {cartItems.map((item, idx) => (
+                                <div key={idx} className="flex gap-4 items-center relative">
+                                    <div className="w-16 h-16 bg-white border border-gray-100 rounded-lg p-2 flex items-center justify-center relative">
+                                        <img src={item.image} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
+                                        <span className="absolute -top-2 -right-2 bg-gray-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{item.quantity}</span>
+                                    </div>
+                                    <div className="flex-1 space-y-0.5">
+                                        <h4 className="text-[12px] font-bold text-gray-800 leading-tight uppercase tracking-tight">{item.title}</h4>
+                                        <div className="inline-block px-1.5 py-0.5 bg-gray-200 text-gray-600 text-[8px] font-bold uppercase rounded-sm mb-1">Natural</div>
+                                        <div className="text-[10px] text-gray-400 font-medium">
+                                            {item.options ? Object.entries(item.options)
+                                                .filter(([_, v]) => typeof v === 'string' || typeof v === 'number')
+                                                .map(([k, v]) => `${k.toUpperCase()}: ${v}`).join(' | ') : ''}
+                                        </div>
+                                    </div>
+                                    <div className="text-[13px] font-bold text-gray-900">{formatPrice(item.price * item.quantity)}</div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Coupon */}
+                        <div className="space-y-2">
+                            <div className="flex gap-2">
+                                <input
+                                    type="text"
+                                    placeholder="Discount code or gift card"
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value)}
+                                    className="flex-1 bg-white border border-gray-200 p-3 text-[13px] outline-none focus:ring-1 focus:ring-gray-300 rounded-sm"
+                                    disabled={appliedCoupon || isValidating}
+                                />
+                                {appliedCoupon ? (
+                                    <button 
+                                        onClick={handleRemoveCoupon}
+                                        className="bg-red-50 text-red-600 px-4 py-3 text-[11px] font-bold uppercase rounded-sm hover:bg-red-100 transition-colors"
+                                    >
+                                        Remove
+                                    </button>
+                                ) : (
+                                    <button 
+                                        onClick={handleApplyCoupon}
+                                        disabled={!couponCode || isValidating}
+                                        className="bg-[#E6E6E6] text-gray-600 px-4 py-3 text-[11px] font-bold uppercase rounded-sm hover:bg-gray-200 transition-colors disabled:opacity-50"
+                                    >
+                                        {isValidating ? '...' : 'Apply'}
+                                    </button>
+                                )}
+                            </div>
+                            {couponError && <p className="text-[11px] text-red-500 font-medium">{couponError}</p>}
+                            {appliedCoupon && (
+                                <div className="flex flex-col gap-1 bg-green-50 text-green-700 p-2 rounded-sm border border-green-100">
+                                    <div className="flex items-center gap-2">
+                                        <ShieldCheck size={14} />
+                                        <span className="text-[11px] font-bold uppercase tracking-wider">Coupon "{appliedCoupon}" Applied! ({formatPrice(discount)} off)</span>
+                                    </div>
+                                    {couponDescription && <p className="text-[10px] italic ml-5 opacity-80">{couponDescription}</p>}
                                 </div>
                             )}
                         </div>
 
-                        <div className="flex justify-center mt-20 mb-8 overflow-hidden transform group cursor-pointer hover:opacity-80 transition-all">
-                            <img src="https://images.unsplash.com/photo-1512336332152-cb4db696f5b9?auto=format&fit=crop&q=80&w=600" className="h-24 w-full object-cover grayscale opacity-10 hover:grayscale-0 hover:opacity-100 transition-all duration-700" alt="banner" />
+                        {/* Breakdown */}
+                        <div className="space-y-3 pt-6">
+                            <div className="flex justify-between text-[13px] font-medium text-gray-600">
+                                <span>Subtotal</span>
+                                <span className="text-gray-900 font-bold">{formatPrice(cartTotal)}</span>
+                            </div>
+                             <div className="flex justify-between items-center text-[13px] font-medium text-gray-600">
+                                <span className="flex items-center gap-2">Shipping <HelpCircle size={14} className="text-gray-300" /></span>
+                                <span className="text-[12px] text-gray-400 italic">Free Shipping</span>
+                            </div>
+                            {discount > 0 && (
+                                <div className="flex justify-between text-[13px] font-medium text-green-600">
+                                    <span>Discount ({appliedCoupon})</span>
+                                    <span className="font-bold">-{formatPrice(discount)}</span>
+                                </div>
+                            )}
+                            {tip > 0 && (
+                                <div className="flex justify-between text-[13px] font-medium text-gray-600">
+                                    <span>Support Tip</span>
+                                    <span className="text-gray-900 font-bold">{formatPrice(tip)}</span>
+                                </div>
+                            )}
                         </div>
-                    </div>
 
-                    {/* RIGHT: Sidebar Summary */}
-                    <div className="lg:w-[420px] space-y-4">
-                        <div className="bg-white border border-gray-100 p-3 rounded-sm shadow-sm sticky top-28">
-                            <div className="mb-8 pb-4 border-b border-gray-50">
-                                <h3 className="text-[11px] text-gray-400 font-bold uppercase tracking-[0.2em]">Order Summary</h3>
-                            </div>
-
-                            <div className="space-y-6 mb-8">
-                                {cartItems.map((item) => (
-                                    <div key={item.id} className="flex gap-4">
-                                        <div className="w-14 h-14 p-1 bg-[#f9f9f9] border border-gray-50 flex-shrink-0">
-                                            <img src={item.image} className="w-full h-full object-contain mix-blend-multiply" alt={item.name} />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-[11px] font-bold text-gray-900 uppercase tracking-tight">{item.name}</h4>
-                                            <div className="flex gap-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest mt-1">
-                                                <span>Qty: {item.quantity}</span>
-                                                <span>Size: {item.customizations?.size || '9'}</span>
-                                            </div>
-                                            <div className="text-[11px] font-bold text-gray-900 mt-1">{formatPrice(item.price * item.quantity)}</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="space-y-4 py-8 border-y border-gray-50">
-                                <div className="flex justify-between text-[11px] uppercase tracking-widest font-bold">
-                                    <span className="text-gray-400">Subtotal (MRP)</span>
-                                    <span className="text-gray-900">{formatPrice(cartTotal)}</span>
+                        {/* Total */}
+                        <div className="pt-6 border-t border-gray-200">
+                            <div className="flex justify-between items-baseline">
+                                <span className="text-[18px] font-bold text-gray-800">Total</span>
+                                <div className="text-right">
+                                    <div className="text-[11px] text-gray-400 font-bold  uppercase mb-1">{currency}</div>
+                                    <div className="text-[22px] font-bold text-gray-900 leading-none tracking-tight">{formatPrice(finalTotal)}</div>
                                 </div>
-                                <div className="flex justify-between text-[11px] uppercase tracking-widest font-bold text-[#2ebd59]">
-                                    <span>Product Discount</span>
-                                    <span>-{formatPrice(discount)}</span>
-                                </div>
-                                <div className="flex justify-between text-[11px] uppercase tracking-widest font-bold">
-                                    <span className="text-gray-400">Shipping</span>
-                                    <span className="text-[#2ebd59]">Free</span>
-                                </div>
-                            </div>
-
-                            <div className="my-8 flex justify-between items-center">
-                                <span className="text-[12px] font-bold uppercase tracking-widest text-gray-900">Order Total (including GST)</span>
-                                <span className="text-[18px] font-bold text-gray-900 leading-none">{formatPrice(total)}</span>
-                            </div>
-
-                            <button onClick={() => navigate('/payment')} className="w-full bg-black text-white py-4 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gray-800 transition-colors flex items-center justify-center gap-3 shadow-lg mb-8">
-                                <ShieldCheck size={16} /> Proceed to Payment <ChevronRight size={14} />
-                            </button>
-
-                            <div className="bg-[#fff9f0] border border-[#f3e1c9] p-4 flex items-center justify-center gap-4 mb-10">
-                                <Truck size={20} className="text-[#a67c00]" />
-                                <div className="text-center">
-                                    <p className="text-[12px] font-bold text-gray-900 leading-tight">Order within 18h : 17m : 34s</p>
-                                    <p className="text-[11px] text-gray-600">For Estimated Delivery by <span className="font-bold text-gray-900">Sat, 14th Mar</span></p>
-                                </div>
-                            </div>
-
-                            {/* Why Shop Icons Reused */}
-                            <div className="grid grid-cols-5 gap-2 border-t border-gray-50 pt-10">
-                                {[
-                                    { icon: X, label: 'BIS Hallmark' },
-                                    { icon: RotateCcw, label: 'Exchange & Buyback' },
-                                    { icon: Truck, label: 'Free Returns' },
-                                    { icon: ShieldCheck, label: 'Rare Jewels Certified' },
-                                    { label: '4.7/5', text: 'Rated 4.7/5' }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex flex-col items-center text-center">
-                                        <div className="w-8 h-8 md:w-10 md:h-10 bg-[#f9f9f9] rounded-full flex items-center justify-center border border-gray-50 mb-1">
-                                            {item.icon ? <item.icon size={14} /> : <span className="text-[9px] font-bold italic">{item.label}</span>}
-                                        </div>
-                                        <span className="text-[7px] text-gray-500 font-bold uppercase tracking-tighter leading-tight">{item.text || item.label}</span>
-                                    </div>
-                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Payment Icons Footer Reused */}
-            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 mt-20 pt-12 border-t border-gray-100 text-center pb-12">
-                <div className="flex flex-wrap justify-center gap-12 mb-8 opacity-40 grayscale group hover:opacity-100 transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-4" alt="Visa" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-6" alt="Mastercard" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/1024px-UPI-Logo-vector.svg.png" className="h-4" alt="UPI" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Rupay-Logo.svg/1024px-Rupay-Logo.svg.png" className="h-4" alt="RuPay" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/BHIM_Logo.svg/1024px-BHIM_Logo.svg.png" className="h-4" alt="BHIM" />
-                </div>
-                <div className="flex flex-wrap justify-center gap-12 items-center opacity-60 mb-10 overflow-hidden">
-                    <span className="text-[12px] font-poppins font-bold tracking-tight">THE ECONOMIC TIMES</span>
-                    <span className="text-[12px] font-sans font-black tracking-tight border-b-2 border-red-600">INDIA TODAY</span>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/CNBC_TV18_logo.png" className="h-6" alt="cnbc" />
-                </div>
-                <p className="text-[9px] text-gray-400 uppercase tracking-[0.2em]">© 2028 Rare Jewels Jewels Private Limited All Rights Reserved. | Accessibility | Privacy Policy | T&C | Corporate</p>
             </div>
         </div>
     );
 };
 
-const Info = ({ size, className }) => (
-    <svg
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="16" x2="12" y2="12" />
-        <line x1="12" y1="8" x2="12.01" y2="8" />
+const Plus = ({ size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
+);
+
+const Minus = ({ size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12" />
     </svg>
 );
 

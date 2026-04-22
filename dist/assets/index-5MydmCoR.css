@@ -1615,10 +1615,6 @@ section {
     text-align: center
 }
 
-.font-sans {
-    font-family: Inter, sans-serif
-}
-
 .font-poppins {
     font-family: Playfair Display, serif
 }
@@ -1772,7 +1768,7 @@ section {
     letter-spacing: .025em
 }
 
-.tracking-widest {
+. {
     letter-spacing: .25em
 }
 

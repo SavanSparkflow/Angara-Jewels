@@ -1,153 +1,292 @@
 import React from 'react';
+import { HelpCircle, Star, Award, ShieldCheck, Globe, Clock, Gift, Users, Phone, Mail, MapPin, PhoneCall } from 'lucide-react';
+import aboutImg1 from "/public/images/about_us_img-1.jpg"
+import aboutImg2 from "/public/images/about_us_img-2.jpg"
+import aboutImg3 from "/public/images/about_us_img-3.jpg"
+import aboutImg4 from "/public/images/about_us_img-4.jpg"
+import aboutImg5 from "/public/images/about_us_img-5.jpg"
+import aboutImg6 from "/public/images/about_us_img-6.png"
+import aboutImg7 from "/public/images/about_us_img-7.jpg"
+import aboutImg8 from "/public/images/about_us_img-8.jpg"
+import aboutImg9 from "/public/images/about_us_img-9.jpg"
+import aboutImg10 from "/public/images/about_us_img-10.jpg"
+import aboutImg11 from "/public/images/about_us_img-11.jpg"
+import aboutImg12 from "/public/images/about_us_img-12.jpg"
+import aboutImg13 from "/public/images/about_us_img-13.jpg"
+import aboutImg14 from "/public/images/about_us_img-14.jpg"
+import aboutImg15 from "/public/images/about_us_img-15.jpg"
+import aboutImg16 from "/public/images/about_us_img-16.jpg"
+import aboutImg17 from "/public/images/about_us_img-17.jpg"
+import aboutImg18 from "/public/images/about_us_img-18.jpg"
+import aboutImg19 from "/public/images/about_us_img-19.png"
+import aboutImg20 from "/public/images/about_us_img-20.png"
+import aboutImg21 from "/public/images/about_us_img-21.png"
+import aboutImg22 from "/public/images/about_us_img-22.png"
+import aboutImg23 from "/public/images/about_us_img-23.png"
+import { Link } from 'react-router-dom';
 
 const OurStory = () => {
+
     return (
-        <div className="w-full bg-white select-none">
-            {/* 1. Top Banner */}
-            <div className="w-full h-[300px] md:h-[500px] bg-gray-100 mb-16 overflow-hidden">
-                <img
-                    src="https://images.unsplash.com/photo-1599643478514-4a11011c77f0?auto=format&fit=crop&q=80&w=2000"
-                    alt="Jewelry Design Sketch"
-                    className="w-full h-full object-cover object-center opacity-80"
-                />
+        <div className="bg-white min-h-screen">
+            <div className="container mx-auto px-4 md:pt-8 mt-4">
+                <nav className="flex mb-10 mt-4" aria-label="Breadcrumb">
+                    <ol className="inline-flex items-center space-x-1 md:space-x-3 text-[12px] font-medium">
+                        <li><Link to="/">Home</Link></li>
+                        <li>/</li>
+                        <li>About Us</li>
+                    </ol>
+                </nav>
             </div>
-
-            {/* 2. Intro Text */}
-            <div className="max-w-4xl mx-auto px-6 text-center mb-24 space-y-6">
-                <h1 className="text-[22px] md:text-[26px] text-gray-800 tracking-wide font-medium font-poppins mb-8">Our Story</h1>
-                <p className="text-[15px] md:text-[17px] text-gray-600 leading-relaxed font-sans max-w-3xl mx-auto pb-4">
-                    We're so glad you're looking here for the perfect piece of jewellery.<br className="hidden md:block" />
-                    Our hope is that every piece you create with us speaks to your soul, in the way only<br className="hidden md:block" />
-                    vibrant coloured gemstones can.
-                </p>
-            </div>
-
-            {/* 3. Story Section 1: Image Left, Text Right */}
-            <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center gap-12 lg:gap-20 mb-32">
-                <div className="flex-1 w-full h-[400px] md:h-[600px] bg-gray-100 overflow-hidden shadow-sm">
-                    <img
-                        src="https://images.unsplash.com/photo-1583937438497-6a74653dd758?auto=format&fit=crop&q=80&w=1000"
-                        alt="Ankur & Aditi Daga"
-                        className="w-full h-full object-cover object-center grayscale-[20%]"
-                    />
-                </div>
-                <div className="flex-1 space-y-6 text-[14px] text-gray-600 leading-[1.8] font-sans md:pr-4">
-                    <p>
-                        It is with this very hope that my wife, Aditi, and I brought Rare Jewels into the world more than 15 years ago. Jewellery is our destiny. Both of us come from generations of jewellers. Coloured gemstones-with all their power and history-are in our blood.
-                    </p>
-                    <p>
-                        For a while, I thought I could escape the lure of jewellery. Following a stint at McKinsey & Company, I pursued my MBA at Harvard. But I was eventually compelled to return to my roots. It all started when Aditi and I were looking for jewellery to commemorate a milestone in our marriage, but nothing we saw really spoke to us or captured our relationship in a unique and memorable way. Everything was stamped out. Commercial. With little personality or individuality.
-                    </p>
-                    <p>
-                        Talking with several of our friends and peers, we realized that we weren't the only ones who felt this way. So together, Aditi and I set out to build Rare Jewels to combine the power of creation with the ancient energy of coloured gemstones.
-                    </p>
-                    <p>
-                        When you come to our website, we want you to be able to design a piece of jewellery that captures everything you want to say; in any stone, in any style, in any metal, in any setting. Whether for yourself or, as in our case, a gift.
-                    </p>
-                    <p>
-                        In this way, we want you to be the hero of your jewellery saga. It all harkens back to centuries ago when only royalty would have their jewellery custom designed. Today, combining technology and craft, we offer those services to you, so that you can have that custom one-of-a-kind piece of jewellery without the long wait and heavy price tag!
+            {/* ABOUT US HEADER */}
+            <section className="pb-16 bg-[#FAFAFA]">
+                <div className="max-w-4xl mx-auto px-4 text-center">
+                    <h1 className="unna-font text-[36px] md:text-[48px] font-normal text-[#1A1A1A] mb-4">About Us</h1>
+                    <p className="text-[14px] text-gray-500 leading-[1.8] font-light max-w-3xl mx-auto">
+                        Life's precious moments should be celebrated with colour! At Rare Jewels, we believe that fine jewelry
+                        should be as unique as the person wearing it. Our mission is to infuse every piece with vibrant
+                        storytelling, exceptional craftsmanship, and the ancient energy of ethically sourced gemstones.
                     </p>
                 </div>
-            </div>
+            </section>
 
-            {/* 4. Full Width Quote Banner */}
-            <div className="w-full bg-[#f4f4f4] relative h-[300px] md:h-[400px] mb-32 flex items-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1620655452843-ea844c3ad297?auto=format&fit=crop&q=80&w=2000"
-                        alt="Beautiful Color Rings"
-                        className="w-full h-full object-cover opacity-30 mix-blend-multiply"
-                    />
-                </div>
-                <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-12 flex justify-end">
-                    <div className="max-w-2xl text-center md:text-right text-gray-900 py-8 px-6 bg-white/40 backdrop-blur-sm rounded-sm">
-                        <p className="text-[18px] md:text-[24px] font-poppins leading-snug mb-8 relative px-8">
-                            <span className="text-5xl text-gray-400 font-poppins absolute top-[-10px] left-0">"</span>
-                            The world needs more colour in every way. We're on a mission to find it and share it, so you can celebrate life's precious moments with colour.
+            {/* THREE COLUMNS: MISSION, VISION, PURPOSE */}
+            <section className="py-12 px-4">
+                <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="space-y-3 text-center group">
+                        <div className="overflow-hidden rounded-sm bg-gray-100">
+                            <img
+                                src={aboutImg1}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Our Mission"
+                            />
+                        </div>
+                        <h3 className="unna-font text-2xl text-[#000815] font-normal">Our Value</h3>
+                        <p className="text-[13px] text-[#000815] leading-relaxed font-normal    ">
+                            Integrity, transparency, accountability and credibility are
+                            the values we cherish and adhere to in all aspects of
+                            dealings with our employees, customers and associates.
                         </p>
-                        <p className="font-bold text-[13px] tracking-wide uppercase">- Ankur & Aditi Daga</p>
+                    </div>
+
+                    <div className="space-y-3 text-center group">
+                        <div className="overflow-hidden rounded-sm bg-gray-100">
+                            <img
+                                src={aboutImg2}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Our Vision"
+                            />
+                        </div>
+                        <h3 className="unna-font text-2xl text-[#000815] font-normal">Our Vision</h3>
+                        <p className="text-[13px] text-[#000815] leading-relaxed font-normal">
+                            To strengthen our position as the world’s most trusted
+                            supplier of premium, high quality, eco - friendly and
+                            meticulously/perfectly manufactured lab grown
+                            diamonds and moissanite jewelry.
+                        </p>
+                    </div>
+
+                    <div className="space-y-3 text-center group">
+                        <div className="overflow-hidden rounded-sm bg-gray-100">
+                            <img
+                                src={aboutImg3}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                alt="Our Purpose"
+                            />
+                        </div>
+                        <h3 className="unna-font text-2xl text-[#000815] font-normal">Our Purpose</h3>
+                        <p className="text-[13px] text-[#000815] leading-relaxed font-normal">
+                            To commit wholeheartedly to the pursuit of excellence
+                            while being mindful of the environmental and societal
+                            impact of our business.
+                        </p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            {/* 5. Story Section 2: Text Left, Image Right */}
-            <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-20 mb-32">
-                <div className="flex-1 space-y-6 text-[14px] text-gray-600 leading-[1.8] font-sans md:pl-4">
-                    <p>
-                        We built Rare Jewels from the stone, up, however our story began in India in 2024. We are vertically-integrated, which means every step in the making of your jewellery is carefully handled by us. We source every single one of our gemstones sustainably. We cut and polish them ourselves with the utmost skill and respect, never forgetting that coloured gemstones and diamonds can take 30 million years to form in the depths of the earth. We then handcraft the designs you choose around them.
-                    </p>
-                    <p>
-                        Handmade also extends to our service. So unlike regular ecommerce businesses where a chatbot and an inbox are considered sufficient, we have a team of dedicated jewellery experts who can help with everything from education to style guru-ship (even explaining how garnets are connected to pomegranates).
-                    </p>
-                    <p>
-                        In fact, our service has earned us many recognitions, including awards from Newsweek, Bizrate Insights and Business Intelligence, all validating us as the "Internet's Best Jeweller."
-                    </p>
-                    <p>
-                        Now we've told you a lot about Rare Jewels, but we saved our name for last.
-                    </p>
-                    <p>
-                        In ancient Sanskrit, Rare Jewels means "the fire within." We love how it captures the power of the colour that burns inside our gemstones, as well as the fire of imagination that inspires you to create jewellery with colours that reflect you.
-                    </p>
-                    <p>
-                        After all, colour brings out the best in people, and our mission is to bring more of it to the world.
-                    </p>
-                    <p className="font-bold text-gray-800 text-center md:text-left mt-8 tracking-wide">
-                        Life's precious moments should be celebrated with colour!
-                    </p>
-                    <div className="flex items-center gap-16 mt-16 pb-4">
-                        <div className="text-center">
-                            <h4 className="text-3xl mb-4 text-gray-800" style={{ fontFamily: "'Brittany Signature', cursive" }}>Ankur Daga</h4>
-                            <p className="text-[11px] font-bold uppercase tracking-widest text-gray-900 border-t border-gray-200 pt-3">Ankur Daga</p>
+            {/* FULL WIDTH BANNER */}
+            <section className="w-full overflow-hidden">
+                <img src={aboutImg4} alt="Hands with Ring" className="w-full h-full object-cover" />
+            </section>
+
+            {/* OUR STORY CONTENT SECTION */}
+            <section className="py-10 px-4 bg-[#F5F0EE]">
+                <div className="container px-4 mx-auto text-center space-y-6">
+                    <h2 className="unna-font text-[36px] md:text-[48px] font-normal text-[#1A1A1A]">Our Story</h2>
+                    <div className="text-[12px] text-[#000815] leading-[2] text-justify md:text-center max-w-5xl mx-auto space-y-6">
+                        <p>
+                            Welcome to the Sparkling World of Rare Jewels! Hey there! I'm Ankit, the heart and soul behind Rare Jewels. Let me take you on a quick journey of how we bring you the best
+                            Lab-Grown Diamonds and Jewelry.It all started in Surat, the diamond hub. I was deep into natural diamonds, creating and selling them locally. But guess what? The 2008 recession
+                            hit, and I pivoted to what I loved most – designing jewelry. I began with sketches and soon moved to handmaking actual pieces that people in Surat adored.
+                        </p>
+                        <p>
+                            Then came 2017, and I stumbled upon Etsy. What a game-changer! I launched my moissanite handmade jewelry store in 2018 and, wow, the response blew me away! We're
+                            talking over 13000 sales and more than 4800 glowing reviews. You've got to check it out here. Fast forward to 2020, and my awesome customers, just like you, suggested I dive
+                            into Lab Grown Diamonds. And I thought, why not? So, here we are, with Rare Jewels Lab Grown, dedicated to bringing you top-notch Lab Grown Diamonds and handmade
+                            Jewelry. I'm super excited to have you visit our shop. You're going to love the designs which are designed by me– they're unique just for you. Custom orders are our thing, so let your
+                            imagination run wild! I'm confident you'll back us up just like before. Your support means everything, and we promise to keep up with our top-tier customer service, communication,
+                            and, of course, stunning jewelry.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* WHY RARE JEWELS? */}
+            <section className="py-24 bg-[#FAFAFA] text-center">
+                <div className="container px-4 mx-auto px-4">
+                    <div className="niconne-font text-[32px] text-[#017BB3] mb-2">Rare Jewels Promise</div>
+                    <h2 className="unna-font text-[36px] md:text-[48px] font-normal text-[#1A1A1A] mb-10">Why Rare Jewels?</h2>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-8">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-16 h-16 transform hover:scale-110 transition-transform">
+                                <img src="/images/cartificate_1.svg" alt="" />
+                            </div>
+                            <span className="text-[11px] font-bold uppercase  text-gray-700">BIS Hallmark</span>
                         </div>
-                        <div className="text-center">
-                            <h4 className="text-3xl mb-4 text-gray-800" style={{ fontFamily: "'Brittany Signature', cursive" }}>Aditi Daga</h4>
-                            <p className="text-[11px] font-bold uppercase tracking-widest text-gray-900 border-t border-gray-200 pt-3">Aditi Daga</p>
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-16 h-16 transform hover:scale-110 transition-transform">
+                                <img src="/images/cartificate_2.svg" alt="" />
+                            </div>
+                            <span className="text-[11px] font-bold uppercase  text-gray-700">Free 15-Day Returns</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-16 h-16 transform hover:scale-110 transition-transform">
+                                <img src="/images/cartificate_3.svg" alt="" />
+                            </div>
+                            <span className="text-[11px] font-bold uppercase  text-gray-700">Rare Jewels Certified</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-16 h-16 transform hover:scale-110 transition-transform">
+                                <img src="/images/cartificate_4.svg" alt="" />
+                            </div>
+                            <span className="text-[11px] font-bold uppercase  text-gray-700">Lifetime Exchange and Buyback</span>
+                        </div>
+                    </div>
+
+                    <button className="bg-black text-white px-12 py-4 text-[11px] font-bold uppercase  rounded-sm hover:bg-gray-800 transition-all shadow-lg">design your own jewelry</button>
+                    <div className="mt-4 text-[10px] text-gray-400 font-bold uppercase  flex items-center justify-center gap-2"><PhoneCall /> Call Us</div>
+                </div>
+            </section>
+
+            {/* COLORFUL STATS CARDS GRID */}
+            <section className="py-14 px-4 bg-white">
+                <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+                    <div className='col-span-2'>
+                        <img src={aboutImg5} alt="" />
+                    </div>
+                    <div className='col-span-2'>
+                        <img src={aboutImg6} alt="" />
+                    </div>
+                    <div className='col-span-2'>
+                        <img src={aboutImg7} alt="" />
+                    </div>
+                    <div>
+                        <img src={aboutImg8} alt="" />
+                    </div>
+                    <div>
+                        <img src={aboutImg9} alt="" />
+                    </div>
+                    <div>
+                        <img src={aboutImg10} alt="" />
+                    </div>
+                    <div>
+                        <img src={aboutImg11} alt="" />
+                    </div>
+                </div>
+            </section>
+
+            {/* HANDMADE JEWELRY SECTION */}
+            <section className="py-12 pb-24 px-4 bg-white text-center">
+                <div className="container px-4 mx-auto space-y-4">
+                    <h2 className="unna-font text-[30px] md:text-[40px] font-normal text-[#1A1A1A]">Handmade Jewelry With Love at Rare Jewels</h2>
+                    <div className="text-[13px] text-[#000815] leading-[2] max-w-4xl mx-auto space-y-6 font-normal">
+                        <p>
+                            Welcome to the heart of Rare Jewels, where love and craftsmanship blend to create extraordinary jewelry. As pioneers in lab-grown diamonds and moissanite jewelry, we are
+                            committed to crafting pieces that not only dazzle but also tell a story of innovation and affection.
+                        </p>
+                        <p>
+                            At Rare Jewels, every jewel is born from a blend of art and science. Our lab-grown diamonds and moissanite stones are not just eco-friendly alternatives; they are testaments to
+                            human ingenuity and care for our planet. Meticulously crafted, each stone mirrors the quality and brilliance of mined diamonds, while embodying a spirit of sustainability.
+                        </p>
+                        <p>
+                            Our artisans, with their skilled hands and passionate hearts, transform these ethically sourced stones into masterpieces. From timeless engagement rings to elegant necklaces,
+                            every piece is handcrafted with precision and love. We believe in creating jewelry that resonates with your values and stories.
+                        </p>
+                        <p>
+                            Choosing Rare Jewels means embracing a future where luxury and responsibility go hand in hand. It's not just about adorning yourself with beautiful jewelry; it's about making a
+                            conscious choice for a better world.
+                        </p>
+                        <p>
+                            Join us in this journey of love, innovation, and craftsmanship. Experience the unique allure of Rare Jewels – where every piece is a symbol of love for you and the environment.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* VIRAL STYLES BANNER */}
+            <section className="w-full py-12 relative overflow-hidden">
+                <img src={aboutImg12} alt="" />
+            </section>
+
+            {/* GIVING BACK SECTION */}
+            <section className="py-12 bg-white px-4 text-center">
+                <div className="container px-4 mx-auto">
+                    <div className="niconne-font text-[#017BB3] text-[12px] font-bold uppercase tracking-[0.3em] mb-2">Simplicity</div>
+                    <h2 className="unna-font text-[36px] md:text-[48px] font-normal text-[#1A1A1A] mb-8">Going Back - Your Purchase Has Power</h2>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px]">
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1">
+                            <img src={aboutImg13} className="w-full h-full object-cover" alt="Team" />
+                        </div>
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1">
+                            <img src={aboutImg14} className="w-full h-full object-cover" alt="Team" />
+                        </div>
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1 lg:col-span-2">
+                            <img src={aboutImg15} className="w-full h-full object-cover" alt="Workshop" />
+                        </div>
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1 lg:col-span-2">
+                            <img src={aboutImg16} className="w-full h-full object-cover" alt="Humanitarian" />
+                        </div>
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1">
+                            <img src={aboutImg17} className="w-full h-full object-cover" alt="Craft" />
+                        </div>
+                        <div className="bg-gray-100 rounded-sm overflow-hidden col-span-1">
+                            <img src={aboutImg18} className="w-full h-full object-cover" alt="Lab" />
                         </div>
                     </div>
                 </div>
-                <div className="flex-1 w-full h-[400px] md:h-[650px] bg-[#f9f9f9] flex items-center justify-center overflow-hidden shadow-sm">
-                    <img
-                        src="https://images.unsplash.com/photo-1605100804763-247f67b4546e?auto=format&fit=crop&q=80&w=1000"
-                        alt="Stacked Rings"
-                        className="w-full h-full object-cover object-center mix-blend-multiply"
-                    />
-                </div>
-            </div>
+            </section>
 
-            {/* 6. Vision & Mission Footer */}
-            <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-12 pt-20 pb-32">
-                <div className="flex-1 text-center md:text-right">
-                    <h3 className="text-xl font-bold tracking-widest uppercase text-gray-900 mb-6">Vision</h3>
-                    <p className="text-[15px] font-light text-gray-600 max-w-sm ml-auto leading-relaxed">
-                        To build a world where colour brings out the best in people.
-                    </p>
-                </div>
-
-                <div className="w-56 h-56 flex-shrink-0 flex items-center justify-center filter drop-shadow-xl hover:scale-105 transition-transform duration-500">
-                    {/* The blue octagon collage container */}
-                    <div className="w-full h-full bg-[#0a1a47] relative overflow-hidden" style={{ clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)" }}>
-                        <img
-                            src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?auto=format&fit=crop&q=80&w=800"
-                            className="w-full h-full object-cover absolute inset-0 opacity-80 mix-blend-luminosity"
-                            alt="Blue Collage"
-                        />
-                        {/* Optional grid overlay to simulate the mosaic puzzle feel */}
-                        <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 gap-0.5 pointer-events-none">
-                            {[...Array(16)].map((_, i) => (
-                                <div key={i} className="bg-white/10 backdrop-blur-[1px]"></div>
-                            ))}
+            {/* CERTIFIED BY AREA */}
+            <section className="py-12 bg-[#F5F0EE] border-y border-gray-100">
+                <div className="container px-4 mx-auto px-4 text-center">
+                    <h2 className="unna-font text-[28px] font-normal text-gray-800 mb-8">Certified By</h2>
+                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
+                        {/* Certificates logos placeholders */}
+                        <div>
+                            <img src={aboutImg19} alt="" />
+                        </div>
+                        <div>
+                            <img src={aboutImg20} alt="" />
+                        </div>
+                        <div>
+                            <img src={aboutImg21} alt="" />
+                        </div>
+                        <div>
+                            <img src={aboutImg22} alt="" />
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-xl font-bold tracking-widest uppercase text-gray-900 mb-6">Mission</h3>
-                    <p className="text-[15px] font-light text-gray-600 max-w-sm mr-auto leading-relaxed">
-                        To bring life-changing colour to the world's hands, faces and hearts.
-                    </p>
+            {/* ASSOCIATED WITH */}
+            <section className="py-12 text-center">
+                <div className="container px-4 mx-auto">
+                    <h2 className="unna-font text-[28px] font-normal text-gray-800 mb-5">Associated With</h2>
+                    <img src={aboutImg23} alt="" className="mx-auto" />
                 </div>
-            </div>
-
+            </section>
         </div>
     );
 };

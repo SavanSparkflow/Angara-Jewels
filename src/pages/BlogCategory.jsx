@@ -161,7 +161,7 @@ const BlogCategory = () => {
                                 <h1 className="text-2xl md:text-4xl lg:text-3xl font-poppins max-w-4xl leading-tight mb-8">
                                     {post.title}
                                 </h1>
-                                <Link to="/blog/best-lab-grown-aquamarine-engagement-rings-2026" className="border border-white text-white px-8 py-3 text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors duration-300">
+                                <Link to="/blog/best-lab-grown-aquamarine-engagement-rings-2026" className="border border-white text-white px-8 py-3 text-[10px]  hover:bg-white hover:text-black transition-colors duration-300">
                                     READ MORE
                                 </Link>
                             </div>
@@ -178,7 +178,7 @@ const BlogCategory = () => {
                             <li key={idx} className="flex-shrink-0">
                                 <Link
                                     to={`/blog/category/${cat.slug}`}
-                                    className={`text-[10px] tracking-widest uppercase font-semibold pb-1 transition-all ${category === cat.slug ? 'text-[#000] border-b-2 border-black' : 'text-gray-400 hover:text-black'}`}
+                                    className={`text-[10px]  uppercase font-semibold pb-1 transition-all ${category === cat.slug ? 'text-[#000] border-b-2 border-black' : 'text-gray-400 hover:text-black'}`}
                                 >
                                     {cat.name}
                                 </Link>
@@ -205,7 +205,7 @@ const BlogCategory = () => {
                                     {currentCategoryName}
                                 </span>
                                 <Link to="/blog/best-lab-grown-aquamarine-engagement-rings-2026">
-                                    <h2 className="text-xl md:text-2xl font-serif text-[#1e1e1e] mb-4 leading-tight group-hover:text-gray-600 transition-colors">
+                                    <h2 className="text-xl md:text-2xl  text-[#1e1e1e] mb-4 leading-tight group-hover:text-gray-600 transition-colors">
                                         {post.title}
                                     </h2>
                                 </Link>
@@ -218,7 +218,7 @@ const BlogCategory = () => {
                 </div>
 
                 <div className="mt-16 text-center">
-                    <button className="border border-black text-black px-10 py-3 text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition-colors">
+                    <button className="border border-black text-black px-10 py-3 text-[10px] font-bold  hover:bg-black hover:text-white transition-colors">
                         VIEW MORE
                     </button>
                 </div>

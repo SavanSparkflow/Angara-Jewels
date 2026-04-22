@@ -1,134 +1,70 @@
 import React from 'react';
-import PolicyLayout from '../components/PolicyLayout';
+import { Link } from 'react-router-dom';
 
 const ExchangeBuyback = () => {
     return (
-        <PolicyLayout>
-            <h1 className="text-2xl font-poppins text-gray-900 mb-8 font-light">Rare Jewels Lifetime Exchange & Buyback</h1>
-            <p className="text-[14px] text-gray-700 leading-[1.8] mb-6">
-                Our Lifetime Exchange & Buyback policy is designed to be as dazzling and delightful as our jewellery! To kickstart this sparkling transaction, simply have your original invoice handy or let us know the phone number linked to your purchase.
-            </p>
-            <p className="text-[14px] text-gray-700 leading-[1.8] mb-4">
-                To ensure a smooth and transparent experience, we've outlined the key terms and conditions below:
-            </p>
-
-            <ol className="list-decimal pl-5 space-y-2 text-[14px] text-gray-700 leading-[1.8] mb-8 marker:text-gray-400">
-                <li>Products must be returned with original certification and documents, if applicable.</li>
-                <li>Product valuation and quality check (QC) will take up to 15 business days. Once approved, customers have the option to purchase a new product of the same or higher value by paying the difference amount, if any. Shipping of the new product will follow the timeline mentioned on the website at the time of purchase.</li>
-                <li>If customers decide not to proceed after valuation, they can reclaim the product by paying a processing fee.</li>
-                <li>For buyback, Rare Jewels cash (up to Rs.5,00,000) will be credited to the customer's account, redeemable after 30 days from buyback confirmation. A 10% transaction charge applies on bank transfers.</li>
-                <li>Market value appreciation is determined solely by the company.</li>
-                <li>Returns after the free 15-day return period fall under Lifetime Exchange & Buyback.</li>
-                <li>All custom and personalised jewellery orders are included.</li>
-                <li>Natural gemstones include both precious and semi-precious stones bought from Rare Jewels.</li>
-                <li>Exchange and buyback values exclude making charges and taxes.</li>
-                <li>Products altered by third parties in any way are not eligible.</li>
-                <li>Policy excludes loose natural diamonds, loose natural gemstones, loose lab-grown diamonds/gemstones and gold coins.</li>
-            </ol>
-
-            <p className="text-[14px] text-gray-700 leading-[1.8] mb-8">
-                Below table illustrates the process to arrive at the estimated maximum value of your Rare Jewels jewellery during Lifetime Exchange and Lifetime Buyback. This is subject to valuation and approval.
-            </p>
-
-            <h2 className="text-lg font-poppins text-gray-900 mb-4 font-normal">Rare Jewels Lifetime Exchange</h2>
-            <div className="overflow-x-auto mb-12">
-                <table className="w-full text-center border-collapse border border-gray-200 text-[13px] text-gray-700 shadow-sm">
-                    <thead>
-                        <tr className="bg-gray-50 border-b border-gray-200 font-medium text-gray-900">
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Category</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Metal</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Diamond/Gemstones</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Making Charges</th>
-                            <th className="py-4 px-4 font-medium">Processing/Shipping Charges</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Plain Gold Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">NA</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">Zero</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Natural Diamond Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">Zero</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Natural Gemstone/Pearl Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">Zero</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Lab Grown Diamond/Gemstone Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">75% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">Zero</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div className="bg-white min-h-screen">
+            {/* Breadcrumbs */}
+            <div className="container mx-auto px-4 md:py-8 mt-2">
+                <nav className="flex text-[12px] font-medium text-gray-400" aria-label="Breadcrumb">
+                    <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                        <li><Link to="/" className="hover:text-black transition-colors">Home</Link></li>
+                        <li>/</li>
+                        <li className="text-black">Return/Exchange Policy</li>
+                    </ol>
+                </nav>
             </div>
 
-            <h2 className="text-lg font-poppins text-gray-900 mb-4 font-normal">Rare Jewels Lifetime Buyback</h2>
-            <div className="overflow-x-auto mb-6">
-                <table className="w-full text-center border-collapse border border-gray-200 text-[13px] text-gray-700 shadow-sm">
-                    <thead>
-                        <tr className="bg-gray-50 border-b border-gray-200 font-medium text-gray-900">
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Category</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Metal</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Diamond/Gemstones</th>
-                            <th className="py-4 px-4 border-r border-gray-200 font-medium">Making Charges</th>
-                            <th className="py-4 px-4 font-medium">Processing/Transfer Charges</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                         <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Plain Gold Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">97% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">NA</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">10%</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Natural Diamond Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">90% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">10%</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Natural Gemstone/Pearl Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">90% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">10%</td>
-                        </tr>
-                        <tr className="hover:bg-gray-50/50">
-                            <td className="py-4 px-4 border-r border-gray-200">Lab Grown Diamond/Gemstone Jewellery</td>
-                            <td className="py-4 px-4 border-r border-gray-200">100% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">50% of the Market Value</td>
-                            <td className="py-4 px-4 border-r border-gray-200">Zero</td>
-                            <td className="py-4 px-4">10%</td>
-                        </tr>
-                    </tbody>
-                </table>
+            {/* Header Content */}
+            <div className="pb-10 bg-white text-center px-4">
+                <h1 className="unna-font text-[36px] md:text-[48px] font-normal text-black mb-2">Return/Exchange Policy</h1>
             </div>
-            
-            <p className="text-[12px] italic text-gray-500 mb-6 leading-relaxed">
-                *Market value of the Gold and gemstone/diamond is the value at which it is sold on Rare Jewels website at the time of requesting Rare Jewels Lifetime Exchange and Buyback.
-            </p>
 
-            <p className="text-[14px] text-gray-700 italic border-l-2 border-gray-300 pl-4 py-1">
-                For requests, Call / WhatsApp our customer service team at +91-8001001313.
-            </p>
+            {/* Main Content */}
+            <section className="max-w-6xl mx-auto px-4 pb-14 text-[14px] text-[#000815] leading-relaxed space-y-12">
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Returns</h2>
+                    <p>Returns and Refunds are hassle-free when you buy from rare jewels.com</p>
+                    <p className="font-bold">Our policy lasts 30 days. You can ask for a refund within 21 days post-delivery. If 21 days have gone by since delivery, unfortunately we can’t offer you a refund or exchange.</p>
+                    <p>* You have to email us at <a href="mailto:hello@rarejewels.com" className="text-black underline">hello@rarejewels.com</a> about a return for a refund within 21 days post delivery.</p>
+                    <p>* Customized or Personalized order or Engraving on any jewelry done cannot be return or exchanged, as they are specially made on request for you on order basis.</p>
+                    <p>To be eligible for a return, your item must be unused and in the same condition that you received it. It must also be in the original packaging.</p>
+                </div>
 
-        </PolicyLayout>
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Refunds (If Applicable)</h2>
+                    <p>Once your return is received and inspected, we will send you an email to notify you that we have received your returned item.</p>
+                    <p>The refund will be processed, and a credit will automatically be applied to your credit card or original method of payment, within a day or two.</p>
+                </div>
+
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Late Or Missing Refunds (If Applicable)</h2>
+                    <p>If you haven’t received a refund yet, first check your bank account again.</p>
+                    <p>Then contact your credit card company, it may take some time before your refund is officially posted.</p>
+                    <p>Next, contact your bank. There is often some processing time before a refund is posted.</p>
+                    <p>If you’ve done all of this and you still have not received your refund yet, please contact us at <a href="mailto:hello@rarejewels.com" className="text-black underline">hello@rarejewels.com</a>.</p>
+                </div>
+
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Exchanges (If Applicable)</h2>
+                    <p>We only replace items if they are defective or damaged. If you need to exchange it for the same item, send us an email at <a href="mailto:hello@rarejewels.com" className="text-black underline">hello@rarejewels.com</a> and send your item on the address that will be emailed to you.</p>
+                </div>
+
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Gifts</h2>
+                    <p>If the item was marked as a gift when purchased and shipped directly to you, you’ll receive a gift credit for the value of your return. Once the returned item is received, a gift certificate will be mailed to you.</p>
+                    <p>If the item wasn’t marked as a gift when purchased, or the gift giver had the order shipped to themselves to give to you later, we will send a refund to the gift giver and he will find out about your return.</p>
+                </div>
+
+                <div className="space-y-4">
+                    <h2 className="text-[18px] font-bold text-black border-b border-gray-100 pb-2">Shipping</h2>
+                    <p>To return your product, you should mail your product to the address provided by Rare Jewels [ please email at <a href="mailto:hello@rarejewels.com" className="text-black underline">hello@rarejewels.com</a>, before shipping back the jewelry or loose moissanite or any other gemstones ].</p>
+                    <p>You will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted from your refund.</p>
+                    <p>Depending on where you live, the time it may take for your exchanged product to reach you may vary.</p>
+                    <p>If you are shipping an item over $100, you should consider using a trackable shipping service or purchasing shipping insurance. We don’t guarantee that we will receive your returned item.</p>
+                </div>
+            </section>
+        </div>
     );
 };
 

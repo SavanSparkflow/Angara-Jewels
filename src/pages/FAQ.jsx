@@ -1,116 +1,157 @@
 import React, { useState } from 'react';
-import PolicyLayout from '../components/PolicyLayout';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const FAQ = () => {
-    const [openCategories, setOpenCategories] = useState({ 0: true }); // Open first category by default
+    const [activeTab, setActiveTab] = useState(0); // 0: FAQ, 1: Shipping, 2: Returns
+    const [openIndex, setOpenIndex] = useState(0);
 
-    const toggleAccordion = (index) => {
-        setOpenCategories(prev => ({
-            ...prev,
-            [index]: !prev[index]
-        }));
-    };
+    const tabs = [
+        "Frequently Asked Questions",
+        "Shipping Policy",
+        "Returns And Exchanges"
+    ];
 
-    const faqs = [
-        {
-            category: "General",
-            items: [
-                {
-                    q: "Can I place my order over the phone?",
-                    a: "Yes, you can absolutely place your order over the phone! Please call us at +91-8001001313 and it will be our pleasure to assist you."
-                },
-                {
-                    q: "Do you have any store locations?",
-                    a: "We only operate via our website and do not have any physical retail stores. Doing so allows us to cut overhead costs and we are able to pass on the savings to you, so you can enjoy high quality fine jewellery at the best prices."
-                },
-                {
-                    q: "Can I upgrade my purchase to a better gemstone?",
-                    a: "Yes, you can! Our gemstone experts can definitely help you upgrade your jewellery. Feel free to contact us via +91-8001001313 or india.support@Rare Jewels.com to find out more."
-                },
-                {
-                    q: "How to know if a promotion code is going to be applied to a purchase?",
-                    a: "All discounts, including promotions and coupon codes, are applied before checkout. Simply enter the promotion code by clicking on the 'Apply Coupon' link on the shopping cart."
-                }
-            ]
-        },
-        {
-            category: "Ordering & Payment",
-            items: [
-                {
-                    q: "How will my order be packaged?",
-                    a: "All our jewellery pieces are safely packaged and presented to you in our branded burgundy box."
-                },
-                {
-                    q: "Will I have to pay taxes on my purchase?",
-                    a: "A 3% GST is applicable on all fine jewellery and it is included in the product prices shown on the website."
-                },
-                {
-                    q: "Do you accept international credit cards?",
-                    a: "We do not accept international credit cards. We accept all major Indian debit/credit cards (Visa, MasterCard, Amex etc.)."
-                },
-                {
-                    q: "Can I receive my order over the weekend?",
-                    a: "As of now, we do not have an option for weekend delivery."
-                }
-            ]
-        },
-        {
-            category: "Shipping & Delivery",
-            items: [
-                {
-                    q: "How do I add or remove items from my order?",
-                    a: "Please call us at +91-8001001313 and we will be happy to assist you in adding or removing items from your order."
-                },
-                {
-                    q: "How long does it take for my order to arrive?",
-                    a: "We usually take 7-10 business days to deliver."
-                },
-                {
-                    q: "Where do you ship your items?",
-                    a: "We ship all around India. To order outside India, please visit our other country websites."
-                }
-            ]
-        }
+    const faqData = [
+        // Tab 0: Frequently Asked Questions
+        [
+            {
+                q: "Do you have any store locations?",
+                a: "We only operate via our website and do not have any physical retail stores. Doing so allows us to cut overhead costs and we are able to pass on the savings to you, so you can enjoy high quality fine jewellery at the best prices."
+            },
+            {
+                q: "What is the processing or making time for orders?",
+                a: "Each piece is handmade with care. Our standard production time is 7-10 business days plus shipping time."
+            },
+            {
+                q: "Do you accept returns?",
+                a: "Yes, we offer a 15-day return policy for standard items. Please see our Returns and Exchanges tab for full details."
+            },
+            {
+                q: "How can I find my ring size at home?",
+                a: "We have a detailed ring size guide available on our product pages. You can also contact our support for a complimentary ring sizer."
+            }
+        ],
+        // Tab 1: Shipping Policy
+        [
+            {
+                q: "Do you offer worldwide shipping?",
+                a: "Yes, we ship to over 78 countries worldwide. Shipping within India is complimentary."
+            },
+            {
+                q: "How will my order be delivered?",
+                a: "All orders are shipped via secure, insured couriers like BlueDart or Sequel to ensure safe delivery."
+            },
+            {
+                q: "Will I need to pay any customs duty?",
+                a: "International orders may be subject to customs duties and taxes which are the responsibility of the customer."
+            },
+            {
+                q: "How long does delivery take?",
+                a: "Domestic orders typically take 3-5 days after production. International shipping takes 7-10 business days."
+            }
+        ],
+        // Tab 2: Returns and Exchanges
+        [
+            {
+                q: "Do you accept returns, exchanges, and cancellations?",
+                a: "Yes, we have policies in place for returns, exchanges, and cancellations:",
+                content: [
+                    "Returns: We offer a 30-day return policy. Customers need to request a return within 21 days after delivery and must send the item back within 30 days from the date of delivery.",
+                    "Exchanges: Exchanges are allowed within 30 days of delivery but are only applicable to pre-made jewelry or listed items. Custom orders are not eligible for returns or exchanges.",
+                    "Cancellations: If you change your mind about an order, please message us within 48 hours of placing the order. For cancellations requested after 48 hours, a cancellation fee of 15% of the total order amount will be charged."
+                ]
+            },
+            {
+                q: "What items are not returnable?",
+                a: "Custom orders, personalized items, and items showing signs of wear or damage are not eligible for return or exchange."
+            }
+        ]
     ];
 
     return (
-        <PolicyLayout>
-            <h1 className="text-2xl font-poppins text-gray-900 mb-8 font-light">Frequently Asked Questions</h1>
-
-            <div className="space-y-4">
-                {faqs.map((category, idx) => (
-                    <div key={idx} className="border border-gray-100 rounded-sm overflow-hidden bg-white shadow-sm">
-                        <button
-                            className="w-full text-left px-6 py-5 bg-[#fcfcfc] hover:bg-gray-50 flex justify-between items-center transition-colors border-b border-transparent"
-                            onClick={() => toggleAccordion(idx)}
-                            style={{ borderBottomColor: openCategories[idx] ? '#f3f4f6' : 'transparent' }}
-                        >
-                            <span className="uppercase tracking-widest text-[13px] font-semibold text-gray-900">{category.category}</span>
-                            {openCategories[idx] ? <ChevronUp size={16} className="text-gray-500" /> : <ChevronDown size={16} className="text-gray-500" />}
-                        </button>
-
-                        {openCategories[idx] && (
-                            <div className="px-6 py-6 border-gray-100 space-y-6 animate-in slide-in-from-top-2 duration-300">
-                                {category.items.map((item, itemIdx) => (
-                                    <div key={itemIdx} className="border-b border-gray-50 last:border-b-0 pb-6 last:pb-0">
-                                        <h4 className="text-[14px] font-medium text-gray-900 mb-3">{item.q}</h4>
-                                        <p className="text-[14px] text-gray-600 leading-[1.8]">{item.a}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
+        <div className="bg-white min-h-screen">
+            {/* Breadcrumbs */}
+            <div className="container mx-auto px-4 md:py-6 py-2 mt-1">
+                <nav className="flex text-[12px] font-medium text-gray-400" aria-label="Breadcrumb">
+                    <ol className="inline-flex items-center space-x-1 md:space-x-3">
+                        <li><Link to="/" className="hover:text-black">Home</Link></li>
+                        <li>/</li>
+                        <li className="text-black">Frequently Asked Questions</li>
+                    </ol>
+                </nav>
             </div>
 
-            <div className="mt-12 bg-gray-50 p-6 md:p-8 rounded-sm">
-                <h2 className="text-lg font-poppins text-gray-900 mb-2 font-medium">Still got queries?</h2>
-                <p className="text-[14px] text-gray-600 leading-[1.8]">
-                    Reach out to our customer service team by phone or WhatsApp chat on <a href="tel:+918001001313" className="font-medium hover:text-black hover:underline">+91-8001001313</a>, or email at <a href="mailto:india.support@rarejewels.com" className="font-medium hover:text-black hover:underline">india.support@rarejewels.com</a>.
+            {/* Header Content */}
+            <div className="pb-12 bg-white text-center px-4">
+                <h1 className="unna-font text-[36px] md:text-[48px] font-normal text-black mb-4">Frequently Asked Questions</h1>
+                <p className="text-[13px] text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                    Explore our FAQ for common queries. Can't find your answer? Contact us via email or chat for assistance!
                 </p>
             </div>
-        </PolicyLayout>
+
+            {/* Hero Banner */}
+            <div className="w-full relative h-[400px] overflow-hidden bg-black">
+                <img 
+                    src="/images/faq-banner.png" 
+                    alt="Diamonds" 
+                    className="w-full h-full object-cover opacity-80"
+                />
+            </div>
+
+            {/* Tabs Navigation */}
+            <div className="container mx-auto px-4 mt-10">
+                <div className="flex flex-wrap justify-center gap-4 border-b border-gray-100 pb-8">
+                    {tabs.map((tab, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => {
+                                setActiveTab(idx);
+                                setOpenIndex(0);
+                            }}
+                            className={`px-8 py-3.5 text-[14px] font-medium tracking-tight rounded-sm transition-all ${activeTab === idx ? 'bg-[#F5F0EE] text-black shadow-sm' : 'text-gray-400 hover:text-black'}`}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
+
+                {/* FAQ Accordion */}
+                <div className="max-w-7xl mx-auto py-10 space-y-4">
+                    {faqData[activeTab].map((item, idx) => (
+                        <div key={idx} className="border-b border-gray-100 last:border-b-0 pb-4">
+                            <button
+                                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                                className="w-full flex justify-between items-center py-2 text-left group"
+                            >
+                                <span className={`text-[15px] font-bold transition-colors ${openIndex === idx ? 'text-[#000815]' : 'text-[#000815] group-hover:text-[#000815]'}`}>
+                                    {item.q}
+                                </span>
+                                {openIndex === idx ? <ChevronUp size={18} className="text-[#000815]" /> : <ChevronDown size={18} className="text-gray-300" />}
+                            </button>
+                            
+                            {openIndex === idx && (
+                                <div className="pb-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <p className="text-[14px] text-[#000815] leading-[1.8] font-normal">
+                                        {item.a}
+                                    </p>
+                                    {item.content && (
+                                        <ul className="space-y-4 ml-4">
+                                            {item.content.map((bullet, bIdx) => (
+                                                <li key={bIdx} className="text-[14px] text-[#000815] leading-[1.8] flex gap-3">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-[#000815] mt-2 shrink-0"></span>
+                                                    <span>{bullet}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 };
 

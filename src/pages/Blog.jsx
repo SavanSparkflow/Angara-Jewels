@@ -71,7 +71,7 @@ const Blog = () => {
                                 <h1 className="text-2xl md:text-4xl lg:text-3xl font-poppins max-w-4xl leading-tight mb-8">
                                     {slide.title}
                                 </h1>
-                                <Link to={slide.link} className="border border-white text-white px-8 py-3 text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors duration-300">
+                                <Link to={slide.link} className="border border-white text-white px-8 py-3 text-[10px]  hover:bg-white hover:text-black transition-colors duration-300">
                                     READ MORE
                                 </Link>
                             </div>
@@ -88,7 +88,7 @@ const Blog = () => {
                             <li key={idx} className="flex-shrink-0">
                                 <Link
                                     to={cat.slug === 'all' ? '/blog' : `/blog/category/${cat.slug}`}
-                                    className={`text-[10px] tracking-widest uppercase font-semibold pb-1 transition-all ${idx === 0 ? 'text-[#000] border-b-2 border-black' : 'text-gray-400 hover:text-black'}`}
+                                    className={`text-[10px]  uppercase font-semibold pb-1 transition-all ${idx === 0 ? 'text-[#000] border-b-2 border-black' : 'text-gray-400 hover:text-black'}`}
                                 >
                                     {cat.name}
                                 </Link>
@@ -108,9 +108,9 @@ const Blog = () => {
                                 <img src={`/images/mega_aurora_1772788806767.png`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="post" />
                             </div>
                             <span className="text-[9px] tracking-[0.2em] font-medium mb-2 uppercase text-gray-400">CATEGORY</span>
-                            <h3 className="text-lg font-serif mb-3 leading-tight group-hover:text-gray-600 transition-colors">Amazing Jewelry Design Trends for 2026</h3>
+                            <h3 className="text-lg  mb-3 leading-tight group-hover:text-gray-600 transition-colors">Amazing Jewelry Design Trends for 2026</h3>
                             <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2">Exploring the most beautiful and elegant jewelry designs that are set to take over the industry this year.</p>
-                            <Link to="/blog/category/buying-guide" className="text-[10px] font-bold tracking-widest uppercase border-b border-black w-max pb-1">Read More</Link>
+                            <Link to="/blog/category/buying-guide" className="text-[10px] font-bold  uppercase border-b border-black w-max pb-1">Read More</Link>
                         </div>
                     ))}
                 </div>

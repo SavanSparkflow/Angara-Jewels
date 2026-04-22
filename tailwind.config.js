@@ -36,6 +36,7 @@ export default {
             },
             fontFamily: {
                 sans: ["'Poppins'", "sans-serif"],
+                serif: ["'Poppins'", "sans-serif"],
             },
             fontSize: {
                 'xxs': '0.65rem',

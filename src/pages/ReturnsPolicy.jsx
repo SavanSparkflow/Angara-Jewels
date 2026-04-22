@@ -83,7 +83,7 @@ const ReturnsPolicy = () => {
                 <li><strong>Processing Time:</strong> Allow up to 8-12 business days for the funds to reflect in your account, depending on your bank or card issuer.</li>
                 <li><strong>Partial Orders:</strong> If you return some items from an order, you'll only be refunded for the returned pieces.</li>
                 <li><strong>Condition:</strong> We can't accept returns for jewellery that's been damaged, modified, or shows signs of being worn. In these cases, we'll have to ship the item back to you without a refund.</li>
-                <li><strong>Certificates:</strong> Please make sure to return all certificates along with your jewellery. Missing certificates may result in a deduction of ₹500 to ₹3,000, depending on the certificate's cost.</li>
+                <li><strong>Certificates:</strong> Please make sure to return all certificates along with your jewellery. Missing certificates may result in a deduction of ₹ 500 to ₹ 3,000, depending on the certificate's cost.</li>
             </ul>
             <p className="text-[14px] text-gray-700 leading-[1.8] mb-10 bg-gray-50 p-4 border border-gray-100 rounded-sm italic">
                 <strong>Note:</strong> If the product is outside the free 15-day return window, you can reach out to us at +91-8001001313 to avail our Lifetime Exchange and Buyback services.

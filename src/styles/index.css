@@ -1,6 +1,10 @@
 /* ===== rare JEWELS - COMPLETE DESIGN SYSTEM ===== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,8 +47,16 @@
 
 @layer components {
     .container {
-        @apply max-w-[1440px] mx-auto px-4 md:px-8;
+        @apply max-w-[1440px] px-4 mx-auto;
     }
+}
+
+.niconne-font {
+    font-family: "Niconne", cursive;
+}
+
+.unna-font {
+    font-family: "Unna", serif;
 }
 
 
@@ -181,7 +193,7 @@
 }
 
 .rare-search-prod-item h4 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--rare-gray);
     transition: color 0.2s;
 }
@@ -353,7 +365,7 @@
 }
 
 .rare-mega-heading {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 10px;
     font-weight: 700;
     color: var(--rare-dark);
@@ -378,7 +390,7 @@
     align-items: center;
     gap: 8px;
     padding: 4px 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: var(--rare-gray);
@@ -422,7 +434,7 @@
 .rare-mega-explore {
     display: inline-block;
     margin-top: 8px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 11px;
     font-weight: 600;
     color: var(--rare-dark);
@@ -491,7 +503,7 @@
 
 .rare-mega-promo-label span {
     color: white;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.02em;
@@ -818,7 +830,7 @@
 }
 
 .rare-product-name {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: var(--rare-dark);
@@ -832,7 +844,7 @@
 }
 
 .rare-product-price {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 500;
     color: var(--rare-dark);
@@ -975,7 +987,7 @@
     padding: 8px 20px;
     border: none;
     background: none;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 400;
     color: var(--rare-gray);
@@ -1076,7 +1088,7 @@
 }
 
 .rare-birthstone-month {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
     color: var(--rare-dark);
@@ -1085,7 +1097,7 @@
 }
 
 .rare-birthstone-name {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: var(--rare-light-gray);
@@ -1145,7 +1157,7 @@
 }
 
 .rare-edit-title {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 400;
     color: var(--rare-dark);
@@ -1158,7 +1170,7 @@
 }
 
 .rare-edit-link {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
     color: var(--rare-teal);
@@ -1240,7 +1252,7 @@
 }
 
 .rare-review-text {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 400;
     color: var(--rare-gray);
@@ -1255,7 +1267,7 @@
 .rare-readmore {
     background: none;
     border: none;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 600;
     color: var(--rare-dark);
@@ -1266,7 +1278,7 @@
 }
 
 .rare-review-name {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 500;
     color: var(--rare-dark);
@@ -1297,6 +1309,40 @@
 .rare-whatsapp-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.rare-back-to-top {
+    position: fixed;
+    bottom: 88px;
+    right: 24px;
+    z-index: 100;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(43, 92, 107, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.rare-back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.rare-back-to-top:hover {
+    background-color: var(--rare-gold);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(200, 146, 60, 0.4);
 }
 
 
@@ -1597,6 +1643,41 @@
     color: var(--rare-teal);
 }
 
+/* Custom Range Slider Styles */
+.range-slider-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.range-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border: 2px solid #1F4E56;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+    margin-top: -7px;
+}
+
+.range-slider-input::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border: 2px solid #1F4E56;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    pointer-events: auto;
+}
+
 .luxury-input {
     width: 100%;
     border: 1px solid var(--rare-border);
@@ -1774,18 +1855,130 @@
         padding-bottom: 12px !important;
         -webkit-overflow-scrolling: touch !important;
     }
-    
+
     .rare-social-grid::-webkit-scrollbar {
         height: 3px;
     }
-    
+
     .rare-social-grid::-webkit-scrollbar-thumb {
         background-color: var(--rare-gold);
         border-radius: 3px;
     }
-    
+
     .rare-social-item {
         flex: 0 0 85% !important;
         scroll-snap-align: center !important;
     }
+}
+
+/* ========================================================
+   HOME PAGE V2 PREMIUM STYLES
+   ======================================================== */
+
+.rare-home-v2 {
+    --gold-500: #C8923C;
+    --gold-600: #B07E30;
+    --gold-700: #8B6E4E;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+    background: #000;
+    opacity: 0.3;
+    width: 6px;
+    height: 6px;
+    border-radius: 50% !important;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+    opacity: 1 !important;
+    width: 30px !important;
+    border-radius: 4px !important;
+    transition: width 0.3s ease !important;
+}
+
+.product-slider .swiper-button-next,
+.product-slider .swiper-button-prev,
+.trending-swiper .swiper-button-next,
+.trending-swiper .swiper-button-prev {
+    color: #000 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-slider .swiper-button-next:after,
+.product-slider .swiper-button-prev:after,
+.trending-swiper .swiper-button-next:after,
+.trending-swiper .swiper-button-prev:after {
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+.birthstone-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.birthstone-swiper {
+    padding: 20px 0;
+}
+
+/* Tab Underline Animation */
+.rare-filter-tab-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--rare-gold);
+}
+
+/* Custom Gradients for Shapes */
+.group:hover .text-gold-600 {
+    color: var(--gold-600);
+}
+
+.group:hover .border-gold-500 {
+    border-color: var(--gold-500);
+}
+
+/* Animation for birthstones */
+@keyframes birthstone-pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.birthstone-pulse:hover {
+    animation: birthstone-pulse 2s infinite ease-in-out;
+}
+
+/* Custom Birthstone Pagination */
+.birth-pagination .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+    background: #D1D5DB !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease !important;
+    border-radius: 50% !important;
+    margin: 0 4px !important;
+    display: inline-block !important;
+}
+
+.birth-pagination .swiper-pagination-bullet-active {
+    width: 24px !important;
+    background: #CFAE8B !important;
+    border-radius: 4px !important;
 }
